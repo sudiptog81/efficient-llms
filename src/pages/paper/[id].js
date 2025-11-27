@@ -10,14 +10,14 @@ import html from 'remark-html';
 import Link from 'next/link';
 
 const PaperHeader = ({ paper }) => (
-  <div className="border-b border-zinc-200 dark:border-zinc-800 pb-8">
+  <div className="border-b border-zinc-200 dark:border-zinc-800 pb-8 mt-4">
     <div className="flex items-start gap-3 mb-4">
       <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-1" />
       <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-50 leading-tight">
         {paper.title}
       </h1>
     </div>
-    
+
     <div className="flex flex-wrap gap-2 mb-4">
       {paper.categories.map((cat, idx) => (
         <span
@@ -33,10 +33,10 @@ const PaperHeader = ({ paper }) => (
     <div className="flex flex-wrap items-center gap-4 text-sm text-zinc-600 dark:text-zinc-400">
       <span className="flex items-center gap-1">
         <Calendar className="w-4 h-4" />
-        {new Date(paper.publishedDate).toLocaleDateString('en-US', { 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric' 
+        {new Date(paper.publishedDate).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
         })}
       </span>
       {paper.citations && (
@@ -102,7 +102,7 @@ const Content = ({ contentHtml }) => (
     <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
       Content
     </h2>
-    <div 
+    <div
       className="prose prose-zinc dark:prose-invert max-w-none prose-headings:font-semibold prose-a:text-blue-600 dark:prose-a:text-blue-400"
       dangerouslySetInnerHTML={{ __html: contentHtml }}
     />
@@ -111,7 +111,7 @@ const Content = ({ contentHtml }) => (
 
 const Links = ({ links }) => {
   if (!links) return null;
-  
+
   return (
     <div className="py-8">
       <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
@@ -190,15 +190,6 @@ export default function PaperPage({ paper, contentHtml }) {
             <Links links={paper.links} />
           </div>
         </div>
-
-        <div className="mt-8 text-center">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-          >
-            ← Back to all papers
-          </Link>
-        </div>
       </main>
     </div>
   );
@@ -227,7 +218,7 @@ export async function getStaticProps({ params }) {
   console.log('Fetching paper with params:', params);
   const papersDirectory = path.join('src/data/papers');
   const fullPath = path.join(papersDirectory, `${params.id}.md`);
-  
+
   try {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
