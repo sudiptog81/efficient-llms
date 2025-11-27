@@ -12,11 +12,18 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Respect system preference */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+}
+
+/* Also support explicit class-based dark mode (html.dark) */
+html.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
