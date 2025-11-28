@@ -6,7 +6,6 @@ export default function Button({ href, children, variant = 'primary' }) {
   return (
     <a
       href={href}
-      target="_blank"
       rel="noopener noreferrer"
       className={`${baseClasses} ${variant === 'primary' ? primaryClasses : secondaryClasses}`}
     >

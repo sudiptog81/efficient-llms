@@ -6,6 +6,8 @@ import Hero from '@/components/Hero';
 import Button from '@/components/Button';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
+import fs from 'fs';
+import path from 'path';
 
 const researchAreas = [
   // {
@@ -46,13 +48,62 @@ const researchAreas = [
   // },
 ];
 
-const recentPublications = [
-  { title: "Quantum Computing Breakthroughs", year: 2024, doi: "#", id: "quantum-computing-breakthrough-2024" },
-  { title: "Sparsity-Aware MoE Training on Commodity Hardware", year: 2024, doi: "#", id: "quantum-computing-breakthrough-2024" },
-  { title: "FlashKV: Reducing Key-Value Cache Footprint by 60%", year: 2023, doi: "#", id: "quantum-computing-breakthrough-2024" },
-];
+async function loadRecentPublications() {
+  const papersDir = path.join(process.cwd(), 'src', 'data', 'papers');
+  try {
+    const files = fs.readdirSync(papersDir).filter((f) => f.endsWith('.md'));
+    const pubs = files.map((fname) => {
+      const full = path.join(papersDir, fname);
+      const raw = fs.readFileSync(full, 'utf8');
 
-export default function Home() {
+      // Try to read YAML frontmatter (--- ... ---)
+      const fmMatch = raw.match(/^-{3}([\s\S]*?)-{3}/);
+      let title = null;
+      let dateStr = null;
+      if (fmMatch) {
+        const fm = fmMatch[1];
+        const titleMatch = fm.match(/title:\s*(.+)/i);
+        const dateMatch = fm.match(/date:\s*(.+)/i);
+        if (titleMatch) title = titleMatch[1].trim().replace(/^['\"]|['\"]$/g, '');
+        if (dateMatch) dateStr = dateMatch[1].trim().replace(/^['\"]|['\"]$/g, '');
+      }
+
+      // Fallback: first H1 in markdown
+      if (!title) {
+        const h1 = raw.match(/^#\s+(.+)$/m);
+        if (h1) title = h1[1].trim();
+      }
+
+      const stat = fs.statSync(full);
+      const date = dateStr ? new Date(dateStr) : stat.mtime;
+      const year = date && !isNaN(date.getTime()) ? date.getFullYear() : stat.mtime.getFullYear();
+
+      return {
+        title: title || path.basename(fname, '.md'),
+        year,
+        doi: '#',
+        id: path.basename(fname, '.md'),
+        _date: date.toISOString(),
+      };
+    });
+
+    // sort by date desc and take top 3
+    return pubs.sort((a, b) => new Date(b._date) - new Date(a._date)).slice(0, 3);
+  } catch (e) {
+    // If reading fails, return an empty array so the page still renders
+    return [];
+  }
+}
+
+export async function getStaticProps() {
+  const recentPublications = await loadRecentPublications();
+  return {
+    props: {
+      recentPublications,
+    },
+  };
+}
+export default function Home({ recentPublications = [] }) {
   return (
     <BaseLayout>
       <main className="w-full">
@@ -103,7 +154,7 @@ export default function Home() {
                   </p>
                 </div>
                 <Link
-                  href={`paper/${pub.id ? pub.id : pub.doi}`}
+                  href={`papers/${pub.id ? pub.id : pub.doi}`}
                   className="mt-3 sm:mt-0 text-sm font-medium text-zinc-700 hover:text-indigo-600 dark:text-zinc-200 dark:hover:text-indigo-400 flex items-center gap-1"
                 >
                   Read Paper
@@ -114,7 +165,7 @@ export default function Home() {
               </div>
             ))}
             <div className="pt-6 text-center">
-              <Button href="#" variant="secondary">
+              <Button href={"/papers"} variant="secondary">
                 See All Research Archive
               </Button>
             </div>

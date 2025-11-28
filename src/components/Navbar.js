@@ -23,7 +23,7 @@ export default function Navbar() {
 
   const navigation = [
     { name: 'Research', href: '/#research' },
-    { name: 'Publications', href: '/#publications' },
+    { name: 'Publications', href: '/papers' },
     { name: 'Our Lab', href: 'https://www.lcs2.in/' },
     { name: 'Join Us', href: '/#join' },
   ];
