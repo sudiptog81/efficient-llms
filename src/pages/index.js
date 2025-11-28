@@ -1,23 +1,11 @@
 import React from 'react';
 import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+import BaseLayout from '@/layouts/BaseLayout';
 import Link from 'next/link';
 import Hero from '@/components/Hero';
 import Button from '@/components/Button';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  important: true,
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  important: true,
-});
 
 const researchAreas = [
   // {
@@ -66,10 +54,7 @@ const recentPublications = [
 
 export default function Home() {
   return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} flex flex-col min-h-screen items-center justify-start bg-white dark:bg-gray-950 text-zinc-900 dark:text-zinc-50`}
-    >
-      <Navbar />
+    <BaseLayout>
       <main className="w-full">
         <Hero />
 
@@ -119,8 +104,6 @@ export default function Home() {
                 </div>
                 <Link
                   href={`paper/${pub.id ? pub.id : pub.doi}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="mt-3 sm:mt-0 text-sm font-medium text-zinc-700 hover:text-indigo-600 dark:text-zinc-200 dark:hover:text-indigo-400 flex items-center gap-1"
                 >
                   Read Paper
@@ -158,8 +141,6 @@ export default function Home() {
         </section>
 
       </main>
-
-      <Footer />
-    </div>
+    </BaseLayout>
   );
 }

@@ -9,6 +9,7 @@ import { remark } from 'remark';
 import html from 'remark-html';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import BaseLayout from '@/layouts/BaseLayout';
 
 const PaperHeader = ({ paper }) => (
   <div className="border-b border-zinc-200 dark:border-zinc-800 pb-8 mt-4">
@@ -178,9 +179,7 @@ export default function PaperPage({ paper, contentHtml }) {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
-      <Navbar />
-
+    <BaseLayout>
       <main className="max-w-4xl mx-auto px-6 my-12">
         <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden">
           <div className="p-8 md:p-12">
@@ -192,7 +191,7 @@ export default function PaperPage({ paper, contentHtml }) {
           </div>
         </div>
       </main>
-    </div>
+    </BaseLayout>
   );
 }
 
