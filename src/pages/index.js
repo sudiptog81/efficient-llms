@@ -37,15 +37,7 @@ const researchAreas = [
     title: "Efficient Fine-Tuning",
     description: "Investigating data filtering, curriculum learning, and synthetic data generation strategies to achieve high performance with significantly smaller training budgets.",
   },
-  // {
-  //   icon: (
-  //     <svg className="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  //       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m-4 10a1 1 0 100-2 1 1 0 000 2z" />
-  //     </svg>
-  //   ),
-  //   title: "Hardware-Software Co-Design",
-  //   description: "Collaborating with hardware groups to design models (e.g., small operators) that maximize throughput and minimize latency on specialized AI accelerators.",
-  // },
+ 
 ];
 
 async function loadRecentPublications() {

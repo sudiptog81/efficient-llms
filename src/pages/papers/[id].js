@@ -159,6 +159,65 @@ const Links = ({ links }) => {
             Website
           </a>
         )}
+        
+        {links.openreview && (
+          <a
+            href={links.openreview}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-medium transition-colors"
+          >
+            <ExternalLink className="w-4 h-4" />
+            OpenReview
+          </a>
+        )}
+        
+        {links.alphaxiv && (
+          <a
+            href={links.alphaxiv}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-medium transition-colors"
+          >
+            <ExternalLink className="w-4 h-4" />
+            AlphaXiv
+          </a>
+        )}
+        
+        {links.video && (
+          <a
+            href={links.video}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-pink-600 hover:bg-pink-700 text-white font-medium transition-colors"
+          >
+            <ExternalLink className="w-4 h-4" />
+            Video
+          </a>
+        )}
+        
+        {links.ppt && (
+          <a
+            href={links.ppt}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-700 text-white font-medium transition-colors"
+          >
+            <FileText className="w-4 h-4" />
+            Slides
+          </a>
+        )}
+
+        {links.poster && (
+          <a
+            href={links.poster}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 hover:bg-violet-700 text-white font-medium transition-colors"
+          >
+            <FileText className="w-4 h-4" />
+            Poster  </a>
+        )}
       </div>
     </div>
   );
