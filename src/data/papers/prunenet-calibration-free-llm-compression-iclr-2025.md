@@ -21,7 +21,7 @@ links:
   arxiv: "https://arxiv.org/abs/2501.15296"
   code: "https://github.com/LCS2-IIITD/PruneNet"
   openreview: "https://openreview.net/forum?id=5RZoYIT3u6"
-  huggingface: "https://huggingface.co/papers/2501.15296"
+  huggingface-paper: "https://huggingface.co/papers/2501.15296"
   ppt: "https://iclr.cc/media/iclr-2025/Slides/30946.pdf"
   poster: "https://iclr.cc/media/PosterPDFs/ICLR%202025/30946.png?t=1743958023.7834394"
   video: "https://iclr.cc/virtual/2025/poster/30946"

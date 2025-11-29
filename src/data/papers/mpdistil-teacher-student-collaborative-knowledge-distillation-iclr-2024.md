@@ -2,7 +2,7 @@
 title: "A Good Learner can Teach Better: Teacher-Student Collaborative Knowledge Distillation"
 slug: "mpdistil-teacher-student-collaborative-knowledge-distillation-iclr-2024"
 publishedDate: "2024-01-17"
-conference: ICLR
+conference: ICLR 2024
 categories:
   - Knowledge Distillation
   - Meta-Learning

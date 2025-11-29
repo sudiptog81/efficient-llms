@@ -2,7 +2,7 @@
 title: "Manifold-Preserving Transformers are Effective for Short-Long Range Encoding"
 slug: "transject-manifold-preserving-transformers-2023"
 publishedDate: "2023-12-10"
-conference: EMNLP
+conference: EMNLP 2023
 categories:
   - Transformers
   - Deep Learning
