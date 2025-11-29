@@ -8,103 +8,11 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 import Link from 'next/link';
-import Navbar from '@/components/Navbar';
 import BaseLayout from '@/layouts/BaseLayout';
-
-const PaperHeader = ({ paper }) => (
-  <div className="border-b border-zinc-200 dark:border-zinc-800 pb-8 mt-4">
-    <div className="flex items-start gap-3 mb-4">
-      <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-1" />
-      <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-50 leading-tight">
-        {paper.title}
-      </h1>
-    </div>
-
-    <div className="flex flex-wrap gap-2 mb-4">
-      {paper.categories.map((cat, idx) => (
-        <span
-          key={idx}
-          className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium"
-        >
-          <Tag className="w-3 h-3" />
-          {cat}
-        </span>
-      ))}
-    </div>
-
-    <div className="flex flex-wrap items-center gap-4 text-sm text-zinc-600 dark:text-zinc-400">
-      <span className="flex items-center gap-1">
-        <Calendar className="w-4 h-4" />
-        {new Date(paper.publishedDate).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        })}
-      </span>
-      {paper.citations && (
-        <>
-          <span>•</span>
-          <span>{paper.citations} citations</span>
-        </>
-      )}
-      {paper.doi && (
-        <>
-          <span>•</span>
-          <span>DOI: {paper.doi}</span>
-        </>
-      )}
-    </div>
-  </div>
-);
-
-const AuthorCard = ({ author }) => (
-  <div className="flex items-start gap-3 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800">
-    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold flex-shrink-0">
-      {author.name.split(' ').map(n => n[0]).join('')}
-    </div>
-    <div className="min-w-0 flex-1">
-      <div className="font-semibold text-zinc-900 dark:text-zinc-50">
-        {author.name}
-      </div>
-      <div className="flex items-center gap-1 text-sm text-zinc-600 dark:text-zinc-400 mt-1">
-        <Building className="w-3 h-3 flex-shrink-0" />
-        <span className="truncate">{author.affiliation}</span>
-      </div>
-    </div>
-  </div>
-);
-
-const Authors = ({ authors }) => (
-  <div className="border-b border-zinc-200 dark:border-zinc-800 py-8">
-    <h2 className="flex items-center gap-2 text-2xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
-      <Users className="w-6 h-6" />
-      Authors
-    </h2>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {authors.map((author, idx) => (
-        <AuthorCard key={idx} author={author} />
-      ))}
-    </div>
-  </div>
-);
-
-const Abstract = ({ abstract }) => (
-  <div className="border-b border-zinc-200 dark:border-zinc-800 py-8">
-    <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
-      Abstract
-    </h2>
-    <p className="text-lg leading-relaxed text-zinc-700 dark:text-zinc-300" dangerouslySetInnerHTML={{ __html: abstract }} />
-  </div>
-);
-
-const Content = ({ contentHtml }) => (
-  <div className="border-b border-zinc-200 dark:border-zinc-800 py-8">
-    <div
-      className="prose prose-zinc dark:prose-invert max-w-none prose-headings:font-semibold prose-a:text-blue-600 dark:prose-a:text-blue-400"
-      dangerouslySetInnerHTML={{ __html: contentHtml }}
-    />
-  </div>
-);
+import PaperHeader from '@/components/PaperHeader';
+import AuthorList from '@/components/AuthorList';
+import Abstract from '@/components/PaperAbstract';
+import Content from '@/components/PaperContent';
 
 const Links = ({ links }) => {
   if (!links) return null;
@@ -181,7 +89,7 @@ export default function PaperPage({ paper, contentHtml }) {
         <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden">
           <div className="p-8 md:p-12">
             <PaperHeader paper={paper} />
-            <Authors authors={paper.authors} />
+            <AuthorList authors={paper.authors} />
             <Abstract abstract={paper.abstract} />
             {contentHtml && <Content contentHtml={contentHtml} />}
             <Links links={paper.links} />
