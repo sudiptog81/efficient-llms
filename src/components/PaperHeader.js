@@ -6,7 +6,7 @@ const Links = ({ links }) => {
   if (!links) return null;
 
   return (
-    <div className="flex flex-wrap gap-8 pt-8 justify-center">
+    <div className="flex flex-wrap gap-4 pt-8 justify-center">
       {links.arxiv && (
         <Link
           href={links.arxiv}
@@ -51,17 +51,81 @@ const Links = ({ links }) => {
           Website
         </Link>
       )}
+
+      {links.openreview && (
+        <Link
+          href={links.openreview}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-medium transition-colors"
+        >
+          <ExternalLink className="w-4 h-4" />
+          OpenReview
+        </Link>
+      )}
+
+      {links.alphaxiv && (
+        <Link
+          href={links.alphaxiv}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-medium transition-colors"
+        >
+          <ExternalLink className="w-4 h-4" />
+          AlphaXiv
+        </Link>
+      )}
+
+      {links.video && (
+        <Link
+          href={links.video}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-pink-600 hover:bg-pink-700 text-white font-medium transition-colors"
+        >
+          <ExternalLink className="w-4 h-4" />
+          Video
+        </Link>
+      )}
+
+      {links.ppt && (
+        <Link
+          href={links.ppt}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-700 text-white font-medium transition-colors"
+        >
+          <FileText className="w-4 h-4" />
+          Slides
+        </Link>
+      )}
+
+      {links.poster && (
+        <Link
+          href={links.poster}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 hover:bg-violet-700 text-white font-medium transition-colors"
+        >
+          <FileText className="w-4 h-4" />
+          Poster
+        </Link>
+      )}
     </div>
   );
 };
 
 const PaperHeader = ({ paper }) => (
   <div className="border-b border-zinc-200 dark:border-zinc-800 pb-8 mt-4">
-    <div className="flex items-start gap-3 mb-4">
+    <div className="flex flex-col items-center gap-3 mb-4">
       {/* <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-1" /> */}
       <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-50 leading-tight text-center">
         {paper.title}
       </h1>
+
+      <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-300 leading-snug text-center">
+        {paper.conference ? paper.conference : ""}
+      </h2>
     </div>
 
     <AuthorList authors={paper.authors} />

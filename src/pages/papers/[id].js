@@ -79,6 +79,7 @@ export async function getStaticProps({ params }) {
           authors: data.authors,
           categories: data.categories,
           publishedDate: data.publishedDate,
+          conference: data.conference,
           abstract: data.abstract,
           citations: data.citations || null,
           doi: data.doi || null,

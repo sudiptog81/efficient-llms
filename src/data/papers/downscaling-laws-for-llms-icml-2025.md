@@ -3,6 +3,7 @@ title: "Enough of Scaling LLMs! Let’s Focus on Downscaling"
 slug: "downscaling-laws-for-llms-icml-2025"
 conference: ICML 2025
 year: 2025
+publishedDate: "2025-01-17"
 categories:
   - Scaling Laws
   - Downscaling
