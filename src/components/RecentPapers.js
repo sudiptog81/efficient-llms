@@ -13,19 +13,18 @@ const RecentPapers = ({ recentPublications }) => (
 
     <div className="max-w-4xl mx-auto space-y-6">
       {recentPublications.map((pub, index) => (
-        <div key={index} className="flex flex-row sm:flex-row justify-between items-center sm:items-center p-5 bg-white dark:bg-gray-950 rounded-lg shadow-md border border-zinc-100 dark:border-gray-800 gap-8">
+        <Link key={index} href={`papers/${pub.id ? pub.id : pub.doi}`} className="flex flex-row sm:flex-row justify-between items-center sm:items-center p-5 bg-white dark:bg-gray-950 rounded-lg shadow-md border border-zinc-100 dark:border-gray-800 gap-8">
           <div>
             <h3 className="text-lg font-semibold text-indigo-600 dark:text-indigo-400">
               {pub.title}
             </h3>
           </div>
-          <Link
-            href={`papers/${pub.id ? pub.id : pub.doi}`}
+          <div
             className="text-sm font-medium text-zinc-700 hover:text-indigo-600 dark:text-zinc-200 dark:hover:text-indigo-400 flex items-center gap-1"
           >
             <CircleArrowRight className="w-8 h-8" />
-          </Link>
-        </div>
+          </div>
+        </Link>
       ))}
       <div className="pt-6 text-center">
         <Button href={"/papers"} variant="secondary">
