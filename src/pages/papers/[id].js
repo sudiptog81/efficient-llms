@@ -1,7 +1,5 @@
-"use client";
-
 import React from 'react';
-import { FileText, Users, Tag, ExternalLink, Calendar, Building } from 'lucide-react';
+import { FileText, ExternalLink } from 'lucide-react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -13,64 +11,6 @@ import PaperHeader from '@/components/PaperHeader';
 import AuthorList from '@/components/AuthorList';
 import Abstract from '@/components/PaperAbstract';
 import Content from '@/components/PaperContent';
-
-const Links = ({ links }) => {
-  if (!links) return null;
-
-  return (
-    <div className="py-8">
-      <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
-        Resources
-      </h2>
-      <div className="flex flex-wrap gap-3">
-        {links.arxiv && (
-          <a
-            href={links.arxiv}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-medium transition-colors"
-          >
-            <ExternalLink className="w-4 h-4" />
-            arXiv
-          </a>
-        )}
-        {links.pdf && (
-          <a
-            href={links.pdf}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
-          >
-            <FileText className="w-4 h-4" />
-            PDF
-          </a>
-        )}
-        {links.code && (
-          <a
-            href={links.code}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-700 dark:hover:bg-zinc-600 text-white font-medium transition-colors"
-          >
-            <ExternalLink className="w-4 h-4" />
-            Code
-          </a>
-        )}
-        {links.website && (
-          <a
-            href={links.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium transition-colors"
-          >
-            <ExternalLink className="w-4 h-4" />
-            Website
-          </a>
-        )}
-      </div>
-    </div>
-  );
-};
 
 export default function PaperPage({ paper, contentHtml }) {
   if (!paper) {
@@ -85,14 +25,12 @@ export default function PaperPage({ paper, contentHtml }) {
 
   return (
     <BaseLayout>
-      <main className="max-w-4xl mx-auto px-6 my-12">
+      <main className="max-w-4xl mx-auto my-12">
         <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden">
           <div className="p-8 md:p-12">
             <PaperHeader paper={paper} />
-            <AuthorList authors={paper.authors} />
             <Abstract abstract={paper.abstract} />
             {contentHtml && <Content contentHtml={contentHtml} />}
-            <Links links={paper.links} />
           </div>
         </div>
       </main>
