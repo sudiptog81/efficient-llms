@@ -3,7 +3,10 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
-import html from 'remark-html';
+import remarkMath from 'remark-math';
+import remarkRehype from 'remark-rehype';
+import rehypeKatex from 'rehype-katex';
+import rehypeStringify from 'rehype-stringify';
 import Link from 'next/link';
 import BaseLayout from '@/layouts/BaseLayout';
 import PaperHeader from '@/components/PaperHeader';
@@ -72,7 +75,10 @@ export async function getStaticProps({ params }) {
     const { data, content } = matter(fileContents);
 
     const processedContent = await remark()
-      .use(html, { allowDangerousHtml: true })
+      .use(remarkMath)
+      .use(remarkRehype, { allowDangerousHtml: true })
+      .use(rehypeKatex)
+      .use(rehypeStringify, { allowDangerousHtml: true })
       .process(content);
     const contentHtml = processedContent.toString();
 
