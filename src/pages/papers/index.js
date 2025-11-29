@@ -2,7 +2,6 @@ import React from 'react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import Link from 'next/link';
 import BaseLayout from '@/layouts/BaseLayout';
 import IndexPaperCard from '@/components/IndexPaperCard';
 
@@ -14,9 +13,9 @@ export default function PapersDirectory({ papers }) {
         </header>
 
         {papers.length === 0 ? (
-          <div className="text-center p-12 bg-zinc-100 dark:bg-zinc-800 rounded-xl">
+          <div className="text-center p-12">
             <p className="text-lg text-zinc-600 dark:text-zinc-400">
-              No papers found in the directory.
+              Oops! I can&apos;t see any papers right now. Please check back later.
             </p>
           </div>
         ) : (

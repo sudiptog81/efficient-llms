@@ -49,10 +49,13 @@ const ResearchAreas = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
       {researchAreas.map((area) => (
         <div key={area.title} className="p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-zinc-100 dark:border-gray-800 transform hover:scale-[1.02] transition duration-300">
-          <div className="p-3 bg-indigo-50 dark:bg-gray-800 rounded-lg inline-flex mb-4">
-            {area.icon}
+
+          <div className="flex flex-row align-center items-center gap-4">
+            <div className="p-3 bg-indigo-50 dark:bg-gray-800 rounded-lg inline-flex mb-4">
+              {area.icon}
+            </div>
+            <h3 className="text-xl font-semibold mb-4">{area.title}</h3>
           </div>
-          <h3 className="text-xl font-semibold mb-2">{area.title}</h3>
           <p className="text-zinc-600 dark:text-zinc-400 text-sm">
             {area.description}
           </p>
