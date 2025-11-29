@@ -7,6 +7,7 @@ import path from 'path';
 import ResearchAreas from '@/components/ResearchAreas';
 import RecentPapers from '@/components/RecentPapers';
 import Join from '@/components/Join';
+import Head from 'next/head';
 
 async function loadRecentPublications() {
   const papersDir = path.join(process.cwd(), 'src', 'data', 'papers');
@@ -34,12 +35,9 @@ async function loadRecentPublications() {
 
       const stat = fs.statSync(full);
       const date = dateStr ? new Date(dateStr) : stat.mtime;
-      const year = date && !isNaN(date.getTime()) ? date.getFullYear() : stat.mtime.getFullYear();
 
       return {
         title: title || path.basename(fname, '.md'),
-        year,
-        doi: '#',
         id: path.basename(fname, '.md'),
         _date: date.toISOString(),
       };
@@ -51,20 +49,60 @@ async function loadRecentPublications() {
   }
 }
 
+async function loadResearchAreas() {
+  const areasDir = path.join(process.cwd(), 'src', 'data', 'areas');
+  try {
+    const files = fs.readdirSync(areasDir).filter((f) => f.endsWith('.md'));
+    const areas = files.map((fname) => {
+      const full = path.join(areasDir, fname);
+      const raw = fs.readFileSync(full, 'utf8');
+
+      const fmMatch = raw.match(/^-{3}([\s\S]*?)-{3}/);
+      const area = {};
+      if (fmMatch) {
+        const fm = fmMatch[1];
+        const titleMatch = fm.match(/title:\s*(.+)/i);
+        const slugMatch = fm.match(/slug:\s*(.+)/i);
+        const summaryMatch = fm.match(/summary:\s*([\s\S]+)/i);
+        const iconMatch = fm.match(/icon:\s*(.+)/i);
+        if (titleMatch) area.title = titleMatch[1].trim().replace(/^['"]|['"]$/g, '');
+        if (slugMatch) area.slug = slugMatch[1].trim().replace(/^['"]|['"]$/g, '');
+        if (summaryMatch) area.summary = summaryMatch[1].trim().replace(/^['\n\s]+|[\n\s]+$/g, '');
+        if (iconMatch) area.icon = iconMatch[1].trim().replace(/^['\"]|['\"]$/g, '');
+      }
+
+      area.title = area.title || path.basename(fname, '.md');
+      area.slug = area.slug || path.basename(fname, '.md');
+
+      return area;
+    });
+
+    return areas;
+  } catch (e) {
+    return [];
+  }
+}
+
 export async function getStaticProps() {
   const recentPublications = await loadRecentPublications();
+  const researchAreas = await loadResearchAreas();
   return {
     props: {
       recentPublications,
+      researchAreas,
     },
   };
 }
-export default function Home({ recentPublications = [] }) {
+export default function Home({ researchAreas = [], recentPublications = [] }) {
   return (
     <BaseLayout>
+      <Head>
+        <title>Efficient-LLMs</title>
+        <meta name="description" content="A comprehensive resource for efficient large language models." />
+      </Head>
       <main className="w-full">
         <Hero />
-        <ResearchAreas />
+        <ResearchAreas researchAreas={researchAreas} />
         <RecentPapers recentPublications={recentPublications} />
         <Join />
       </main>

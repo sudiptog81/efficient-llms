@@ -4,10 +4,15 @@ import path from 'path';
 import matter from 'gray-matter';
 import BaseLayout from '@/layouts/BaseLayout';
 import IndexPaperCard from '@/components/IndexPaperCard';
+import Head from 'next/head';
 
 export default function PapersDirectory({ papers }) {
   return (
     <BaseLayout>
+      <Head>
+        <title>Publications | Efficient-LLMs</title>
+        <meta name="description" content="A comprehensive list of publications related to efficient large language models." />
+      </Head>
       <main className="max-w-6xl mx-auto px-6 my-12">
         <header className="text-center mb-12">
         </header>
@@ -50,6 +55,7 @@ export async function getStaticProps() {
           abstract: data.abstract,
           categories: data.categories,
           publishedDate: data.publishedDate,
+          conference: data.conference || null,
           authors: data.authors,
           citations: data.citations || null,
         };

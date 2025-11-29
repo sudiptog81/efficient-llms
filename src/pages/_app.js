@@ -5,8 +5,7 @@ export default function App({ Component, pageProps }) {
   return (
     <ThemeProvider
       attribute="class"
-      enableSystem={true}
-      defaultTheme="system"
+      defaultTheme="light"
       storageKey="theme"
     >
       <Component {...pageProps} />

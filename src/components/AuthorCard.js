@@ -1,7 +1,7 @@
 import { Building } from "lucide-react";
 
 const AuthorCard = ({ author }) => (
-  <div className="flex items-start rounded-lg bg-zinc-50 dark:bg-zinc-900/50 justify-center">
+  <div className="flex items-start rounded-lg bg-white dark:bg-zinc-900/50 justify-center text-center">
     <div className="min-w-0 flex-1">
       <div className="font-semibold text-zinc-900 dark:text-zinc-50">
         {author.name}

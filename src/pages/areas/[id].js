@@ -1,0 +1,152 @@
+import React from 'react';
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { remark } from 'remark';
+import html from 'remark-html';
+import Link from 'next/link';
+import BaseLayout from '@/layouts/BaseLayout';
+import Content from '@/components/PaperContent';
+import IndexPaperCard from '@/components/IndexPaperCard';
+import Head from 'next/head';
+
+export default function AreaPage({ area, contentHtml, papersForArea }) {
+  if (!area) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950">
+        <div className="text-center">
+          <p className="text-xl text-zinc-600 dark:text-zinc-400">Area not found</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <BaseLayout>
+      <Head>
+        <title>{area.title} | Efficient-LLMs</title>
+        <meta name="description" content={area.summary} />
+      </Head>
+      <main className="max-w-4xl mx-auto md:my-12">
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl md:shadow-lg md:border border-zinc-200 dark:border-zinc-800 overflow-hidden">
+          <div className="p-8 md:p-12">
+            <h2
+              className="text-4xl font-bold mb-6 text-zinc-900 dark:text-zinc-50"
+            >
+              {area.title}
+            </h2>
+            {area.summary && <p className="text-zinc-700 dark:text-zinc-400">{area.summary}</p>}
+            {contentHtml && <Content contentHtml={contentHtml} />}
+            {area.tags && (
+              <div className="mt-6 text-xs flex gap-1">
+                Tags:
+                {area.tags.map((tag, idx) => (
+                  <span key={tag} // comma separated tags
+                    className={`text-indigo-700 dark:text-indigo-200 ${idx !== 0 ? "before:content-['•'] before:mr-1" : ""}`}>
+                    {tag}
+                  </span>))}
+              </div>
+            )}
+          </div>
+        </div>
+        {papersForArea && papersForArea.length > 0 && (
+          <div className="mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {papersForArea.map((paper) => (
+                <IndexPaperCard key={paper.slug} paper={paper} />
+              ))}
+            </div>
+          </div>
+        )}
+      </main>
+    </BaseLayout>
+  );
+}
+
+export async function getStaticPaths() {
+  const areasDirectory = path.join('src/data/areas');
+  console.log('Reading areas from directory:', areasDirectory);
+  const filenames = fs.readdirSync(areasDirectory);
+
+  const paths = filenames.map((filename) => ({
+    params: {
+      id: filename.replace(/\.md$/, ''),
+    },
+  }));
+
+  console.log('Generated paths for static generation:', paths);
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  console.log('Fetching area with params:', params);
+  const areasDirectory = path.join('src/data/areas');
+  const fullPath = path.join(areasDirectory, `${params.id}.md`);
+
+  try {
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const { data, content } = matter(fileContents);
+
+    const processedContent = await remark()
+      .use(html, { allowDangerousHtml: true })
+      .process(content);
+    const contentHtml = processedContent.toString();
+
+    // load all papers and filter by categories matching area tags
+    const PAPERS_DIRECTORY = path.join(process.cwd(), 'src/data/papers');
+    let papers = [];
+    try {
+      const paperFiles = fs.readdirSync(PAPERS_DIRECTORY).filter(f => f.endsWith('.md'));
+      papers = paperFiles.map((filename) => {
+        const fullPaperPath = path.join(PAPERS_DIRECTORY, filename);
+        const fileContents = fs.readFileSync(fullPaperPath, 'utf8');
+        const { data: paperData } = matter(fileContents);
+
+        return {
+          slug: filename.replace(/\.md$/, ''),
+          title: paperData.title,
+          abstract: paperData.abstract,
+          categories: paperData.categories || [],
+          publishedDate: paperData.publishedDate,
+          conference: paperData.conference || null,
+          authors: paperData.authors,
+          citations: paperData.citations || null,
+        };
+      });
+    } catch (err) {
+      console.error('Error loading papers for area page:', err);
+      papers = [];
+    }
+
+    // Filter papers that share at least one category with the area's tags
+    const areaTags = data.tags || [];
+    const papersForArea = (areaTags.length > 0)
+      ? papers.filter(p => Array.isArray(p.categories) && p.categories.some(cat => areaTags.includes(cat)))
+      : [];
+
+    return {
+      props: {
+        area: {
+          slug: params.id,
+          title: data.title,
+          summary: data.summary,
+          tags: data.tags || null,
+        },
+        contentHtml: content ? contentHtml : null,
+        papersForArea,
+      },
+    };
+  } catch (error) {
+    console.error('Error loading area:', error);
+    return {
+      props: {
+        area: null,
+        contentHtml: null,
+      },
+    };
+  }
+}

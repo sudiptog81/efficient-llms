@@ -1,5 +1,4 @@
 import React from 'react';
-import { FileText, ExternalLink } from 'lucide-react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -8,9 +7,10 @@ import html from 'remark-html';
 import Link from 'next/link';
 import BaseLayout from '@/layouts/BaseLayout';
 import PaperHeader from '@/components/PaperHeader';
-import AuthorList from '@/components/AuthorList';
 import Abstract from '@/components/PaperAbstract';
 import Content from '@/components/PaperContent';
+import Head from 'next/head';
+import ShareFab from '@/components/ShareFab';
 
 export default function PaperPage({ paper, contentHtml }) {
   if (!paper) {
@@ -25,8 +25,12 @@ export default function PaperPage({ paper, contentHtml }) {
 
   return (
     <BaseLayout>
-      <main className="max-w-4xl mx-auto my-12">
-        <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden">
+      <Head>
+        <title>{paper.title} | Efficient-LLMs</title>
+        <meta name="description" content={paper.abstract} />
+      </Head>
+      <main className="max-w-4xl mx-auto md:my-12">
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl md:shadow-lg md:border border-zinc-200 dark:border-zinc-800 overflow-hidden">
           <div className="p-8 md:p-12">
             <PaperHeader paper={paper} />
             <Abstract abstract={paper.abstract} />
@@ -34,6 +38,7 @@ export default function PaperPage({ paper, contentHtml }) {
           </div>
         </div>
       </main>
+      <ShareFab paper={paper} />
     </BaseLayout>
   );
 }

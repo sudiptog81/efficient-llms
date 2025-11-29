@@ -117,13 +117,13 @@ const Links = ({ links }) => {
 
 const PaperHeader = ({ paper }) => (
   <div className="border-b border-zinc-200 dark:border-zinc-800 pb-8 mt-4">
-    <div className="flex flex-col items-center gap-3 mb-4">
+    <div className="flex flex-col items-center gap-3 mb-2">
       {/* <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-1" /> */}
-      <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-50 leading-tight text-center">
+      <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-50 leading-tight text-center mb-2">
         {paper.title}
       </h1>
 
-      <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-300 leading-snug text-center">
+      <h2 className="text-2xl font-semibold text-blue-700 dark:text-blue-300 leading-snug text-center">
         {paper.conference ? paper.conference : ""}
       </h2>
     </div>
