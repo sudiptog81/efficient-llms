@@ -1,5 +1,5 @@
-import Navbar from "@/components/Navbar";
 import { Html, Head, Main, NextScript } from "next/document";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export default function Document() {
   const setInitialTheme = `
@@ -23,6 +23,7 @@ export default function Document() {
         <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
         <Main />
         <NextScript />
+        <GoogleAnalytics gaId="GA-N968HFGN36" />
       </body>
     </Html>
   );
