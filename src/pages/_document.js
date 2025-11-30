@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
-import { GoogleAnalytics } from '@next/third-parties/google';
+import Script from "next/script";
 
 export default function Document() {
   const setInitialTheme = `
@@ -21,9 +21,19 @@ export default function Document() {
       <Head />
       <body className="antialiased">
         <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
+        <Script async id="google-analytics-script"
+          src={`https://www.googletagmanager.com/gtag/js?id=G-N968HFGN36`} strategy="afterInteractive">
+        </Script>
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-N968HFGN36');
+          `}
+        </Script>
         <Main />
         <NextScript />
-        <GoogleAnalytics gaId="GA-N968HFGN36" />
       </body>
     </Html>
   );
