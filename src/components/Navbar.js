@@ -38,7 +38,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 h-6">
             <ThemeToggle />
             <button
               className="md:hidden p-2 rounded-md hover:bg-zinc-100 dark:hover:bg-gray-800"
