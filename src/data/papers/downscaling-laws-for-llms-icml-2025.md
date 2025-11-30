@@ -66,7 +66,7 @@ Two key forms are recalled:
   where:
   - $N$: number of parameters,
   - $D$: number of training tokens,
-  - $\alpha_N, \alpha_D$: exponents (~0.08–0.1),
+  - $\alpha_N, \alpha_D$: exponents (~0.08, –0.1),
   - $L$: test loss.
 
 - **Chinchilla-style law**:
