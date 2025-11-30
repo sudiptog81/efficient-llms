@@ -8,4 +8,4 @@
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant light (&:where(:not(.dark), :not(.dark *));
 @custom-variant system (&:where(.system, .system *));
-@custom-variant system-dark (&:where(.system) .dark, .system .dark
+@custom-variant system-dark (&:where(.system) .dark, .system .dark);
