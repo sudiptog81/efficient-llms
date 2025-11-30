@@ -59,23 +59,23 @@ Two key forms are recalled:
 
 - **Kaplan-style law** (informal form):
 
-  \[
+  $$
   L(N, D) \approx \frac{N_c}{N^{\alpha_N}} + \frac{D_c}{D^{\alpha_D}}
-  \]
+  $$
 
   where:
-  - \(N\): number of parameters,
-  - \(D\): number of training tokens,
-  - \(\alpha_N, \alpha_D\): exponents (~0.08–0.1),
-  - \(L\): test loss.
+  - $N$: number of parameters,
+  - $D$: number of training tokens,
+  - $\alpha_N, \alpha_D$: exponents (~0.08–0.1),
+  - $L$: test loss.
 
 - **Chinchilla-style law**:
 
-  \[
+  $$
   L(N, D) \approx A N^{-\alpha} + B D^{-\beta} + E
-  \]
+  $$
 
-  introducing an irreducible loss floor \(E\), and emphasizing that **balanced scaling of model size and data** is optimal.
+  introducing an irreducible loss floor $E$, and emphasizing that **balanced scaling of model size and data** is optimal.
 
 Beyond those, refinements like **Broken Neural Scaling Laws (BNSL)** address phenomena such as double descent and sharp capability transitions.
 
@@ -109,38 +109,38 @@ Using the LLMCarbon framework, the paper decomposes emissions into:
 
 - **Operational emissions** (during training/inference):
 
-  \[
+  $$
   \text{CO2}^{\text{oper}} = \sum_i (P_i \cdot \text{eff}_i \cdot n_i \cdot t_i) \cdot \text{PUE} \cdot c_{\text{inten}}
-  \]
+  $$
 
 - **Embodied emissions** (manufacturing hardware):
 
-  \[
+  $$
   \text{CO2}^{\text{emb}} = \sum_i \frac{\text{area}_i \cdot \text{CPA}_i}{\text{lifetime}_i}
-  \]
+  $$
 
 Total:
 
-\[
+$$
 \text{CO2}^{\text{eq}} = \text{CO2}^{\text{oper}} + \text{CO2}^{\text{emb}}
-\]
+$$
 
 Under reasonable simplifications, the paper derives:
 
 > **Proposition:**  
-> Carbon cost scales approximately linearly with both the number of parameters \(N\) and the number of training tokens \(D\):
+> Carbon cost scales approximately linearly with both the number of parameters $N$ and the number of training tokens $D$:
 
-\[
+$$
 \text{CO2}^{\text{eq}}(N, D) \approx (K_1 + K_2)\, N D
-\]
+$$
 
-Combining this with a Kaplan-like law \(L \propto N^{-\alpha}\) and a linear mapping from loss to downstream performance \(P = w_1 + w_2 L\), they derive a relationship:
+Combining this with a Kaplan-like law $L \propto N^{-\alpha}$ and a linear mapping from loss to downstream performance $P = w_1 + w_2 L$, they derive a relationship:
 
-\[
+$$
 P \propto \text{CO2}^{\alpha}
-\]
+$$
 
-with \(\alpha \approx 0.08\).
+with $\alpha \approx 0.08$.
 
 Interpretation:
 
@@ -249,22 +249,22 @@ Structured methods (SliceGPT, SVD-based, PruneNet, etc.) are especially attracti
 
 The paper highlights the **P2 law** which predicts post-training loss after pruning:
 
-\[
+$$
 L(N_0, D, \rho, L_0) = L_0 + \frac{1}{\rho^\gamma}
 \left(
 \frac{N_c}{N_0^\alpha} + \frac{D_c}{D^\beta} + E
 \right)
-\]
+$$
 
 (schematic form)
 
 Where:
 
-- \(L_0\): pre-pruning loss,
-- \(\rho\): pruning rate,
-- \(N_0\): pre-pruning model size,
-- \(D\): post-training tokens,
-- \(N_c, D_c, E, \alpha, \beta, \gamma\): fitted constants.
+- $L_0$: pre-pruning loss,
+- $\rho$: pruning rate,
+- $N_0$: pre-pruning model size,
+- $D$: post-training tokens,
+- $N_c, D_c, E, \alpha, \beta, \gamma$: fitted constants.
 
 This gives a way to reason about **how much data you need to regain performance** after pruning.
 
@@ -277,11 +277,11 @@ Ensembling is another crucial piece:
 
 The paper cites a deep ensemble scaling law:
 
-\[
+$$
 \mathbb{E}[L_{\text{ens}}(n)] = L_0 - b + \frac{a}{n}
-\]
+$$
 
-for an ensemble of size \(n\), with \(L_0\) the base model loss and \(a, b\) fitted constants.
+for an ensemble of size $n$, with $L_0$ the base model loss and $a, b$ fitted constants.
 
 Key observation: for a fixed compute budget, **splitting resources into several smaller networks can outperform one large network** (“memory split advantage”).
 
@@ -292,7 +292,7 @@ The authors extend this by combining:
 
 to derive a **downscaling condition** (Proposition 4.1):
 
-> There exists a range of ensemble sizes \(n\) such that a set of pruned, smaller models, when ensembled, can achieve **lower expected loss than the original large model at comparable compute**.
+> There exists a range of ensemble sizes $n$ such that a set of pruned, smaller models, when ensembled, can achieve **lower expected loss than the original large model at comparable compute**.
 
 Using example parameters for LLaMA-3-8B, they argue:
 
