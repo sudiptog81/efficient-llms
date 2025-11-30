@@ -49,9 +49,9 @@ The aim is to make KD less “copy the teacher” and more “co-evolve teacher 
 
 1. **Meta-Policy Distillation (MPDistil)**  
    - Treats KD as a **meta-learning problem** with:
-     - A **teacher** \(T\),
-     - A **student** \(S\),
-     - And a **meta-teacher** \(T'\) that operates on hidden representations.
+     - A **teacher** $T$,
+     - A **student** $S$,
+     - And a **meta-teacher** $T'$ that operates on hidden representations.
    - The meta-teacher is a small feed-forward network that:
      - Takes hidden states from either teacher or student,
      - Produces outputs for the downstream task,
@@ -97,9 +97,9 @@ The aim is to make KD less “copy the teacher” and more “co-evolve teacher 
 
    - Define a **curriculum policy network** that:
      - Observes a state representation of the student (a projection of its parameters/hidden states),
-     - Picks a task \(T'\) from a pool of tasks (action),
-     - The student is fine-tuned on a quiz batch from \(T'\),
-     - Reward is computed based on how much the updated student **outperforms the meta-teacher/teacher** on the main task \(T\).
+     - Picks a task $T'$ from a pool of tasks (action),
+     - The student is fine-tuned on a quiz batch from $T'$,
+     - Reward is computed based on how much the updated student **outperforms the meta-teacher/teacher** on the main task $T$.
 
    - Two reward schemes:
      - **Binary reward**: whether student beats teacher/meta-teacher on the true class / regression error.

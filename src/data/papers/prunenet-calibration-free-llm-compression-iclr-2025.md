@@ -150,7 +150,7 @@ So even if you don’t retrain the policy for a new target sparsity, you’re st
 
 ### Varying Compression Per Layer
 
-They try **heterogeneous sparsity across layers**, e.g. compress layers with ratios in \([0, 40\%]\), average ≈ 20%:
+They try **heterogeneous sparsity across layers**, e.g. compress layers with ratios in $[0, 40\%]$, average ≈ 20%:
 
 - For **Phi-2**, average drop vs uniform 20% is just **0.24 points**.
 - For **LLaMA-2-7B**, drop is ≈ 2.15 points—visible but still acceptable.
