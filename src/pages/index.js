@@ -99,6 +99,9 @@ export default function Home({ researchAreas = [], recentPublications = [] }) {
       <Head>
         <title>Efficient-LLMs</title>
         <meta name="description" content="A comprehensive resource for efficient large language models." />
+        <meta property="og:title" content="Efficient-LLMs" />
+        <meta property="og:description" content="A comprehensive resource for efficient large language models." />
+        <meta property="og:type" content="website" />
       </Head>
       <main className="w-full">
         <Hero />

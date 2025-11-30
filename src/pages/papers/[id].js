@@ -31,6 +31,9 @@ export default function PaperPage({ paper, contentHtml }) {
       <Head>
         <title>{paper.title} | Efficient-LLMs</title>
         <meta name="description" content={paper.abstract} />
+        <meta property="og:title" content={`${paper.title} | Efficient-LLMs`} />
+        <meta property="og:description" content={paper.abstract} />
+        <meta property="og:type" content="website" />
       </Head>
       <main className="max-w-4xl mx-auto md:my-12">
         <div className="bg-white dark:bg-zinc-900 rounded-2xl md:shadow-lg md:border border-zinc-200 dark:border-zinc-800 overflow-hidden">

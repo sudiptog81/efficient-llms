@@ -12,11 +12,11 @@ categories:
   - Large Language Models
 authors:
   - name: "Ayan Sengupta"
-    affiliation: "Indian Institute of Technology Delhi, India"
+    affiliation: "IIT Delhi, India"
   - name: "Yash Goel"
-    affiliation: "Indian Institute of Technology Delhi, India"
+    affiliation: "IIT Delhi, India"
   - name: "Tanmoy Chakraborty"
-    affiliation: "Indian Institute of Technology Delhi, India"
+    affiliation: "IIT Delhi, India"
 links:
   openreview: "https://openreview.net/forum?id=CYJlJgEzZs"
   video: "https://icml.cc/virtual/2025/poster/40165"

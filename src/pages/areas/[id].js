@@ -29,6 +29,9 @@ export default function AreaPage({ area, contentHtml, papersForArea }) {
       <Head>
         <title>{area.title} | Efficient-LLMs</title>
         <meta name="description" content={area.summary} />
+        <meta property="og:title" content={`${area.title} | Efficient-LLMs`} />
+        <meta property="og:description" content={area.summary} />
+        <meta property="og:type" content="website" />
       </Head>
       <main className="max-w-4xl mx-auto md:my-12">
         <div className="bg-white dark:bg-zinc-900 rounded-2xl md:shadow-lg md:border border-zinc-200 dark:border-zinc-800 overflow-hidden">
