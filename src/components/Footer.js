@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="w-full border-t border-zinc-200 dark:border-gray-800 py-10 mt-20 text-center text-sm text-zinc-600 dark:text-zinc-400">
@@ -6,11 +8,11 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} Laboratory for Computational Social Systems. All rights reserved.
         </p>
         <div className="mt-4 space-x-4">
-          <a href="#research" className="hover:text-indigo-600 dark:hover:text-indigo-400">Research</a>
+          <Link href="https://twitter.com/lcs2lab" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 dark:hover:text-indigo-400">Twitter</Link>
           <span className="text-zinc-300 dark:text-zinc-600">|</span>
-          <a href="https://github.com/lab-for-computational-social-systems" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 dark:hover:text-indigo-400">GitHub</a>
+          <Link href="https://www.linkedin.com/company/lcs2lab/" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 dark:hover:text-indigo-400">LinkedIn</Link>
           <span className="text-zinc-300 dark:text-zinc-600">|</span>
-          <a href="mailto:chak.tanmoy.iit@gmail.com" className="hover:text-indigo-600 dark:hover:text-indigo-400">Contact</a>
+          <Link href="mailto:chak.tanmoy.iit@gmail.com" className="hover:text-indigo-600 dark:hover:text-indigo-400">Contact</Link>
         </div>
       </div>
     </footer>

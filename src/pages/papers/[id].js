@@ -51,7 +51,6 @@ export default function PaperPage({ paper, contentHtml }) {
 
 export async function getStaticPaths() {
   const papersDirectory = path.join('src/data/papers');
-  console.log('Reading papers from directory:', papersDirectory);
   const filenames = fs.readdirSync(papersDirectory);
 
   const paths = filenames.map((filename) => ({
@@ -60,8 +59,6 @@ export async function getStaticPaths() {
     },
   }));
 
-  console.log('Generated paths for static generation:', paths);
-
   return {
     paths,
     fallback: false,
@@ -69,7 +66,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  console.log('Fetching paper with params:', params);
   const papersDirectory = path.join('src/data/papers');
   const fullPath = path.join(papersDirectory, `${params.id}.md`);
 

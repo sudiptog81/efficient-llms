@@ -33,7 +33,7 @@ export default function AreaPage({ area, contentHtml, papersForArea }) {
         <meta property="og:description" content={area.summary} />
         <meta property="og:type" content="website" />
       </Head>
-      <main className="max-w-4xl mx-auto md:my-12">
+      <main className="max-w-4xl mx-auto px-6 my-12">
         <div className="bg-white dark:bg-zinc-900 rounded-2xl md:shadow-lg md:border border-zinc-200 dark:border-zinc-800 overflow-hidden">
           <div className="p-8 md:p-12">
             <h2
@@ -71,7 +71,6 @@ export default function AreaPage({ area, contentHtml, papersForArea }) {
 
 export async function getStaticPaths() {
   const areasDirectory = path.join('src/data/areas');
-  console.log('Reading areas from directory:', areasDirectory);
   const filenames = fs.readdirSync(areasDirectory);
 
   const paths = filenames.map((filename) => ({
@@ -80,8 +79,6 @@ export async function getStaticPaths() {
     },
   }));
 
-  console.log('Generated paths for static generation:', paths);
-
   return {
     paths,
     fallback: false,
@@ -89,7 +86,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  console.log('Fetching area with params:', params);
   const areasDirectory = path.join('src/data/areas');
   const fullPath = path.join(areasDirectory, `${params.id}.md`);
 
