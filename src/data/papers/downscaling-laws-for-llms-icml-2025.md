@@ -27,11 +27,11 @@ links:
   alphaxiv: "https://www.alphaxiv.org/abs/2505.00985v3"
 
 bibtex: |
-  @article{sengupta2025upscale,
-  title={How to Upscale Neural Networks with Scaling Law? A Survey and Practical Guidelines},
-  author={Sengupta, Ayan and Goel, Yash and Chakraborty, Tanmoy},
-  journal={arXiv preprint arXiv:2502.12051},
-  year={2025}
+  @article{sengupta2025downscaling,
+    title={Enough of Scaling LLMs! Let's Focus on Downscaling},
+    author={Sengupta, Ayan and Goel, Yash and Chakraborty, Tanmoy},
+    journal={arXiv preprint arXiv:2505.00985},
+    year={2025}
   }
 
 abstract: >
