@@ -27,12 +27,12 @@ links:
   video: "https://iclr.cc/virtual/2025/poster/30946"
 
 bibtex: |
-@article{sengupta2025you,
-  title={You only prune once: Designing calibration-free model compression with policy learning},
-  author={Sengupta, Ayan and Chaudhary, Siddhant and Chakraborty, Tanmoy},
-  journal={arXiv preprint arXiv:2501.15296},
-  year={2025}
-}
+  @article{sengupta2025you,
+    title={You only prune once: Designing calibration-free model compression with policy learning},
+    author={Sengupta, Ayan and Chaudhary, Siddhant and Chakraborty, Tanmoy},
+    journal={arXiv preprint arXiv:2501.15296},
+    year={2025}
+  }
 ---
 
 ## Introduction
