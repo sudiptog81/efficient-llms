@@ -49,7 +49,7 @@ Most existing KV compression methods:
 
 The paper argues this is flawed because:
 
-- The **actual output** of attention is `softmax(QKᵀ)V`, where **V (values)** directly control the
+- The **actual output** of attention is $softmax(QKᵀ)V$, where **V (values)** directly control the
   propagated representation.
 - Empirically, **eviction loss** (reconstruction error after deleting tokens) is **poorly correlated**
   with average attention scores.
@@ -190,12 +190,12 @@ Intuition: A token is important if it is structurally important both in the key 
 
 To respect **attention sink tokens** (early positions that many models always attend to):
 
-- Always preserve the first **s** tokens (e.g., `s = 4`):  
+- Always preserve the first **s** tokens (e.g., $s = 4$):  
   $S_{\text{sink}} = \{0, 1, \dots, s - 1\}$.
 
 - From the remaining positions, choose top-$(k - s)$ by $\tilde{\ell}_j$:
 
-  - `Stop = TopK(tilde_ell[s:], k - s) + s`
+  - $Stop = TopK(tilde_ell[s:], k - s) + s$
 
 - Final index set for group $i$:
 

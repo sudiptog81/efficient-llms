@@ -96,10 +96,10 @@ Three broad categories:
 **Fine-tuning setup**
 
 - LoRA adapters on top of each base model:
-  - rank `r = 8`, scaling `α = 16`
+  - rank $r = 8$, scaling $α = 16$
 - Optimizer setup (shared across KD variants):
   - batch size 16
-  - learning rate `3e-4`
+  - learning rate $3e-4$
   - max seq length 256
   - epochs:
     - 4 for Math10K
@@ -119,13 +119,13 @@ Three broad categories:
 
 ## 3. KD Methods Compared
 
-They study three modern KD variants, all using temperature-scaled softmax with temperature `τ`:
+They study three modern KD variants, all using temperature-scaled softmax with temperature $τ$:
 
 ### 3.1 Sequence-Level KD (SeqKD)
 
 Classic **sequence-level knowledge distillation** (Kim & Rush, 2016):
 
-- Teacher generates a full output sequence `y_T`.
+- Teacher generates a full output sequence $y_T$.
 - Student is trained via NLL on the teacher’s sequence:
 
 $$
@@ -140,7 +140,7 @@ This aligns student *outputs* to teacher sequences, not just tokenwise logits.
 
 MiniLLM-style **reverse KL** objective (Gu et al., 2024):
 
-- Use `KL(P_S || P_T)` instead of `KL(P_T || P_S)`.
+- Use $KL(P_S || P_T)$ instead of $KL(P_T || P_S)$.
 
 $$
 L_{\text{RevKD}} = \mathbb{E}_{x \sim D} \left[ D_{\text{KL}}\big(P_S(\cdot|x) \,\Vert\, P_T(\cdot|x)\big) \right]
@@ -170,7 +170,7 @@ L_{\text{GKD}}(\theta) = & (1 - \lambda) \,\mathbb{E}_{(x,y)\sim(X,Y)}[D(P_T \Ve
 \end{aligned}
 $$
 
-- Use **Jensen–Shannon Divergence** (JSD) between `P_T` and `P_S` with mixing `β`:
+- Use **Jensen–Shannon Divergence** (JSD) between $P_T$ and $P_S$ with mixing $β$:
 
 $$
 D_{\text{JSD}}^{(\beta)}(P_T \Vert P_S) 
@@ -178,7 +178,7 @@ D_{\text{JSD}}^{(\beta)}(P_T \Vert P_S)
 \quad M = \beta P_T + (1-\beta)P_S
 $$
 
-Default hyperparams: `λ = 0.5`, `β = 0.5`.
+Default hyperparams: $λ = 0.5$, $β = 0.5$.
 
 ---
 
