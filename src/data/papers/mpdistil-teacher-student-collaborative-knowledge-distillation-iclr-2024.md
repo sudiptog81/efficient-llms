@@ -22,11 +22,11 @@ citations: 23
 
 bibtex: |
   @inproceedings{sengupta2023good,
-    title={A good learner can teach better: Teacher-student collaborative knowledge distillation},
-    author={Sengupta, Ayan and Dixit, Shantanu and Akhtar, Md Shad and Chakraborty, Tanmoy},
-    booktitle={Proceedings of the The Twelfth International Conference on Learning Representations, Virtual Event},
-    pages={25--29},
-    year={2023}
+  title={A good learner can teach better: Teacher-student collaborative knowledge distillation},
+  author={Sengupta, Ayan and Dixit, Shantanu and Akhtar, Md Shad and Chakraborty, Tanmoy},
+  booktitle={Proceedings of the The Twelfth International Conference on Learning Representations, Virtual Event},
+  pages={25--29},
+  year={2023}
   }
 
 links:
