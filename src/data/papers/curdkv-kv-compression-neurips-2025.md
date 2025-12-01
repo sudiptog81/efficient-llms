@@ -12,11 +12,11 @@ categories:
   - Attention Mechanisms
 authors:
   - name: "Ayan Sengupta"
-    affiliation: "Department of Electrical Engineering, IIT Delhi, India"
+    affiliation: "IIT Delhi, India"
   - name: "Siddhant Chaudhary"
-    affiliation: "Department of Electrical Engineering, IIT Delhi, India"
+    affiliation: "IIT Delhi, India"
   - name: "Tanmoy Chakraborty"
-    affiliation: "Department of Electrical Engineering, IIT Delhi, India"
+    affiliation: "IIT Delhi, India"
 links:
   openreview: "https://openreview.net/forum?id=klmc4fwPLd"
   arxiv: "https://arxiv.org/pdf/2509.15038"

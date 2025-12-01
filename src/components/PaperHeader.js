@@ -23,7 +23,7 @@ const Links = ({ links, bibtex }) => {
 
   return (
     <div className="flex flex-wrap gap-4 pt-8 justify-center">
-      {links.arxiv && (
+      {!links.pdf && links.arxiv && (
         <Link
           href={links.arxiv}
           target="_blank"
@@ -42,7 +42,7 @@ const Links = ({ links, bibtex }) => {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
         >
           <FileText className="w-4 h-4" />
-          PDF
+          Paper
         </Link>
       )}
       {links.code && (
@@ -80,7 +80,7 @@ const Links = ({ links, bibtex }) => {
         </Link>
       )}
 
-      {links.alphaxiv && (
+      {/* {links.alphaxiv && (
         <Link
           href={links.alphaxiv}
           target="_blank"
@@ -90,7 +90,7 @@ const Links = ({ links, bibtex }) => {
           <ExternalLink className="w-4 h-4" />
           AlphaXiv
         </Link>
-      )}
+      )} */}
 
       {links.video && (
         <Link
@@ -132,7 +132,7 @@ const Links = ({ links, bibtex }) => {
         <button
           type="button"
           onClick={handleCopyBibtex}
-          className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white font-medium transition-colors ${
+          className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white font-medium transition-colors cursor-pointer ${
             copied
               ? "bg-green-600 hover:bg-green-700"
               : "bg-zinc-700 hover:bg-zinc-800"
@@ -141,12 +141,12 @@ const Links = ({ links, bibtex }) => {
           {copied ? (
             <>
               <ClipboardCheck className="w-4 h-4" />
-              BibTeX Copied
+              Copied
             </>
           ) : (
             <>
               <Clipboard className="w-4 h-4" />
-              Copy BibTeX
+              Citation
             </>
           )}
         </button>

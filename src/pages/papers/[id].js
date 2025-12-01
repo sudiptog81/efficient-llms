@@ -35,8 +35,8 @@ export default function PaperPage({ paper, contentHtml }) {
         <meta property="og:description" content={paper.abstract} />
         <meta property="og:type" content="website" />
       </Head>
-      <main className="max-w-4xl mx-auto md:my-12">
-        <div className="bg-white dark:bg-zinc-900 rounded-2xl md:shadow-lg md:border border-zinc-200 dark:border-zinc-800 overflow-hidden">
+      <main className="max-w-screen md:max-w-4xl mx-auto md:my-12">
+        <div className="bg-white dark:bg-zinc-900 md:rounded-2xl md:shadow-lg md:border border-zinc-200 dark:border-zinc-800 overflow-hidden">
           <div className="p-8 md:p-12">
             <PaperHeader paper={paper} />
             <Abstract abstract={paper.abstract} />
