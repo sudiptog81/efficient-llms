@@ -31,11 +31,11 @@ export default function Navbar() {
           <Link href="/" className={`${geistSans.variable} ${geistMono.variable} text-xl font-semibold`}>
             <div className="h-12 w-40 relative">
               <Image
-                src="/parmnu.png"
-                alt="Picture of the author"
+                src="/parmnu-01.svg"
+                alt="Parmanu @ LCS2 IIT Delhi"
                 layout="fill"
                 objectFit="cover"
-                className="dark:invert" // just an example
+                className='dark:brightness-[180%]'
               />
             </div>
           </Link>
