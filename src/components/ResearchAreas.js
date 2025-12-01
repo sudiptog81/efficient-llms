@@ -29,7 +29,7 @@ const ResearchAreas = ({ researchAreas = [] }) => (
             <div className="p-3 bg-indigo-50 dark:bg-gray-800 rounded-lg inline-flex" suppressHydrationWarning>
               {(() => {
                 const IconComp = ICONS[area.icon] || Zap;
-                return <IconComp className="w-6 h-6 text-zinc-400 dark:text-white" />;
+                return <IconComp className="w-6 h-6 text-zinc-900 dark:text-white" />;
               })()}
             </div>
             <h3 className="text-xl font-semibold">{area.title}</h3>
