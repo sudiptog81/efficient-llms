@@ -39,4 +39,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-src/data/resources/kd-generalization-vs-fidelity-acl-2025/*.mp4
+public/resources/kd-generalization-vs-fidelity-acl-2025/*.mp4

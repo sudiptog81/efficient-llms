@@ -33,8 +33,6 @@ bibtex: |
   journal={arXiv preprint arXiv:2501.15296},
   year={2025}
 }
-
-
 ---
 
 ## Introduction
