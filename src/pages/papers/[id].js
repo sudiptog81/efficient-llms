@@ -94,6 +94,7 @@ export async function getStaticProps({ params }) {
           citations: data.citations || null,
           doi: data.doi || null,
           links: data.links || null,
+          bibtex: data.bibtex || null,
         },
         contentHtml: content ? contentHtml : null,
       },

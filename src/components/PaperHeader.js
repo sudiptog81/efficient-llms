@@ -1,9 +1,25 @@
-import { ExternalLink, FileText } from "lucide-react";
+"use client";
+
+import { ExternalLink, FileText, Clipboard, ClipboardCheck } from "lucide-react";
 import AuthorList from "./AuthorList";
 import Link from "next/link";
+import { useState } from "react";
 
-const Links = ({ links }) => {
-  if (!links) return null;
+const Links = ({ links, bibtex }) => {
+  const [copied, setCopied] = useState(false);
+
+  if (!links && !bibtex) return null;
+
+  const handleCopyBibtex = async () => {
+    if (!bibtex) return;
+    try {
+      await navigator.clipboard.writeText(bibtex.trim());
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch (err) {
+      console.error("Failed to copy BibTeX:", err);
+    }
+  };
 
   return (
     <div className="flex flex-wrap gap-4 pt-8 justify-center">
@@ -111,6 +127,30 @@ const Links = ({ links }) => {
           Poster
         </Link>
       )}
+
+      {bibtex && (
+        <button
+          type="button"
+          onClick={handleCopyBibtex}
+          className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white font-medium transition-colors ${
+            copied
+              ? "bg-green-600 hover:bg-green-700"
+              : "bg-zinc-700 hover:bg-zinc-800"
+          }`}
+        >
+          {copied ? (
+            <>
+              <ClipboardCheck className="w-4 h-4" />
+              BibTeX Copied
+            </>
+          ) : (
+            <>
+              <Clipboard className="w-4 h-4" />
+              Copy BibTeX
+            </>
+          )}
+        </button>
+      )}
     </div>
   );
 };
@@ -163,7 +203,7 @@ const PaperHeader = ({ paper }) => (
       )}
     </div>
 
-    <Links links={paper.links} />
+    <Links links={paper.links} bibtex={paper.bibtex} />
   </div>
 );
 

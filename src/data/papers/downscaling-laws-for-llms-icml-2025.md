@@ -25,6 +25,15 @@ links:
   poster: "https://icml.cc/media/PosterPDFs/ICML%202025/40165.png?t=1749924472.0240057"
   arxiv: "https://arxiv.org/abs/2505.00985"
   alphaxiv: "https://www.alphaxiv.org/abs/2505.00985v3"
+
+bibtex: |
+  @article{sengupta2025upscale,
+  title={How to Upscale Neural Networks with Scaling Law? A Survey and Practical Guidelines},
+  author={Sengupta, Ayan and Goel, Yash and Chakraborty, Tanmoy},
+  journal={arXiv preprint arXiv:2502.12051},
+  year={2025}
+  }
+
 abstract: >
   This position paper argues that the current obsession with neural scaling laws and ever-larger LLMs is
   unsustainable and increasingly inefficient. The authors advocate for a systematic theory of

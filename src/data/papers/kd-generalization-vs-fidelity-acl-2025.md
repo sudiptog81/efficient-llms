@@ -26,12 +26,21 @@ doi: "10.18653/v1/2025.findings-acl.923"
 links:
   paper: "https://aclanthology.org/2025.findings-acl.923/"
   pdf: "https://aclanthology.org/2025.findings-acl.923.pdf"
-  arxiv: "https://arxiv.org/pdf/2505.15442"
+  arxiv: "https://arxiv.org/abs/2505.15442"
   alphaxiv: "https://www.alphaxiv.org/abs/2505.15442v2"
   code: "https://github.com/LCS2-IIITD/KD_generalization"
   ppt: "../data/resources/kd-generalization-vs-fidelity-acl-2025/ACL_2025_Find-3569.pptx"
 #   video: "../data/resources/kd-generalization-vs-fidelity-acl-2025/ACL_2025_Find-3569.mp4"
   poster : "../data/resources/kd-generalization-vs-fidelity-acl-2025/ACL_2025_Find-3569.pdf"
+
+bibtex: |
+  @article{ramesh2025generalization,
+  title={On the Generalization vs Fidelity Paradox in Knowledge Distillation},
+  author={Ramesh, Suhas Kamasetty and Sengupta, Ayan and Chakraborty, Tanmoy},
+  journal={arXiv preprint arXiv:2505.15442},
+  year={2025}
+  }
+
 tags:
   - knowledge distillation
   - model compression

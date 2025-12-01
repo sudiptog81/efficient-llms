@@ -19,12 +19,24 @@ authors:
     affiliation: "IIT Delhi, India"
 abstract: "This work proposes MPDistil, a meta-policy knowledge distillation framework that makes teacher–student learning collaborative and competitive instead of one-way. MPDistil introduces a lightweight meta-teacher that optimizes a joint utility over teacher and student, and a curriculum-learning policy that selects tasks to help the student eventually surpass the teacher. On GLUE and SuperGLUE, a 6-layer BERT student distilled with MPDistil can outperform its 12-layer teacher on several tasks, and the method also narrows the performance gap when distilling from very large models like DeBERTa-v2-xxlarge to smaller students."
 citations: 23
+
+bibtex: | 
+  @inproceedings{sengupta2023good,
+  title={A good learner can teach better: Teacher-student collaborative knowledge distillation},
+  author={Sengupta, Ayan and Dixit, Shantanu and Akhtar, Md Shad and Chakraborty, Tanmoy},
+  booktitle={Proceedings of the The Twelfth International Conference on Learning Representations, Virtual Event},
+  pages={25--29},
+  year={2023}
+}
+
 links:
   pdf: "https://openreview.net/pdf?id=Ixi4j6LtdX"
   code: "https://github.com/notmyname16/MPDistil"
   openreview: "https://openreview.net/forum?id=Ixi4j6LtdX"
   poster: "https://iclr.cc/media/PosterPDFs/ICLR%202024/18953.png?t=1713539941.8927011"
   ppt: "https://iclr.cc/virtual/2024/poster/18953"
+
+
 ---
 
 ## Introduction

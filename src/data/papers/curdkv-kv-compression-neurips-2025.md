@@ -24,6 +24,15 @@ links:
   slides: "https://neurips.cc/media/neurips-2025/Slides/116352.pdf"
   poster: "https://neurips.cc/media/PosterPDFs/NeurIPS%202025/116352.png?t=1762272357.6524627"
   code: "https://github.com/codetalker7/kvpress/tree/curpress"
+
+bibtex: |
+  @article{sengupta2025value,
+    title={Value-Guided KV Compression for LLMs via Approximated CUR Decomposition},
+    author={Sengupta, Ayan and Chaudhary, Siddhant and Chakraborty, Tanmoy},
+    journal={arXiv preprint arXiv:2509.15038},
+    year={2025}
+  }
+
 abstract: >
   CurDKV is a value-guided KV cache compression method for autoregressive LLMs based on
   approximated CUR decomposition and leverage scores. Instead of ranking tokens purely by

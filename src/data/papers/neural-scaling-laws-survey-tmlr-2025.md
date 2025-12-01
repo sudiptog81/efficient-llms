@@ -21,6 +21,15 @@ links:
   arxiv: "https://arxiv.org/abs/2502.12051"
   openreview: "https://openreview.net/forum?id=a9BT8G7Hiq"
   alphaxiv: "https://alphaxiv.org/abs/2502.12051"
+
+bibtex: | 
+@article{seth2025robust,
+  title={Robust and efficient fine-tuning of LLMs with bayesian reparameterization of low-rank adaptation},
+  author={Seth, Vaibhav and Sengupta, Ayan and Pathak, Arinjay and Verma, Aastha AK and Raman, Natraj and Gopalakrishnan, Sriram and Chatterjee, Niladri and Chakraborty, Tanmoy},
+  journal={Transactions on Machine Learning Research},
+  year={2025}
+}
+
 abstract: >
   Neural scaling laws have revolutionized the design and optimization of large-scale AI models by
   revealing predictable relationships between model size, dataset volume, and computational resources.

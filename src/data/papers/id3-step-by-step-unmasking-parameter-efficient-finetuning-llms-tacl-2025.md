@@ -24,6 +24,13 @@ links:
   pdf: "https://www.alphaxiv.org/pdf/2408.14470v1.pdf"
   alphaxiv: "https://www.alphaxiv.org/abs/2408.14470"
   code: "https://github.com/Aradhye2002/selective-peft-toolkit"
+bibtex: | 
+  @article{agarwal2024step,
+  title={Step-by-Step Unmasking for Parameter-Efficient Fine-tuning of Large Language Models},
+  author={Agarwal, Aradhye and Ramesh, Suhas K and Sengupta, Ayan and Chakraborty, Tanmoy},
+  journal={arXiv preprint arXiv:2408.14470},
+  year={2024}
+  }
 tags:
   - parameter-efficient fine-tuning
   - selective PEFT

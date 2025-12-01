@@ -33,6 +33,15 @@ links:
   arxiv: "https://arxiv.org/abs/2411.04358"
   alphaxiv: "https://www.alphaxiv.org/abs/2411.04358"
   code: "https://github.com/LCS2-IIITD/MonteCLoRA"
+
+bibtex: |
+    @article{seth2025robust,
+  title={Robust and efficient fine-tuning of LLMs with bayesian reparameterization of low-rank adaptation},
+  author={Seth, Vaibhav and Sengupta, Ayan and Pathak, Arinjay and Verma, Aastha AK and Raman, Natraj and Gopalakrishnan, Sriram and Chatterjee, Niladri and Chakraborty, Tanmoy},
+  journal={Transactions on Machine Learning Research},
+  year={2025}
+  }
+
 abstract: >
   MonteCLoRA is a Bayesian variant of LoRA for parameter-efficient fine-tuning of LLMs.
   It models low-rank adapters as mixtures of Gaussians with Wishart and Dirichlet hyperpriors,
