@@ -1,9 +1,15 @@
-import { Zap, Package } from "lucide-react";
+import { Zap, Package, ChartSpline, Waypoints, Scissors, Merge, Binary, BookCopy } from "lucide-react";
 import Link from "next/link";
 
 const ICONS = {
   Zap,
   Package,
+  ChartSpline,
+  Waypoints,
+  Scissors,
+  Merge,
+  Binary,
+  BookCopy
 };
 
 const ResearchAreas = ({ researchAreas = [] }) => (
@@ -15,7 +21,7 @@ const ResearchAreas = ({ researchAreas = [] }) => (
       </p>
     </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" >
       {researchAreas.map((area) => (
         <Link key={area.title} href={`/areas/${area.slug}`} className="p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-zinc-100 dark:border-gray-800 transform hover:scale-[1.02] transition duration-300">
 

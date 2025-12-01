@@ -12,7 +12,7 @@ import Link from 'next/link';
 import BaseLayout from '@/layouts/BaseLayout';
 import PaperHeader from '@/components/PaperHeader';
 import Abstract from '@/components/PaperAbstract';
-import Content from '@/components/PaperContent';
+import PaperContent from '@/components/PaperContent';
 import Head from 'next/head';
 import ShareFab from '@/components/ShareFab';
 
@@ -41,7 +41,7 @@ export default function PaperPage({ paper, contentHtml }) {
           <div className="p-8 md:p-12">
             <PaperHeader paper={paper} />
             <Abstract abstract={paper.abstract} />
-            {contentHtml && <Content contentHtml={contentHtml} />}
+            {contentHtml && <PaperContent contentHtml={contentHtml} />}
           </div>
         </div>
       </main>

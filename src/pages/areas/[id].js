@@ -7,11 +7,10 @@ import remarkMath from 'remark-math';
 import remarkRehype from 'remark-rehype';
 import rehypeKatex from 'rehype-katex';
 import rehypeStringify from 'rehype-stringify';
-import Link from 'next/link';
 import BaseLayout from '@/layouts/BaseLayout';
-import Content from '@/components/PaperContent';
 import IndexPaperCard from '@/components/IndexPaperCard';
 import Head from 'next/head';
+import AreaContent from '@/components/AreaContent';
 
 export default function AreaPage({ area, contentHtml, papersForArea }) {
   if (!area) {
@@ -42,7 +41,7 @@ export default function AreaPage({ area, contentHtml, papersForArea }) {
               {area.title}
             </h2>
             {area.summary && <p className="text-zinc-700 dark:text-zinc-400">{area.summary}</p>}
-            {contentHtml && <Content contentHtml={contentHtml} />}
+            {contentHtml && <AreaContent contentHtml={contentHtml} />}
           </div>
         </div>
         {papersForArea && papersForArea.length > 0 && (
