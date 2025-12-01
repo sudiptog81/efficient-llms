@@ -20,10 +20,7 @@ authors:
 links:
   arxiv: "https://arxiv.org/abs/2502.12051"
   openreview: "https://openreview.net/forum?id=a9BT8G7Hiq"
-  alphaxiv: ""
-  code: ""
-  slides: ""
-  poster: ""
+  alphaxiv: "https://alphaxiv.org/abs/2502.12051"
 abstract: >
   Neural scaling laws have revolutionized the design and optimization of large-scale AI models by
   revealing predictable relationships between model size, dataset volume, and computational resources.

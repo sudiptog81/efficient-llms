@@ -30,7 +30,7 @@ links:
   alphaxiv: "https://www.alphaxiv.org/abs/2505.15442v2"
   code: "https://github.com/LCS2-IIITD/KD_generalization"
   ppt: "../data/resources/kd-generalization-vs-fidelity-acl-2025/ACL_2025_Find-3569.pptx"
-  video: "../data/resources/kd-generalization-vs-fidelity-acl-2025/ACL_2025_Find-3569.mp4"
+#   video: "../data/resources/kd-generalization-vs-fidelity-acl-2025/ACL_2025_Find-3569.mp4"
   poster : "../data/resources/kd-generalization-vs-fidelity-acl-2025/ACL_2025_Find-3569.pdf"
 tags:
   - knowledge distillation
