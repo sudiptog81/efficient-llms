@@ -24,14 +24,14 @@ links:
   code: "https://github.com/victor7246/TransJect"
   alphaxiv: "https://alphaxiv.org/abs/2310.14206"
   openreview: "https://openreview.net/forum?id=oYRlrDN6uj"
-bibtex:
-@inproceedings{sengupta2023manifold,
-  title={Manifold-Preserving Transformers are Effective for Short-Long Range Encoding},
-  author={Sengupta, Ayan and Akhtar, Md and Chakraborty, Tanmoy},
-  booktitle={Findings of the Association for Computational Linguistics: EMNLP 2023},
-  pages={3533--3549},
-  year={2023}
-}
+bibtex: |
+  @inproceedings{sengupta2023manifold,
+    title={Manifold-Preserving Transformers are Effective for Short-Long Range Encoding},
+    author={Sengupta, Ayan and Akhtar, Md and Chakraborty, Tanmoy},
+    booktitle={Findings of the Association for Computational Linguistics: EMNLP 2023},
+    pages={3533--3549},
+    year={2023}
+  }
 
 ---
 
