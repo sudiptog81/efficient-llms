@@ -4,6 +4,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import remarkMath from 'remark-math';
+import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import rehypeKatex from 'rehype-katex';
 import rehypeStringify from 'rehype-stringify';
@@ -75,6 +76,7 @@ export async function getStaticProps({ params }) {
 
     const processedContent = await remark()
       .use(remarkMath)
+      .use(remarkGfm) // enable GitHub-flavored Markdown (tables, task lists, etc.)
       .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeKatex)
       .use(rehypeStringify, { allowDangerousHtml: true })

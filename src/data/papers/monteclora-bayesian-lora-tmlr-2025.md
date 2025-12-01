@@ -101,6 +101,24 @@ Training loss = task loss + weighted KL terms:
 - Full fine-tuning, LoRA, AdaLoRA, DoRA.
 - For GLUE, also Bayesian post-hoc methods: MC Dropout, temperature scaling, checkpoint ensembles, Laplace-LoRA.
 
+### 3.1 Comparison to Bayesian post-hoc methods (GLUE, RoBERTa-base)
+
+The table below summarizes a subset of the GLUE results from the paper (accuracy ↑ and NLL ↓), comparing MonteCLoRA to several Bayesian post-hoc baselines:
+
+
+| Metric   | Method              | MRPC | CoLA | RTE  | WiC  | BoolQ | Avg Acc ↑ | Avg NLL ↓ |
+|----------|---------------------|------|------|------|------|-------|-----------|-----------|
+| Accuracy | MonteCLoRA (best)   | 91.2 | 84.9 | 81.2 | 71.3 | 79.9  | 81.7      | –         |
+| Accuracy | MC Dropout          | 87.1 | 82.6 | 72.4 | 68.8 | 76.6  | 77.5      | –         |
+| Accuracy | Temperature scaling | 86.5 | 81.8 | 72.6 | 65.4 | 77.3  | 76.7      | –         |
+| Accuracy | Laplace-LoRA (LA)   | 86.4 | 81.7 | 72.6 | 65.4 | 77.4  | 76.7      | –         |
+| NLL      | MonteCLoRA (best)   | 0.31 | 0.41 | 0.46 | 0.60 | 0.50  | –         | 0.46      |
+| NLL      | MC Dropout          | 0.39 | 0.39 | 0.58 | 0.72 | 0.50  | –         | 0.52      |
+| NLL      | Temperature scaling | 0.32 | 0.40 | 0.54 | 0.62 | 0.49  | –         | 0.47      |
+| NLL      | Laplace-LoRA (LA)   | 0.34 | 0.39 | 0.54 | 0.62 | 0.48  | –         | 0.47      |
+
+These results highlight that MonteCLoRA matches or outperforms strong Bayesian post-hoc methods on both accuracy and calibration (NLL), while being trained end-to-end rather than applied after the fact.
+
 **Headline findings**
 
 - On GLUE:
@@ -171,3 +189,9 @@ Future extensions:
 ---
 
 ![MonteCLoRA Overview](/resources/monteclora-bayesian-lora-tmlr-2025/images/loss_curves.png)
+
+## 7. Key Figures
+
+![Generative task robustness of MonteCLoRA vs LoRA/DoRA (LLaMA-1-7B on commonsense benchmarks)](/resources/monteclora-bayesian-lora-tmlr-2025/images/generative_accuracies.png)
+
+![Robustness on GSM8k across PEFT methods (LLaMA-3.2-3B-Instruct)](/resources/monteclora-bayesian-lora-tmlr-2025/images/gsm8k.png)
