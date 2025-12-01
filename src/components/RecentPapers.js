@@ -3,7 +3,7 @@ import Button from "./Button";
 import { CircleArrowRight } from "lucide-react";
 
 const RecentPapers = ({ recentPublications }) => (
-  <section id="publications" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-zinc-200 dark:border-gray-800 bg-zinc-100 dark:bg-gray-900">
+  <section id="publications" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-zinc-200 dark:border-gray-800">
     <div className="text-center mb-16">
       <h2 className="text-4xl font-bold tracking-tight">Recent Publications</h2>
       <p className="mt-3 text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
@@ -27,7 +27,7 @@ const RecentPapers = ({ recentPublications }) => (
         </Link>
       ))}
       <div className="pt-6 text-center">
-        <Button href={"/papers"} variant="secondary">
+        <Button href={"/papers"} variant="primary">
           See All Publications
         </Button>
       </div>

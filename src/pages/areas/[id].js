@@ -34,7 +34,7 @@ export default function AreaPage({ area, contentHtml, papersForArea }) {
         <meta property="og:type" content="website" />
       </Head>
       <main className="max-w-4xl mx-auto px-6">
-        <div className="bg-white dark:bg-zinc-900 overflow-hidden">
+        <div className="overflow-hidden">
           <div className="pt-8 md:pt-12 pb-4">
             <h2
               className="text-4xl font-bold mb-6 text-zinc-900 dark:text-zinc-50"
@@ -43,16 +43,6 @@ export default function AreaPage({ area, contentHtml, papersForArea }) {
             </h2>
             {area.summary && <p className="text-zinc-700 dark:text-zinc-400">{area.summary}</p>}
             {contentHtml && <Content contentHtml={contentHtml} />}
-            {area.tags && (
-              <div className="mt-6 text-xs flex gap-1">
-                Tags:
-                {area.tags.map((tag, idx) => (
-                  <span key={tag} // comma separated tags
-                    className={`text-indigo-700 dark:text-indigo-200 ${idx !== 0 ? "before:content-['•'] before:mr-1" : ""}`}>
-                    {tag}
-                  </span>))}
-              </div>
-            )}
           </div>
         </div>
         {papersForArea && papersForArea.length > 0 && (
@@ -127,7 +117,6 @@ export async function getStaticProps({ params }) {
       papers = [];
     }
 
-    // Filter papers that share at least one category with the area's tags
     const areaTags = data.tags || [];
     const papersForArea = (areaTags.length > 0)
       ? papers.filter(p => Array.isArray(p.categories) && p.categories.some(cat => areaTags.includes(cat)))
