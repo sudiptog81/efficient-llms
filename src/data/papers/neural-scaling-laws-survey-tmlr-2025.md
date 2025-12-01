@@ -23,12 +23,15 @@ links:
   alphaxiv: "https://alphaxiv.org/abs/2502.12051"
 
 bibtex: | 
-  @article{seth2025robust,
-    title={Robust and efficient fine-tuning of LLMs with bayesian reparameterization of low-rank adaptation},
-    author={Seth, Vaibhav and Sengupta, Ayan and Pathak, Arinjay and Verma, Aastha AK and Raman, Natraj and Gopalakrishnan, Sriram and Chatterjee, Niladri and Chakraborty, Tanmoy},
-    journal={Transactions on Machine Learning Research},
-    year={2025}
-  }
+    @misc{sengupta2025upscaleneuralnetworksscaling,
+      title={How to Upscale Neural Networks with Scaling Law? A Survey and Practical Guidelines}, 
+      author={Ayan Sengupta and Yash Goel and Tanmoy Chakraborty},
+      year={2025},
+      eprint={2502.12051},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2502.12051}, 
+    }
 
 abstract: >
   Neural scaling laws have revolutionized the design and optimization of large-scale AI models by

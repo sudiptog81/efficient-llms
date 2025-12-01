@@ -27,7 +27,7 @@ bibtex: |
   booktitle={Proceedings of the The Twelfth International Conference on Learning Representations, Virtual Event},
   pages={25--29},
   year={2023}
-}
+  }
 
 links:
   pdf: "https://openreview.net/pdf?id=Ixi4j6LtdX"
