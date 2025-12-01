@@ -33,9 +33,9 @@ export default function AreaPage({ area, contentHtml, papersForArea }) {
         <meta property="og:description" content={area.summary} />
         <meta property="og:type" content="website" />
       </Head>
-      <main className="max-w-4xl mx-auto px-6 my-12">
-        <div className="bg-white dark:bg-zinc-900 rounded-2xl md:shadow-lg md:border border-zinc-200 dark:border-zinc-800 overflow-hidden">
-          <div className="p-8 md:p-12">
+      <main className="max-w-4xl mx-auto px-6">
+        <div className="bg-white dark:bg-zinc-900 overflow-hidden">
+          <div className="pt-8 md:pt-12 pb-4">
             <h2
               className="text-4xl font-bold mb-6 text-zinc-900 dark:text-zinc-50"
             >
@@ -56,7 +56,7 @@ export default function AreaPage({ area, contentHtml, papersForArea }) {
           </div>
         </div>
         {papersForArea && papersForArea.length > 0 && (
-          <div className="mt-8">
+          <div className="mt-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {papersForArea.map((paper) => (
                 <IndexPaperCard key={paper.slug} paper={paper} />

@@ -2,7 +2,7 @@ import Button from "./Button";
 
 export default function Hero() {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 text-center">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-32 text-center">
       <div className="space-y-6">
         <p className="text-sm font-semibold tracking-wider uppercase text-indigo-600 dark:text-indigo-400">
           The Future of AI is Compact

@@ -76,7 +76,7 @@ export async function getStaticProps({ params }) {
 
     const processedContent = await remark()
       .use(remarkMath)
-      .use(remarkGfm) // enable GitHub-flavored Markdown (tables, task lists, etc.)
+      .use(remarkGfm)
       .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeKatex)
       .use(rehypeStringify, { allowDangerousHtml: true })
@@ -93,8 +93,6 @@ export async function getStaticProps({ params }) {
           publishedDate: data.publishedDate,
           conference: data.conference,
           abstract: data.abstract,
-          citations: data.citations || null,
-          doi: data.doi || null,
           links: data.links || null,
           bibtex: data.bibtex || null,
         },

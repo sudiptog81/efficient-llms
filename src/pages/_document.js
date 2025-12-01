@@ -18,9 +18,7 @@ export default function Document() {
 
   return (
     <Html lang="en" suppressHydrationWarning>
-      <Head />
-      <body className="antialiased">
-        <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
+      <Head>
         <Script async id="google-analytics-script"
           src={`https://www.googletagmanager.com/gtag/js?id=G-N968HFGN36`} strategy="afterInteractive">
         </Script>
@@ -32,6 +30,9 @@ export default function Document() {
             gtag('config', 'G-N968HFGN36');
           `}
         </Script>
+        <Script id="script-setTheme" dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
+      </Head>
+      <body className="antialiased">
         <Main />
         <NextScript />
       </body>

@@ -1,34 +1,32 @@
-"use client";
-
 import { ExternalLink, FileText, Clipboard, ClipboardCheck } from "lucide-react";
 import AuthorList from "./AuthorList";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 // Simple React hook (uses /api/citations?doi=...)
-function useCitationCount(doi) {
-  const [citations, setCitations] = useState(null);
+// function useCitationCount(doi) {
+//   const [citations, setCitations] = useState(null);
 
-  useEffect(() => {
-    console.log("doi", doi);
-    if (!doi) return;
+//   useEffect(() => {
+//     console.log("doi", doi);
+//     if (!doi) return;
 
-    (async () => {
-      try {
-        const res = await fetch(`/api/citations?doi=${encodeURIComponent(doi)}`);
-        if (!res.ok) return;
-        const data = await res.json();
-        if (typeof data.citations === "number") {
-          setCitations(data.citations);
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    })();
-  }, [doi]);
+//     (async () => {
+//       try {
+//         const res = await fetch(`/api/citations?doi=${encodeURIComponent(doi)}`);
+//         if (!res.ok) return;
+//         const data = await res.json();
+//         if (typeof data.citations === "number") {
+//           setCitations(data.citations);
+//         }
+//       } catch (e) {
+//         console.error(e);
+//       }
+//     })();
+//   }, [doi]);
 
-  return citations;
-}
+//   return citations;
+// }
 
 const Links = ({ links = {}, bibtex }) => {
   const [copied, setCopied] = useState(false);
@@ -108,7 +106,7 @@ const Links = ({ links = {}, bibtex }) => {
         </Link>
       )}
 
-      {links.alphaxiv && (
+      {/* {links.alphaxiv && (
         <Link
           href={links.alphaxiv}
           target="_blank"
@@ -118,7 +116,7 @@ const Links = ({ links = {}, bibtex }) => {
           <ExternalLink className="w-4 h-4" />
           AlphaXiv
         </Link>
-      )}
+      )} */}
 
       {links.video && (
         <Link
@@ -160,11 +158,10 @@ const Links = ({ links = {}, bibtex }) => {
         <button
           type="button"
           onClick={handleCopyBibtex}
-          className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white font-medium transition-colors cursor-pointer ${
-            copied
-              ? "bg-green-600 hover:bg-green-700"
-              : "bg-zinc-700 hover:bg-zinc-800"
-          }`}
+          className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white font-medium transition-colors cursor-pointer ${copied
+            ? "bg-green-600 hover:bg-green-700"
+            : "bg-zinc-700 hover:bg-zinc-800"
+            }`}
         >
           {copied ? (
             <>
@@ -184,9 +181,9 @@ const Links = ({ links = {}, bibtex }) => {
 };
 
 const PaperHeader = ({ paper }) => {
-  const liveCitations = useCitationCount(paper.doi);
+  // const liveCitations = useCitationCount(paper.doi);
 
-  const citations = liveCitations ?? paper.citations ?? null;
+  // const citations = liveCitations ?? paper.citations ?? null;
 
   return (
     <div className="border-b border-zinc-200 dark:border-zinc-800 pb-8 mt-4">
@@ -202,7 +199,7 @@ const PaperHeader = ({ paper }) => {
 
       <AuthorList authors={paper.authors} />
 
-      <div className="flex flex-wrap justify-center gap-2 mb-4">
+      <div className="flex flex-wrap justify-center gap-2">
         {paper.categories.map((cat, idx) => (
           <span
             key={idx}
@@ -213,7 +210,7 @@ const PaperHeader = ({ paper }) => {
         ))}
       </div>
 
-      <div className="flex flex-wrap justify-center items-center gap-4 text-sm text-zinc-600 dark:text-zinc-400">
+      {/* <div className="flex flex-wrap justify-center items-center gap-4 text-sm text-zinc-600 dark:text-zinc-400">
         <span className="flex items-center gap-1">
           {new Date(paper.publishedDate).toLocaleDateString("en-US", {
             year: "numeric",
@@ -235,7 +232,7 @@ const PaperHeader = ({ paper }) => {
             <span>DOI: {paper.doi}</span>
           </>
         )}
-      </div>
+      </div> */}
 
       <Links links={paper.links} bibtex={paper.bibtex} />
     </div>

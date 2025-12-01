@@ -13,7 +13,7 @@ export default function PapersDirectory({ papers }) {
         <title>Publications | Efficient-LLMs</title>
         <meta name="description" content="A comprehensive list of publications related to efficient large language models." />
       </Head>
-      <main className="max-w-6xl mx-auto px-6 my-12">
+      <main className="max-w-6xl mx-auto px-6">
         <header className="text-center mb-12">
         </header>
 
