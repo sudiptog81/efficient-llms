@@ -30,7 +30,7 @@ export default function Navbar() {
         <div className="flex items-center space-x-2">
           <Link href="/" className={`${geistSans.variable} ${geistMono.variable} text-xl font-semibold`}>
             <Image
-              src="/parmnu-01.svg"
+              src="/parmanu.svg"
               alt="Parmanu @ LCS2 IIT Delhi"
               width={150}
               height={150}
