@@ -29,15 +29,13 @@ export default function Navbar() {
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <Link href="/" className={`${geistSans.variable} ${geistMono.variable} text-xl font-semibold`}>
-            <div className="h-12 w-40 relative">
-              <Image
-                src="/parmnu-01.svg"
-                alt="Parmanu @ LCS2 IIT Delhi"
-                layout="fill"
-                objectFit="cover"
-                className='dark:brightness-[180%]'
-              />
-            </div>
+            <Image
+              src="/parmnu-01.svg"
+              alt="Parmanu @ LCS2 IIT Delhi"
+              width={150}
+              height={150}
+              className='dark:brightness-[180%]'
+            />
           </Link>
         </div>
 
