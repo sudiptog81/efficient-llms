@@ -169,3 +169,5 @@ Future extensions:
 - Applying MonteCLoRA beyond LoRA (e.g., to full weights, vision models, or multimodal architectures).
 
 ---
+
+![MonteCLoRA Overview](/resources/monteclora-bayesian-lora-tmlr-2025/images/loss_curves.png)
