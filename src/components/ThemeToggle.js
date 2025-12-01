@@ -8,7 +8,11 @@ export default function ThemeToggle() {
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) return null;
+  if (!mounted) return <button
+    className="ml-6 p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-gray-800 cursor-pointer"
+  >
+    <Moon />
+  </button>;
 
   const current = theme === 'system' ? systemTheme : theme;
 

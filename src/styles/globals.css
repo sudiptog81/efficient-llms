@@ -5,6 +5,22 @@
   overflow: auto hidden;
 }
 
+.prose {
+  table {
+      border-spacing: 0 !important;
+      border-collapse: collapse !important;
+      border-color: inherit !important;
+      display: block !important; /* Crucial for overflow */
+      width: max-content !important; /* Allows table to expand */
+      max-width: 100% !important; /* Prevents overflow beyond container */
+      overflow: auto !important; /* Adds scrollbars if content overflows */
+  }
+
+  tbody, td, tfoot, th, thead, tr {
+      border-color: inherit !important;
+  }
+}
+
 @plugin "@tailwindcss/typography";
 
 :root {
@@ -13,6 +29,5 @@
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
-@custom-variant light (&:where(:not(.dark), :not(.dark *));
+@custom-variant light (&:where(.light, .light *));
 @custom-variant system (&:where(.system, .system *));
-@custom-variant system-dark (&:where(.system) .dark, .system .dark);

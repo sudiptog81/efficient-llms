@@ -27,9 +27,9 @@ export default function AreaPage({ area, contentHtml, papersForArea }) {
   return (
     <BaseLayout>
       <Head>
-        <title>{area.title} | Efficient-LLMs</title>
+        <title>{area.title} | Parmanu @ LCS2 IIT Delhi</title>
         <meta name="description" content={area.summary} />
-        <meta property="og:title" content={`${area.title} | Efficient-LLMs`} />
+        <meta property="og:title" content={`${area.title} | Parmanu @ LCS2 IIT Delhi`} />
         <meta property="og:description" content={area.summary} />
         <meta property="og:type" content="website" />
       </Head>

@@ -30,9 +30,9 @@ export default function PaperPage({ paper, contentHtml }) {
   return (
     <BaseLayout>
       <Head>
-        <title>{paper.title} | Efficient-LLMs</title>
+        <title>{paper.title} | Parmanu @ LCS2 IIT Delhi</title>
         <meta name="description" content={paper.abstract} />
-        <meta property="og:title" content={`${paper.title} | Efficient-LLMs`} />
+        <meta property="og:title" content={`${paper.title} | Parmanu @ LCS2 IIT Delhi`} />
         <meta property="og:description" content={paper.abstract} />
         <meta property="og:type" content="website" />
       </Head>

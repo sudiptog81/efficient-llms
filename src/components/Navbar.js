@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const navigation = [
     { name: 'Research', href: '/#research' },
     { name: 'Publications', href: '/papers' },
@@ -25,9 +26,19 @@ export default function Navbar() {
 
   return (
     <header className={`${geistSans.variable} ${geistMono.variable} top-0 z-50 w-full backdrop-blur-md bg-white/80 dark:bg-gray-950/80 border-b border-zinc-200 dark:border-gray-800 shadow-sm`}>
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+      <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-2">
-          <Link href="/" className={`${geistSans.variable} ${geistMono.variable} text-xl font-semibold`}><Image src="/parmnu.png" alt="Efficient-LLMs" width={200} height={200} /></Link>
+          <Link href="/" className={`${geistSans.variable} ${geistMono.variable} text-xl font-semibold`}>
+            <div className="h-12 w-40 relative">
+              <Image
+                src="/parmnu.png"
+                alt="Picture of the author"
+                layout="fill"
+                objectFit="cover"
+                className="dark:invert" // just an example
+              />
+            </div>
+          </Link>
         </div>
 
         <div className='flex items-center align-center'>

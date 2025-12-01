@@ -10,7 +10,7 @@ export default function PapersDirectory({ papers }) {
   return (
     <BaseLayout>
       <Head>
-        <title>Publications | Efficient-LLMs</title>
+        <title>Publications | Parmanu @ LCS2 IIT Delhi</title>
         <meta name="description" content="A comprehensive list of publications related to efficient large language models." />
       </Head>
       <main className="max-w-6xl mx-auto px-6">

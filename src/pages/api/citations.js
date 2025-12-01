@@ -7,7 +7,7 @@ async function fetchFromOpenAlex(doi) {
   const url = `https://api.openalex.org/works/${id}`;
 
   const res = await fetch(url, {
-    headers: { "User-Agent": "efficient-llms/1.0" },
+    headers: { "User-Agent": "parmanu/1.0" },
   });
 
   if (!res.ok) return null;
@@ -27,7 +27,7 @@ async function fetchFromSemanticScholar(doi) {
   )}?fields=citationCount`;
 
   const res = await fetch(url, {
-    headers: { "User-Agent": "efficient-llms/1.0" },
+    headers: { "User-Agent": "parmanu/1.0" },
   });
 
   if (!res.ok) return null;

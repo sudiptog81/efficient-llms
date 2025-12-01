@@ -97,9 +97,9 @@ export default function Home({ researchAreas = [], recentPublications = [] }) {
   return (
     <BaseLayout>
       <Head>
-        <title>Efficient-LLMs</title>
+        <title>Parmanu @ LCS2 IIT Delhi</title>
         <meta name="description" content="A comprehensive resource for efficient large language models." />
-        <meta property="og:title" content="Efficient-LLMs" />
+        <meta property="og:title" content="Parmanu @ LCS2 IIT Delhi" />
         <meta property="og:description" content="A comprehensive resource for efficient large language models." />
         <meta property="og:type" content="website" />
       </Head>
