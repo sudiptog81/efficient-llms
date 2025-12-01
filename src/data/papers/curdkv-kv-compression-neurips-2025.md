@@ -19,12 +19,14 @@ authors:
     affiliation: "IIT Delhi, India"
 links:
   openreview: "https://openreview.net/forum?id=klmc4fwPLd"
-  arxiv: "https://arxiv.org/pdf/2509.15038"
+  paper: "https://openreview.net/pdf?id=klmc4fwPLd"
+  arxiv: "https://arxiv.org/abs/2509.15038"
   video: "https://neurips.cc/virtual/2025/loc/san-diego/poster/116352"
   slides: "https://neurips.cc/media/neurips-2025/Slides/116352.pdf"
   poster: "https://neurips.cc/media/PosterPDFs/NeurIPS%202025/116352.png?t=1762272357.6524627"
   code: "https://github.com/codetalker7/kvpress/tree/curpress"
 
+doi: "https://doi.org/10.48550/arXiv.2509.15038"
 bibtex: |
   @article{sengupta2025value,
     title={Value-Guided KV Compression for LLMs via Approximated CUR Decomposition},

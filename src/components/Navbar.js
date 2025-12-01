@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { Geist, Geist_Mono } from "next/font/google";
 import ThemeToggle from './ThemeToggle';
@@ -26,7 +27,7 @@ export default function Navbar() {
     <header className={`${geistSans.variable} ${geistMono.variable} top-0 z-50 w-full backdrop-blur-md bg-white/80 dark:bg-gray-950/80 border-b border-zinc-200 dark:border-gray-800 shadow-sm`}>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-2">
-          <Link href="/" className={`${geistSans.variable} ${geistMono.variable} text-xl font-semibold`}>Efficient-LLMs</Link>
+          <Link href="/" className={`${geistSans.variable} ${geistMono.variable} text-xl font-semibold`}><Image src="/parmnu.png" alt="Efficient-LLMs" width={200} height={200} /></Link>
         </div>
 
         <div className='flex items-center align-center'>

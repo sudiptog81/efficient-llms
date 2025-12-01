@@ -3,9 +3,34 @@
 import { ExternalLink, FileText, Clipboard, ClipboardCheck } from "lucide-react";
 import AuthorList from "./AuthorList";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Links = ({ links, bibtex }) => {
+// Simple React hook (uses /api/citations?doi=...)
+function useCitationCount(doi) {
+  const [citations, setCitations] = useState(null);
+
+  useEffect(() => {
+    console.log("doi", doi);
+    if (!doi) return;
+
+    (async () => {
+      try {
+        const res = await fetch(`/api/citations?doi=${encodeURIComponent(doi)}`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (typeof data.citations === "number") {
+          setCitations(data.citations);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, [doi]);
+
+  return citations;
+}
+
+const Links = ({ links = {}, bibtex }) => {
   const [copied, setCopied] = useState(false);
 
   if (!links && !bibtex) return null;
@@ -34,6 +59,7 @@ const Links = ({ links, bibtex }) => {
           arXiv
         </Link>
       )}
+
       {links.pdf && (
         <Link
           href={links.pdf}
@@ -45,6 +71,7 @@ const Links = ({ links, bibtex }) => {
           Paper
         </Link>
       )}
+
       {links.code && (
         <Link
           href={links.code}
@@ -56,6 +83,7 @@ const Links = ({ links, bibtex }) => {
           Code
         </Link>
       )}
+
       {links.website && (
         <Link
           href={links.website}
@@ -80,7 +108,7 @@ const Links = ({ links, bibtex }) => {
         </Link>
       )}
 
-      {/* {links.alphaxiv && (
+      {links.alphaxiv && (
         <Link
           href={links.alphaxiv}
           target="_blank"
@@ -90,7 +118,7 @@ const Links = ({ links, bibtex }) => {
           <ExternalLink className="w-4 h-4" />
           AlphaXiv
         </Link>
-      )} */}
+      )}
 
       {links.video && (
         <Link
@@ -155,56 +183,63 @@ const Links = ({ links, bibtex }) => {
   );
 };
 
-const PaperHeader = ({ paper }) => (
-  <div className="border-b border-zinc-200 dark:border-zinc-800 pb-8 mt-4">
-    <div className="flex flex-col items-center gap-3 mb-2">
-      {/* <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-1" /> */}
-      <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-50 leading-tight text-center mb-2">
-        {paper.title}
-      </h1>
+const PaperHeader = ({ paper }) => {
+  const liveCitations = useCitationCount(paper.doi);
 
-      <h2 className="text-2xl font-semibold text-blue-700 dark:text-blue-300 leading-snug text-center">
-        {paper.conference ? paper.conference : ""}
-      </h2>
-    </div>
+  const citations = liveCitations ?? paper.citations ?? null;
 
-    <AuthorList authors={paper.authors} />
+  return (
+    <div className="border-b border-zinc-200 dark:border-zinc-800 pb-8 mt-4">
+      <div className="flex flex-col items-center gap-3 mb-2">
+        <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-50 leading-tight text-center mb-2">
+          {paper.title}
+        </h1>
 
-    <div className="flex flex-wrap justify-center gap-2 mb-4">
-      {paper.categories.map((cat, idx) => (
-        <span
-          key={idx}
-          className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium"
-        >
-          {cat}
+        <h2 className="text-2xl font-semibold text-blue-700 dark:text-blue-300 leading-snug text-center">
+          {paper.conference ? paper.conference : ""}
+        </h2>
+      </div>
+
+      <AuthorList authors={paper.authors} />
+
+      <div className="flex flex-wrap justify-center gap-2 mb-4">
+        {paper.categories.map((cat, idx) => (
+          <span
+            key={idx}
+            className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium"
+          >
+            {cat}
+          </span>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap justify-center items-center gap-4 text-sm text-zinc-600 dark:text-zinc-400">
+        <span className="flex items-center gap-1">
+          {new Date(paper.publishedDate).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
         </span>
-      ))}
-    </div>
 
-    <div className="flex flex-wrap justify-center items-center gap-4 text-sm text-zinc-600 dark:text-zinc-400">
-      <span className="flex items-center gap-1">
-        {new Date(paper.publishedDate).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        })}
-      </span>
-      {paper.citations && (
-        <>
-          <span>•</span>
-          <span>{paper.citations} citations</span>
-        </>
-      )}
-      {paper.doi && (
-        <>
-          <span>•</span>
-          <span>DOI: {paper.doi}</span>
-        </>
-      )}
-    </div>
+        {citations != null && (
+          <>
+            <span>•</span>
+            <span>{citations} citations</span>
+          </>
+        )}
 
-    <Links links={paper.links} bibtex={paper.bibtex} />
-  </div>
-);
+        {paper.doi && (
+          <>
+            <span>•</span>
+            <span>DOI: {paper.doi}</span>
+          </>
+        )}
+      </div>
+
+      <Links links={paper.links} bibtex={paper.bibtex} />
+    </div>
+  );
+};
 
 export default PaperHeader;

@@ -34,6 +34,8 @@ links:
   alphaxiv: "https://www.alphaxiv.org/abs/2411.04358"
   code: "https://github.com/LCS2-IIITD/MonteCLoRA"
 
+doi:  https://doi.org/10.48550/arXiv.2411.04358
+
 bibtex: |
   @article{seth2025robust,
   title={Robust and efficient fine-tuning of LLMs with bayesian reparameterization of low-rank adaptation},
