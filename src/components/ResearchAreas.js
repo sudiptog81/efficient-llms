@@ -21,7 +21,7 @@ const ResearchAreas = ({ researchAreas = [] }) => (
       </p>
     </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" >
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto" >
       {researchAreas.map((area) => (
         <Link key={area.title} href={`/areas/${area.slug}`} className="p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-zinc-100 dark:border-gray-800 transform hover:scale-[1.02] transition duration-300">
 

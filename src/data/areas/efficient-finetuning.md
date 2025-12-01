@@ -1,6 +1,6 @@
 ---
-title: PEFT Methods
-slug: peft-methods
+title: Efficient Fine-Tuning
+slug: efficient-finetuning
 icon: Binary
 tags:
   - Parameter-Efficient Fine-tuning
