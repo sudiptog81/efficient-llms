@@ -36,21 +36,6 @@ abstract: >
   guide, they do not always generalize across all architectures and training strategies.
 ---
 
-arxiv: <https://arxiv.org/abs/2502.12051>  
-openreview: <https://openreview.net/forum?id=a9BT8G7Hiq>  
-alphaxiv: —
-
-**How to Upscale Neural Networks with Scaling Law?  
-A Survey and Practical Guidelines**  
-*Ayan Sengupta\*, Yash Goel\*, Tanmoy Chakraborty*  
-Indian Institute of Technology Delhi, India  
-`{ayan.sengupta, ee1210984, tanchak}@ee.iitd.ac.in`  
-\*Equal contribution  
-
-arXiv:2502.12051v3 [cs.CL], 27 May 2025  
-
----
-
 ## 1. Introduction
 
 Scaling laws have become a fundamental aspect of modern AI development, especially for large language models (LLMs). In recent years, researchers have identified consistent relationships between model size, dataset volume, and computational resources, demonstrating that increasing these factors leads to systematic improvements in performance. These empirical patterns have been formalized into mathematical principles, known as **scaling laws**, which provide a framework for understanding how the capabilities of neural networks evolve as they grow.
@@ -115,7 +100,7 @@ Figure 2 (in the paper) highlights a **taxonomy tree** for scaling laws research
 
 ### 2.1 Common Functional Form
 
-The most common neural scaling laws take the form of **power laws** (Equation 1), where the model loss \( L \) or performance metric follows a predictable relationship with multiple scaling variables:
+The most common neural scaling laws take the form of **power laws** (Equation 1), where the model loss $ L $ or performance metric follows a predictable relationship with multiple scaling variables:
 
 $$
 L(P_1, \dots, P_n) = \sum_{i=1}^n \alpha_i \cdot P_i^{-\beta_i}
@@ -124,9 +109,9 @@ $$
 
 with:
 
-- Scaling parameters \( \beta_i \),  
-- Fitting parameters \( \alpha_i \),  
-- \( P_i \) representing different scaling parameters (e.g., model size, data size, compute).
+- Scaling parameters $ \beta_i $,  
+- Fitting parameters $ \alpha_i $,  
+- $ P_i $ representing different scaling parameters (e.g., model size, data size, compute).
 
 Figure 3b highlights that:
 
@@ -238,8 +223,8 @@ Recent research has challenged linear extrapolations:
 
 According to **Tay et al. (2022)**, the vanilla Transformer consistently demonstrates superior scaling properties:
 
-- Performance \( P \propto C^\alpha \),  
-- Where \( C \) represents compute, and \( \alpha \) are fitted parameters.
+- Performance $ P \propto C^\alpha $,  
+- Where $ C $ represents compute, and $ \alpha $ are fitted parameters.
 
 Alternative architectures:
 
@@ -258,9 +243,9 @@ $$
 
 where:
 
-- \( E \): downstream error,  
-- \( C \): compute,  
-- \( a, b, c, d \): fitting parameters.
+- $ E $: downstream error,  
+- $ C $: compute,  
+- $ a, b, c, d $: fitting parameters.
 
 In multimodal models, **Li et al. (2024a)** show that simply scaling up vision encoders does not consistently improve performance, indicating that scaling benefits are not uniform across modalities.
 
@@ -285,8 +270,8 @@ $$
 
 where:
 
-- \( r_j \): mixture ratio of source \( j \),  
-- \( t_{ij} \): interaction parameters.
+- $ r_j $: mixture ratio of source $ j $,  
+- $ t_{ij} $: interaction parameters.
 
 **Liu et al. (2024)** and **Kang et al. (2024)** develop proxy models (**REGMIX**, **AUTOSCALE**) to pre-optimize mixtures.
 
@@ -302,10 +287,10 @@ $$
 
 where:
 
-- \( N \): number of parameters,  
-- \( D \): dataset size,  
-- \( r \): mixture ratio,  
-- \( E, A, B, C, \alpha, \beta, \gamma, \eta, \epsilon \): fitting parameters.
+- $ N $: number of parameters,  
+- $ D $: dataset size,  
+- $ r $: mixture ratio,  
+- $ E, A, B, C, \alpha, \beta, \gamma, \eta, \epsilon $: fitting parameters.
 
 #### Synthesis and Guidelines (RQ3)
 
@@ -324,13 +309,13 @@ where:
 
 Recent research on test-time computation and model-size scaling has revealed:
 
-- **Brown et al. (2024)**: repeated sampling during inference significantly enhances model performance. Coverage \( C \) (fraction of problems solved) follows an exponentiated power-law relationship with the number of samples \( k \):
+- **Brown et al. (2024)**: repeated sampling during inference significantly enhances model performance. Coverage $ C $ (fraction of problems solved) follows an exponentiated power-law relationship with the number of samples $ k $:
 
   $$
   \log(C) = a k^{-b},
   $$
 
-  with \( a, b \) as fitting parameters.
+  with $ a, b $ as fitting parameters.
 
 - **Wu et al. (2024)**: sophisticated test-time computation strategies (e.g., iterative refinement, tree search) with smaller models can be **more cost-effective** than using larger models with naive inference. They establish a relationship between inference computational budget and optimal model size for compute-efficient inference:
 
@@ -351,14 +336,14 @@ Recent research on test-time computation and model-size scaling has revealed:
 
 Fine-tuning scaling reflects how pre-trained models adapt across tasks and domains.
 
-- **Hernandez et al. (2021)** introduce a transfer scaling law based on effective transferred data \( D_t \):
+- **Hernandez et al. (2021)** introduce a transfer scaling law based on effective transferred data $ D_t $:
 
   $$
   D_t(D_f, N) = k (D_f)^\alpha (N)^\beta,
   \tag{8}
   $$
 
-  where \( D_f \) is fine-tuning data, \( N \) model size.
+  where $ D_f $ is fine-tuning data, $ N $ model size.
 
 - **Lin et al. (2024a)** refine this with a rectified law:
 
@@ -425,9 +410,9 @@ $$
 
 where:
 
-- \( S \): sparsity,  
-- \( N \): number of non-zero parameters,  
-- \( D \): dataset size.
+- $ S $: sparsity,  
+- $ N $: number of non-zero parameters,  
+- $ D $: dataset size.
 
 For MoE models, where only a subset of parameters is activated per input, **Clark et al. (2022)** propose:
 
@@ -436,23 +421,23 @@ $$
 \tag{14}
 $$
 
-where \( E \) denotes expansion factor (experts).
+where $ E $ denotes expansion factor (experts).
 
-**Yun et al. (2024)** extend this to include dataset size \( D \):
+**Yun et al. (2024)** extend this to include dataset size $ D $:
 
 $$
 \log L(N, D, E) = \log\left(\frac{a}{b} + \frac{N^\alpha}{E^\beta} + \frac{c}{D^\gamma} + f\right) + d \log N \log E.
 \tag{15}
 $$
 
-**Krajewski et al. (2024)** introduce a granularity parameter \( G \) to refine the Chinchilla-style formulation:
+**Krajewski et al. (2024)** introduce a granularity parameter $ G $ to refine the Chinchilla-style formulation:
 
 $$
 L(N, D, G) = c + \frac{g}{G^\gamma} + a\left(\frac{1}{b} + \frac{N^\alpha}{D^\beta}\right).
 \tag{16}
 $$
 
-Structured pruning approaches are formalized through the **P2 law** (Chen et al., 2024b), relating post-pruning loss to pre-pruning model size \( N_0 \), pruning ratio \( \rho \), and post-training token count \( D \):
+Structured pruning approaches are formalized through the **P2 law** (Chen et al., 2024b), relating post-pruning loss to pre-pruning model size $ N_0 $, pruning ratio $ \rho $, and post-training token count $ D $:
 
 $$
 L(N_0, D, \rho, L_0) = L_0
@@ -467,11 +452,11 @@ $$
 
 where:
 
-- \( L_0 \): uncompressed model loss,  
-- \( \rho \): pruning rate,  
-- \( N_0 \): pre-pruning model size,  
-- \( D \): post-training tokens,  
-- \( N_C, D_C, E, \alpha, \beta, \gamma \): fitting parameters.
+- $ L_0 $: uncompressed model loss,  
+- $ \rho $: pruning rate,  
+- $ N_0 $: pre-pruning model size,  
+- $ D $: post-training tokens,  
+- $ N_C, D_C, E, \alpha, \beta, \gamma $: fitting parameters.
 
 #### Synthesis and Guidelines (RQ6)
 
@@ -507,10 +492,10 @@ $$
 
 where:
 
-- \( P_w, P_a, P_{kv} \): training precision of weights, activations, and attention,  
-- \( P_{\text{post}} \): end-time weight precision,  
-- \( \delta_{\text{PTQ}} \): loss due to post-training quantization,  
-- \( \alpha, \beta \): fitting parameters.
+- $ P_w, P_a, P_{kv} $: training precision of weights, activations, and attention,  
+- $ P_{\text{post}} $: end-time weight precision,  
+- $ \delta_{\text{PTQ}} $: loss due to post-training quantization,  
+- $ \alpha, \beta $: fitting parameters.
 
 #### Synthesis and Guidelines (RQ7)
 
@@ -533,7 +518,7 @@ Multimodal scaling builds upon, but does not simply replicate, unimodal trends.
   L(x) = A x^{-\alpha} + B,
   $$
 
-  where \( x \) represents model size, data, or compute.
+  where $ x $ represents model size, data, or compute.
 
 - **Alabdulmohsin et al. (2022)** refine this into a more flexible sigmoid-like form:
 
@@ -558,7 +543,7 @@ L(N, D_i, D_j) =
 \tag{20}
 $$
 
-where \( C_{i,j} \) captures degree of positive interaction between modalities \( i \) and \( j \).
+where $ C_{i,j} $ captures degree of positive interaction between modalities $ i $ and $ j $.
 
 #### Synthesis and Guidelines (RQ8)
 

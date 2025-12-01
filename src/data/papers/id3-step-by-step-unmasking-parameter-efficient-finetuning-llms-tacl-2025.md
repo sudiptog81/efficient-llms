@@ -1,6 +1,6 @@
 ---
 title: "Step-by-Step Unmasking for Parameter-Efficient Fine-tuning of Large Language Models"
-slug: "id3-step-by-step-unmasking-parameter-efficient-finetuning-llms"
+slug: "id3-step-by-step-unmasking-parameter-efficient-finetuning-llms-tacl-2025"
 publishedDate: "2024-08-27"
 conference: "TACL 2025"
 categories:
@@ -123,13 +123,13 @@ $$
   - Gradient: $ \nabla_{\theta_i} $
 - Hyperparameters:
   - $ \epsilon > 0 $: smoothing,
-  - `exp`: controls how much the magnitude term matters.
+  - $exp$: controls how much the magnitude term matters.
 
 Nice properties:
 
-- If `exp = 0` → purely gradient-based → approximates **Fisher-style** importance (Fish).
-- If `exp → ∞` → magnitude term dominates → magnitude-only → **PaFi-style** importance.
-- Intermediate `exp` mixes both.
+- If $exp = 0$ → purely gradient-based → approximates **Fisher-style** importance (Fish).
+- If $exp → ∞$ → magnitude term dominates → magnitude-only → **PaFi-style** importance.
+- Intermediate $exp$ mixes both.
 
 So **D3** (“Dynamic magnitude and graDient-based heuristic”) interpolates between gradient-based and magnitude-based heuristics.
 
