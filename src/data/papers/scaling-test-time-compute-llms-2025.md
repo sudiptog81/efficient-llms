@@ -57,6 +57,18 @@ Test-time scaling (TTS) has emerged as a critical method to enhance the reasonin
 
 ---
 ![Teaser Image](/resources/scaling-test-time-compute-llms-2025/figures/teaser.png) 
+
+Figure 1: Plots of shortest (cyan), majority-voted (purple), and beam-searched (red) trace
+performances for short-horizon (left), long-horizon (middle), and non-reasoning (right)
+models. Short-horizon models include R1, DAPO-32B, and QwQ-32B; long-horizon mod-
+els include and Qwen3-32B, GPT-OSS-120B and R1-32B; and non-reasoning models include
+Qwen3-235B-Instruct and DeepSeek-Chat. Performance is measured using average accuracy
+on the AIME 2024–2025 and GPQA Diamond datasets. Shaded regions show the optimal
+TTS strategy by compute budget: shortest for low compute, beam search for medium, ma-
+jority voting for high. The plot illustrates that there is no free lunch for TTS strategies: no
+single strategy is optimal and optimality depends on compute budget. This highlights the
+need for a principled, model-aware approach to determine the best scaling strategy at test-
+time. Marker size increases with N (N ≥2); N is the number of parallel traces sampled.
 ---
 While early studies explored sequential scaling (extending reasoning traces) and parallel scaling (majority voting), the field currently lacks a unified framework. Recent findings have been contradictory:
 * **Muennighoff et al. (2025)** suggest extending reasoning traces helps.
@@ -111,6 +123,7 @@ $$
 
 ---
 ![TTS Techniques](/resources/scaling-test-time-compute-llms-2025/figures/tts_techniques_cropped.pdf)
+Figure 2: Different TTS paradigms
 ---
 
 ## 3. Research Questions and Guidelines
@@ -200,13 +213,13 @@ Based on the empirical results, the paper proposes a decision matrix for practit
 ![FFS all models](/resources/scaling-test-time-compute-llms-2025/figures/FFS_all_models.jpg)
 ---
 
-Figure 4: Accuracy versus token usage for First Finish Search (FFS) across different model families. Distinct colors represent different values of k, while marker size represents N. The results demonstrate that FFS is particularly effective for short-horizon models, allowing them to scale performance while prioritizing concise reasoning.
+Figure 3: Accuracy versus token usage for First Finish Search (FFS) across different model families. Distinct colors represent different values of k, while marker size represents N. The results demonstrate that FFS is particularly effective for short-horizon models, allowing them to scale performance while prioritizing concise reasoning.
 
 ---
 ![LFS all models](/resources/scaling-test-time-compute-llms-2025/figures/LFS_all_models.jpg)
 ---
 
-Figure 5: Accuracy versus token usage for Last Finish Search (LFS) across different model families. The results illustrate that LFS is consistently suboptimal compared to Majority Voting, as prioritizing longer traces often fails to improve accuracy despite higher compute costs.
+Figure 4: Accuracy versus token usage for Last Finish Search (LFS) across different model families. The results illustrate that LFS is consistently suboptimal compared to Majority Voting, as prioritizing longer traces often fails to improve accuracy despite higher compute costs.
 ## 5. Conclusion
 
 "The Art of Scaling Test-Time Compute" challenges the monolithic view of inference scaling. It demonstrates that there is **no free lunch**:
