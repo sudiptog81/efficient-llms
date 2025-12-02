@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { Geist, Geist_Mono } from "next/font/google";
 import ThemeToggle from './ThemeToggle';
+import ParmanuLogo from '../../public/parmanu.png';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,11 +31,11 @@ export default function Navbar() {
         <div className="flex items-center space-x-2">
           <Link href="/" className={`${geistSans.variable} ${geistMono.variable} text-xl font-semibold`}>
             <Image
-              src="/parmanu.svg"
+              src={ParmanuLogo}
               alt="Parmanu @ LCS2 IIT Delhi"
-              width={150}
+              priority
               height={150}
-              className='dark:brightness-[180%]'
+              className='dark:brightness-[180%] h-15 w-auto'
             />
           </Link>
         </div>
