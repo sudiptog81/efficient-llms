@@ -106,7 +106,7 @@ const Links = ({ links = {}, bibtex }) => {
         </Link>
       )}
 
-      {/* {links.alphaxiv && (
+      {links.alphaxiv && (
         <Link
           href={links.alphaxiv}
           target="_blank"
@@ -116,7 +116,7 @@ const Links = ({ links = {}, bibtex }) => {
           <ExternalLink className="w-4 h-4" />
           AlphaXiv
         </Link>
-      )} */}
+      )}
 
       {links.video && (
         <Link
