@@ -11,8 +11,6 @@
       border-collapse: collapse !important;
       border-color: inherit !important;
       display: block !important; /* Crucial for overflow */
-      width: max-content !important; /* Allows table to expand */
-      max-width: 100% !important; /* Prevents overflow beyond container */
       overflow: auto !important; /* Adds scrollbars if content overflows */
   }
 
