@@ -46,7 +46,7 @@ const Links = ({ links = {}, bibtex }) => {
 
   return (
     <div className="flex flex-wrap gap-4 pt-8 justify-center">
-      {!links.pdf && links.arxiv && (
+      {(!links.pdf || links.pdf.includes('xiv.')) && links.arxiv && (
         <Link
           href={links.arxiv}
           target="_blank"
@@ -199,7 +199,7 @@ const PaperHeader = ({ paper }) => {
 
       <AuthorList authors={paper.authors} />
 
-      <div className="flex flex-wrap justify-center gap-2">
+      <div className="flex flex-wrap justify-center gap-2 pt-4">
         {paper.categories.map((cat, idx) => (
           <span
             key={idx}

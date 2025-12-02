@@ -1,7 +1,7 @@
 ---
 title: Efficient Architectures
 slug: efficient-architectures
-icon: Waypoints
+icon: Cog
 tags:
   - Efficient Architectures
   - Transformers

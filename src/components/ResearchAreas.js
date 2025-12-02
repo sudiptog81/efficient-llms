@@ -1,4 +1,4 @@
-import { Zap, Package, ChartSpline, Waypoints, Scissors, Merge, Binary, BookCopy } from "lucide-react";
+import { Zap, Package, ChartSpline, Waypoints, Scissors, Merge, Binary, BookCopy, Cog } from "lucide-react";
 import Link from "next/link";
 
 const ICONS = {
@@ -9,7 +9,8 @@ const ICONS = {
   Scissors,
   Merge,
   Binary,
-  BookCopy
+  BookCopy,
+  Cog
 };
 
 const ResearchAreas = ({ researchAreas = [] }) => (

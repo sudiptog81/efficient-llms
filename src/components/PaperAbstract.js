@@ -3,7 +3,7 @@ const Abstract = ({ abstract }) => (
     <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
       Abstract
     </h2>
-    <p className="text-lg leading-relaxed text-zinc-700 dark:text-zinc-300" dangerouslySetInnerHTML={{ __html: abstract }} />
+    <p className="text-md leading-relaxed text-zinc-700 dark:text-zinc-300" dangerouslySetInnerHTML={{ __html: abstract }} />
   </div>
 );
 

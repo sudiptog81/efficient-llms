@@ -123,7 +123,8 @@ $$
 $$
 
 ---
-![TTS Techniques](/resources/scaling-test-time-compute-llms-2025/figures/tts_techniques_cropped.pdf)
+<embed src="/resources/scaling-test-time-compute-llms-2025/figures/tts_techniques_cropped.pdf" type="application/pdf" width="100%" height="600px" />
+
 Figure 2: Different TTS paradigms
 
 ---
