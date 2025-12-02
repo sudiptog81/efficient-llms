@@ -31,7 +31,7 @@ export default function Document() {
           `}
         </Script>
         <Script id="script-setTheme" dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
-        <meta name="og:image" content="/parmanu.png" />
+        <meta name="og:image" content="https://parmanu.lcs2.in/parmanu.png" />
       </Head>
       <body className="antialiased">
         <Main />

@@ -22,14 +22,16 @@ const ResearchAreas = ({ researchAreas = [] }) => (
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto" >
-      {researchAreas.map((area) => (
+      {researchAreas.map((area, index) => (
         <Link key={area.title} href={`/areas/${area.slug}`} className="p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-zinc-100 dark:border-gray-800 transform hover:scale-[1.02] transition duration-300">
 
           <div className="flex flex-row align-center items-center gap-4">
-            <div className="p-3 bg-indigo-50 dark:bg-gray-800 rounded-lg inline-flex" suppressHydrationWarning>
+            <div className={`p-3 ${index % 2 === 0 ? 'bg-indigo-500 dark:bg-indigo-400' : 'bg-red-400'} rounded-lg inline-flex`}
+            >
+              {/* <div className="p-3 bg-indigo-50 dark:bg-gray-800 rounded-lg inline-flex" suppressHydrationWarning> */}
               {(() => {
                 const IconComp = ICONS[area.icon] || Zap;
-                return <IconComp className="w-6 h-6 text-zinc-900 dark:text-white" />;
+                return <IconComp className="w-6 h-6 text-white" />;
               })()}
             </div>
             <h3 className="text-xl font-semibold">{area.title}</h3>
