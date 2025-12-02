@@ -8,6 +8,7 @@ categories:
   - KV Cache Compression
   - Long-Context Inference
   - Model Efficiency
+  - Model Compression
   - Large Language Models
   - Attention Mechanisms
 authors:

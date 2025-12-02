@@ -4,7 +4,7 @@ slug: "id3-step-by-step-unmasking-parameter-efficient-finetuning-llms-tacl-2025"
 publishedDate: "2024-08-27"
 conference: "TACL 2025"
 categories:
-  - Parameter-Efficient Fine-Tuning
+  - Efficient FineTuning
   - Model Compression
   - Sparse Training
   - NLP

@@ -8,6 +8,7 @@ categories:
   - Deep Learning
   - NLP
   - Representation Learning
+  - Efficient Inference
 authors:
   - name: "Ayan Sengupta"
     affiliation: "IIT Delhi, India"
