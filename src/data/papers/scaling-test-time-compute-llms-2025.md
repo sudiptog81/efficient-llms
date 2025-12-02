@@ -57,7 +57,7 @@ Test-time scaling (TTS) has emerged as a critical method to enhance the reasonin
 
 ---
 ![Teaser Image](/resources/scaling-test-time-compute-llms-2025/figures/teaser.png) 
-
+---
 Figure 1: Plots of shortest (cyan), majority-voted (purple), and beam-searched (red) trace
 performances for short-horizon (left), long-horizon (middle), and non-reasoning (right)
 models. Short-horizon models include R1, DAPO-32B, and QwQ-32B; long-horizon mod-
@@ -69,6 +69,7 @@ jority voting for high. The plot illustrates that there is no free lunch for TTS
 single strategy is optimal and optimality depends on compute budget. This highlights the
 need for a principled, model-aware approach to determine the best scaling strategy at test-
 time. Marker size increases with N (N ≥2); N is the number of parallel traces sampled.
+
 ---
 While early studies explored sequential scaling (extending reasoning traces) and parallel scaling (majority voting), the field currently lacks a unified framework. Recent findings have been contradictory:
 * **Muennighoff et al. (2025)** suggest extending reasoning traces helps.
@@ -124,6 +125,7 @@ $$
 ---
 ![TTS Techniques](/resources/scaling-test-time-compute-llms-2025/figures/tts_techniques_cropped.pdf)
 Figure 2: Different TTS paradigms
+
 ---
 
 ## 3. Research Questions and Guidelines
