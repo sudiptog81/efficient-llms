@@ -222,7 +222,7 @@ Future work must move toward **Model-Aware Inference**, where the scaling strate
 
 ---
 
-### 3. Trace Length, Problem Difficulty, and Model Behavior
+### 1. Trace Length, Problem Difficulty, and Model Behavior
 
 | Category | Model | Behavior Description | Easy Accuracy (Short) | Easy Accuracy (Long) | Hard Accuracy (Short) | Hard Accuracy (Long) |
 | :----- | :----- | :----- | :----- | :----- | :----- | :----- |
@@ -237,7 +237,7 @@ Future work must move toward **Model-Aware Inference**, where the scaling strate
 
 ---
 
-### 4. Summary of Key Qualitative Findings
+### 2. Summary of Key Qualitative Findings
 
 | Finding Category | Observation |
 | :--- | :--- |
