@@ -32,7 +32,7 @@ export default function AreaPage({ area, contentHtml, papersForArea }) {
         <meta property="og:description" content={area.summary} />
         <meta property="og:type" content="website" />
       </Head>
-      <main className="max-w-4xl mx-auto px-6">
+      <main className="max-w-6xl mx-auto px-6">
         <div className="overflow-hidden">
           <div className="pt-8 md:pt-12 pb-4">
             <h2
