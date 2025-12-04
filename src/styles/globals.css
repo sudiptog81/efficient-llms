@@ -6,6 +6,10 @@
   overflow: auto hidden;
 }
 
+.hljs {
+  background: transparent;
+}
+
 .prose {
   table {
       border-spacing: 0 !important;
