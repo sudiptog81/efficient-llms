@@ -2,13 +2,15 @@ import React from 'react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { common } from 'lowlight';
 import { remark } from 'remark';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import rehypeKatex from 'rehype-katex';
+import rehypeHighlight from 'rehype-highlight';
 import rehypeStringify from 'rehype-stringify';
-import Link from 'next/link';
+import python from 'highlight.js/lib/languages/python';
 import BaseLayout from '@/layouts/BaseLayout';
 import PaperHeader from '@/components/PaperHeader';
 import Abstract from '@/components/PaperAbstract';
@@ -79,6 +81,7 @@ export async function getStaticProps({ params }) {
       .use(remarkGfm)
       .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeKatex)
+      .use(rehypeHighlight, { detect: true, languages: { ...common, python } })
       .use(rehypeStringify, { allowDangerousHtml: true })
       .process(content);
     const contentHtml = processedContent.toString();
