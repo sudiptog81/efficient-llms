@@ -485,3 +485,51 @@ On LongBench and Ruler:
 In short, if you care about long-context LLM inference on limited memory, CurDKV gives you a
 principled, value-driven way to aggressively shrink the KV cache without throwing your model’s
 brains out with the tokens.
+
+## 10. Working Example 
+
+### Example: Using CURPress with Llama-3.2-3B-Instruct
+
+```python
+from transformers import pipeline
+from kvpress import CURPress
+
+# Base model and device
+device = "cuda:0"  # use "cpu" if you don't have a GPU
+model = "meta-llama/Llama-3.2-3B-Instruct"
+
+
+# KV-Press-aware pipeline
+pipe = pipeline(
+    "kv-press-text-generation",  # custom task provided by kvpress
+    model=model,
+    device=device,
+    model_kwargs=model_kwargs,
+)
+
+# Long context you want to compress once
+context = "A very long text you want to compress once and for all"
+
+# Optional question/query over the compressed context
+question = "\nA question about the compressed context"
+
+# Configure CURPress
+press = CURPress(
+    compression_ratio=0.5,          # keep ~50% of KV cache
+    leverage_type="kv_product",     # leverage scores from key–value product
+    use_random_leverage=False,      # deterministic, policy-based selection
+    use_local_approximation=True,   # local approximations for efficiency
+    local_window_size=16,           # window size for local approximation
+)
+
+# Run compressed-context generation
+result = pipe(
+    context,
+    question=question,
+    press=press,  # pass the CURPress object into the pipeline
+)
+
+answer = result["answer"]
+print(answer)
+
+```
