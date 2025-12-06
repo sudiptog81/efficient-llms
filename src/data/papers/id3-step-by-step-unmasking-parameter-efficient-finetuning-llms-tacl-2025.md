@@ -21,7 +21,7 @@ authors:
 abstract: "Fine-tuning large language models is expensive, and selective PEFT methods try to reduce cost by updating only a small subset of parameters. However, most existing selective approaches rely on a static mask chosen once via a heuristic, which can lock in bad choices and limit performance. This work proposes ID3, a dynamic selective PEFT framework that repeatedly recomputes parameter importance, gradually unmasks parameters over training, and balances exploration and exploitation of the parameter space. ID3 introduces: (i) increment-S, an incremental masking schedule that provably halves the number of effective gradient updates compared to static masking; and (ii) D3, a magnitude-and-gradient-based importance metric that subsumes prior Fisher- and magnitude-based heuristics as special cases. Across 16 tasks spanning GLUE, NER, summarization, and math reasoning, ID3 consistently outperforms static selective PEFT baselines and can even match or surpass full fine-tuning while updating as little as 0.17% of parameters. The method is architecture- and PEFT-agnostic, integrating cleanly with adapters and LoRA, and is released as an open-source selective PEFT toolkit."
 links:
   openreview: "https://openreview.net/forum?id=wHcA9iXUVb"
-  pdf: "https://www.alphaxiv.org/pdf/2408.14470v1.pdf"
+  pdf: "https://arxiv.org/pdf/2408.14470v1"
   alphaxiv: "https://www.alphaxiv.org/abs/2408.14470"
   code: "https://github.com/Aradhye2002/selective-peft-toolkit"
 bibtex: | 
