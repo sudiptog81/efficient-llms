@@ -17,7 +17,7 @@ authors:
   - name: "Tanmoy Chakraborty"
     affiliation: "IIT Delhi, India"
 abstract: "This work proposes TransJect, an encoder-only Transformer with enforced injectivity and Lipschitz continuity. By combining orthogonal attention, injective residual connections, and mixture-of-experts, TransJect preserves pairwise distances between token representations across layers, achieves lower entropy, and improves accuracy on both short- and long-sequence benchmarks while also reducing perplexity for language modeling."
-citations: 1
+
 doi: "10.18653/v1/2023.findings-emnlp.228"
 links:
   arxiv: "https://arxiv.org/abs/2310.14206"
@@ -36,74 +36,46 @@ bibtex: |
 
 ---
 
-## Introduction
+![Teaser Image](/resources/transject-manifold-preserving-transformers-2023/Transject_Header.png) 
 
-Transformer encoders excel at modeling short- and long-range dependencies but struggle to **preserve the geometry of token representations across layers**. Standard self-attention tends to project tokens onto sparse manifolds, increasing distances between semantically related tokens and inflating representational entropy.
+*Figure: Diagram of TransJect’s manifold‑preserving encoder. Orthogonal attention and injective residuals keep token geometries intact, enabling deeper, more efficient models.  <small>Image generated with Gemini AI.</small>*
 
-This paper introduces **TransJect**, a manifold-preserving Transformer encoder that:
-- Enforces **injectivity** (different tokens remain distinct at every layer),
-- Maintains a **theoretical bound on pairwise distance distortion**, and
-- Supports **scalable deep architectures** with better information propagation.
+### TL;DR
 
-The goal is to make deep Transformers more stable, reversible in a controlled sense, and efficient for long-range encoding.
+Deep transformers often warp the “shape” of your data: semantically similar tokens drift apart as layers stack up. **TransJect** reimagines the encoder with orthogonal attention and injective connections to keep representations geometrically faithful while still scaling deep. The result? Stronger performance on both short and long sequences, plus faster inference.
 
+### Why this research?
 
-## Key Innovations
+Standard transformer encoders are brilliant at capturing both local and global dependencies, yet they have a blind spot: as layers deepen, **token representations get stretched and scrambled**. Self‑attention projects embeddings onto sparse manifolds, inflating distances between related tokens and increasing representational entropy. This makes it hard to build very deep or reversible models and leads to unstable information flow.
 
-1. **Manifold-Preserving Orthogonal Attention**  
-   - Uses orthogonal projections and shared eigenvalues to keep the **relative geometry of tokens stable across layers**.
+**TransJect** tackles this by imposing mathematical structure on the encoder. It combines **orthogonal attention** with an **injective residual connection** to ensure that different tokens remain distinct and that pairwise distances change only within a provable bound. By controlling Lipschitz constants, TransJect supports much deeper architectures without the usual information degradation.
 
-2. **Injective, Reversible-Like Encoder**  
-   - Provides formal guarantees that **distinct inputs never collide** in representation space, a step toward reversible deep NLP models.
+### Main insights
 
-3. **Entropy–Sparsity Connection**
+* **Geometry matters:** Orthogonal projections and shared eigenvalues keep the relative geometry of tokens stable across layers.
+* **Injectivity & reversibility:** The encoder guarantees that distinct inputs never collide in representation space, moving toward reversible NLP models.
+* **Entropy–sparsity connection:** Lower activation bounds correlate with lower representational entropy, analogous to thermodynamic reversibility.
+* **Orderly sparsity:** A mixture‑of‑experts design encourages balanced specialization and lower entropy compared to standard multi‑head attention.
+* **Deep scaling without collapse:** Controlling Lipschitz constants allows very deep encoders to maintain information flow.
 
-   - Empirically links **lower activation bounds** to **lower representational entropy**, drawing an analogy to thermodynamic reversibility in physical systems.
+### Results at a glance
 
-4. **Mixture-of-Experts with Orderly Sparsity**
+| Task/Domain | Improvement |
+|---|---|
+| **IMDb (short sequences)** | Up to **+6.8 pp accuracy** over vanilla Transformer |
+| **AGNews** | Random‑TransJect variant slightly surpasses TransJect |
+| **Long Range Arena (LRA)** | Competitive or SOTA versus BigBird, Linformer, Performer, Skyformer |
+| **Penn Treebank (PTB)** | ~**79% lower test perplexity** than vanilla Transformer |
+| **Efficiency** | **13×–26× faster** on long character sequences due to linear attention |
 
-   - Experts show **balanced utilization and lower entropy** than standard multi-head attention, suggesting more structured specialization.
+Beyond numbers, TransJect maintains an activation factor around **1** across layers, whereas standard transformers exhibit growing activation factors and entropy. This indicates stable, low‑entropy representations through depth.
 
-5. **Theoretically-Grounded Deep Scaling**
+### Keywords
 
-   - By controlling Lipschitz constants and injectivity, TransJect supports **very deep encoders** without the usual degradation in information flow.
-
-## Results
-
-Experiments cover:
-
-- **Short-sequence classification** (IMDb, AGNews)
-- **Long Range Arena (LRA)** tasks (ListOps, CharIMDb, AAN retrieval, Pathfinder, CIFAR-10)
-- **Language modeling** on **Penn Treebank (PTB)**
-
-Key findings:
-
-- **Short sequences**:  
-  - On IMDb, TransJect improves accuracy by up to **6.8 percentage points** over a vanilla Transformer baseline.  
-  - On AGNews, a random-eigenvalue variant (Random-TransJect) slightly surpasses TransJect, indicating that injected randomness can help in limited-context settings.
-
-- **Long sequences (LRA)**:  
-  - TransJect achieves **state-of-the-art or competitive performance** across several tasks, outperforming strong baselines like BigBird, Linformer, Performer, and Skyformer on multiple benchmarks.
-  - Particularly strong on **hierarchical (ListOps)** and **spatial (Pathfinder)** tasks, showing robustness in both temporal and spatial long-range dependencies.
-
-- **Language modeling (PTB)**:  
-  - TransJect reports about **79% lower test perplexity** than a vanilla Transformer.  
-  - Even compared to ReZero-augmented Transformers (which already improve signal propagation), TransJect achieves further gains.
-
-- **Activation bound & entropy analysis**:  
-  - TransJect has an empirical **activation factor ≈ 1** across layers, versus much larger factors for standard Transformers.  
-  - **Entropy remains low and stable** across depth, unlike vanilla Transformers where entropy increases with depth, signaling more random, irreversible behavior.
-
-- **Efficiency**:  
-  - Despite having more parameters in some configurations, TransJect achieves up to **13×–26× test-time speedups** on long-sequence character-level tasks, thanks to its **linear attention complexity in sequence length**.
-
-## Conclusion
-
-TransJect shows that **enforcing geometric structure and injectivity in Transformer encoders** is not just a mathematical flex; it yields tangible benefits:
-
-- Better **distance preservation** and **context propagation** across layers,
-- More **ordered, low-entropy representations**,
-- Strong gains on both **short- and long-range sequence tasks**, and
-- Significant **efficiency improvements** for long sequences.
-
-The work suggests a design philosophy where deep NLP models are built not only to be expressive, but also **manifold-aware, Lipschitz-controlled, and thermodynamically sane**, opening doors to deeper, more reversible, and more interpretable architectures.
+| Term | Description |
+|---|---|
+| **TransJect** | A manifold‑preserving transformer encoder with orthogonal attention and injective residuals |
+| **Injectivity** | Ensuring distinct tokens remain distinct across all layers |
+| **Orthogonal Attention** | Using orthogonal projections to preserve pairwise distances |
+| **Entropy–Sparsity** | Empirical link between bounded activations and low representational entropy |
+| **Deep Scaling** | Controlling Lipschitz constants to enable deeper, reversible models |
