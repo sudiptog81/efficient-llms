@@ -6,3 +6,4 @@ tools:
   - name: Selective PEFT Toolkit
     description: This toolkit provides a flexible framework for selectively fine-tuning large language models using different selective Parameter-Efficient Fine-Tuning (PEFT) methods.
     link: https://pypi.org/project/selective-optimizers/
+    image: /tools/selective-peft.jpg
