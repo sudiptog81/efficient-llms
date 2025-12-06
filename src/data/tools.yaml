@@ -4,4 +4,4 @@ tools:
     link: https://github.com/NVIDIA/kvpress/blob/main/kvpress/presses/cur_press.py
   - name: Selective PEFT Toolkit
     description: This toolkit provides a flexible framework for selectively fine-tuning large language models using different selective Parameter-Efficient Fine-Tuning (PEFT) methods.
-    link: https://github.com/Aradhye2002/selective-peft-toolkit
+    link: https://pypi.org/project/selective-optimizers/
