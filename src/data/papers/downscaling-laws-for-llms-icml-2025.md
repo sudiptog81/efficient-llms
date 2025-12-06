@@ -10,6 +10,7 @@ categories:
   - Model Efficiency
   - Sustainability
   - Large Language Models
+  - Efficient Architectures
 authors:
   - name: "Ayan Sengupta"
     affiliation: "IIT Delhi, India"

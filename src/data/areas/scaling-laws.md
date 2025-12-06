@@ -3,7 +3,7 @@ title: Efficient Scaling Laws
 slug: scaling-laws
 icon: ChartSpline
 tags:
-  - Efficient Scaling Laws
+  - Scaling Laws
 summary: 
 ---
 

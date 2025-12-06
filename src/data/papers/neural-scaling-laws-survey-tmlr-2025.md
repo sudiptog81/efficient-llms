@@ -8,6 +8,7 @@ categories:
   - Scaling Laws
   - Neural Networks
   - Large Language Models
+  - Efficient Architectures
   - Model Efficiency
   - Survey
 authors:

@@ -9,6 +9,7 @@ categories:
   - NLP
   - Representation Learning
   - Efficient Inference
+  - Efficient Architectures
 authors:
   - name: "Ayan Sengupta"
     affiliation: "IIT Delhi, India"

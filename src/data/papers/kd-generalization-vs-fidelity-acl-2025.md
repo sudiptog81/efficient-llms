@@ -5,7 +5,7 @@ publishedDate: "2025-08-04"
 conference: "ACL 2025"
 categories:
   - Knowledge Distillation
-  - Model Compression
+  - Efficient Architectures
   - Large Language Models
   - Reasoning
   - NLP

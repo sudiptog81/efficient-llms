@@ -5,7 +5,6 @@ publishedDate: "2024-08-27"
 conference: "TACL 2025"
 categories:
   - Parameter-Efficient Fine-tuning
-  - Model Compression
   - Sparse Training
   - NLP
   - Transformers

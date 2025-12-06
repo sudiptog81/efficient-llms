@@ -5,9 +5,8 @@ publishedDate: "2025-01-30"
 conference: ICLR 2025
 categories:
   - Model Compression
-  - Large Language Models
   - Pruning
-  - Transformers
+  - Efficient Architectures
 authors:
   - name: "Ayan Sengupta"
     affiliation: "IIT Delhi, India"

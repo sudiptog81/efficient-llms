@@ -4,7 +4,6 @@ slug: efficient-architectures
 icon: Cog
 tags:
   - Efficient Architectures
-  - Transformers
   - Sparse Models
   - Mixture-of-Experts
   - Systems
@@ -30,7 +29,7 @@ Efficient architectures rethink how LLMs should be built, not just shrunk. As sc
 * **PruneNet** (Calibration-Free Structured Pruning) — demonstrates that architectures should expose spectral structure so pruning can be done once, without data or calibration.
 * **Downscaling Laws** — provide theoretical grounding for models that shrink gracefully, supporting efficient ensembles and pruning-aware designs.
 * **Generalization vs Fidelity Paradox in KD** — reveals that architecture must support fidelity-preserving training, not just accuracy gains.
-* **Collaborative **KD** — shows how teacher–student architectures co-adapt, reducing brittleness and improving sample efficiency.
+* **Collaborative KD** — shows how teacher–student architectures co-adapt, reducing brittleness and improving sample efficiency.
 * **Scaling Law Survey** — situates all these results within a broader theory of how architectures should be shaped to scale up and down reliably.
 
 Together, these works present a unified view: efficient architecture is a geometric, algorithmic, and systems-level principle—not a post-hoc optimization trick.
