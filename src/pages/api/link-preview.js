@@ -37,6 +37,15 @@ export default async function handler(req, res) {
         imageUrl = `${urlObj.protocol}//${urlObj.host}/${imageUrl}`;
       }
 
+      // if opengraph.githubassets.com, use https://opengraph.githubassets.com/<random>/rest/of/url
+      if (imageUrl.includes('opengraph.githubassets.com')) {
+        const randomString = Math.random().toString(36).substring(2, 15).replace('/', '');
+        imageUrl = `https://opengraph.githubassets.com/${randomString}/${imageUrl.split('opengraph.githubassets.com/')[1].split('/').slice(1).join('/')}`;
+      }
+
+      console.log(imageUrl);
+
+
       return res.status(200).json({ imageUrl });
     } else {
       return res.status(404).json({ error: 'No preview image found' });

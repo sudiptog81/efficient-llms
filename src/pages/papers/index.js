@@ -63,7 +63,7 @@ export async function getStaticProps() {
           publishedDate: data.publishedDate,
           conference: data.conference || null,
           authors: data.authors,
-          citations: data.citations || null,
+          // citations: data.citations || null,
         };
       })
       .sort((a, b) => new Date(b.publishedDate) - new Date(a.publishedDate));

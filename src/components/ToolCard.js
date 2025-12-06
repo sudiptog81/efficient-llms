@@ -19,7 +19,7 @@ export default function ToolCard({ tool, index }) {
     } else {
       setImageLoading(false);
     }
-  }, [tool.link]);
+  }, []);
 
   return (
     <Link

@@ -108,7 +108,7 @@ export async function getStaticProps({ params }) {
           publishedDate: paperData.publishedDate,
           conference: paperData.conference || null,
           authors: paperData.authors,
-          citations: paperData.citations || null,
+          // citations: paperData.citations || null,
         };
       });
     } catch (err) {
