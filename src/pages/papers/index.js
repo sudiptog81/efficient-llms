@@ -13,8 +13,14 @@ export default function PapersDirectory({ papers }) {
         <title>Publications | Parmanu @ LCS2 IIT Delhi</title>
         <meta name="description" content="A comprehensive list of publications related to efficient large language models." />
       </Head>
-      <main className="max-w-6xl mx-auto px-6">
+      <main className="max-w-6xl mx-auto px-6 mt-10">
         <header className="text-center mb-12">
+          <h2 className="text-4xl font-extrabold tracking-tight">
+            Publications
+          </h2>
+          <p className="mt-4 text-lg md:text-xl text-zinc-600 dark:text-zinc-400">
+            A list of works from our research group on making LLMs efficient.
+          </p>
         </header>
 
         {papers.length === 0 ? (

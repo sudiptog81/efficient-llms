@@ -12,7 +12,7 @@ export default function Footer() {
           <span className="text-zinc-300 dark:text-zinc-600">|</span>
           <Link href="https://www.linkedin.com/company/lcs2lab/" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 dark:hover:text-indigo-400">LinkedIn</Link>
           <span className="text-zinc-300 dark:text-zinc-600">|</span>
-          <Link href="mailto:chak.tanmoy.iit@gmail.com" className="hover:text-indigo-600 dark:hover:text-indigo-400">Contact</Link>
+          <Link href="mailto:parmanu.lcs2@gmail.com" className="hover:text-indigo-600 dark:hover:text-indigo-400">Contact</Link>
         </div>
       </div>
     </footer>

@@ -12,6 +12,8 @@
   "dependencies": {
     "-": "^0.0.1",
     "@next/third-parties": "^16.0.5",
+    "axios": "^1.13.2",
+    "cheerio": "^1.1.2",
     "gray-matter": "^4.0.3",
     "katex": "^0.16.25",
     "lucide-react": "^0.555.0",
