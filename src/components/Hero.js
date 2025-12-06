@@ -11,7 +11,7 @@ export default function Hero() {
           Scaling <span className="text-indigo-600 dark:text-indigo-400">Intelligence</span>, Cutting <span className="text-red-500 dark:text-red-400">Cost</span>.
         </h1>
         <p className="text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl mx-auto">
-          Our research group is dedicated to pioneering techniques—from advanced quantization to sparse architectures—that make Large Language Models accessible and deployable on commodity hardware.
+          Our research group is dedicated to pioneering techniques—from sparse architectures to scalable inference paradigms—that make Large Language Models accessible and deployable on commodity hardware.
         </p>
       </div>
       <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
