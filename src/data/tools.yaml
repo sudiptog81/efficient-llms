@@ -2,6 +2,7 @@ tools:
   - name: CURPress in NVIDIA KVPress Library
     description: Prunes keys and values based on the CUR decomposition using approximate leverage scores. Integrated into NVIDIA's KVPress library for efficient LLM inference.
     link: https://github.com/NVIDIA/kvpress/blob/main/kvpress/presses/cur_press.py
+    image: /tools/kvpress.png
   - name: Selective PEFT Toolkit
     description: This toolkit provides a flexible framework for selectively fine-tuning large language models using different selective Parameter-Efficient Fine-Tuning (PEFT) methods.
     link: https://pypi.org/project/selective-optimizers/

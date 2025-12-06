@@ -6,7 +6,11 @@ export default function ToolCard({ tool, index }) {
   const [imageLoading, setImageLoading] = useState(true);
 
   useEffect(() => {
-    if (tool.link) {
+    if (tool.image) {
+      setPreviewImage(tool.image);
+      setImageLoading(false);
+    }
+    else if (tool.link) {
       fetch(`/api/link-preview?url=${encodeURIComponent(tool.link)}`)
         .then(res => res.json())
         .then(data => {
