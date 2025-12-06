@@ -84,3 +84,76 @@ Additional analysis shows incremental selection outperforms repeated (pure explo
 | **D3** | Dynamic importance metric blending gradient and magnitude to rank parameters. |
 | **Increment‑S** | Strategy that accumulates the mask over time, balancing exploration and exploitation. |
 | **LoRA/Adapters** | Low‑rank or additive modules used in conjunction with selective unmasking for efficiency. |
+
+## Example: Training workflow with ID3
+
+```python
+from selective_optimizers.wrap import get_selective_optimizer
+from selective_optimizers.load_store import write_summary_to_disk
+from torch.optim import AdamW
+
+# Choose your base optimizer
+opt = AdamW
+
+# Specify the PEFT method to use (can be one of "id3", "bitfit", or "pafi")
+peft_to_use = "id3"
+
+# Get the selective optimizer class
+optimizer_class = get_selective_optimizer(opt, peft_to_use)
+
+params = [
+    {"params": list_of_params_1, "choose_all": True},
+    {"params": list_of_params_2},
+]
+
+# 'choose_all': Select all parameters in this group (useful for randomly initialized heads like classification layers).
+# If 'choose_all' is not specified or is set to False, selection follows the chosen PEFT method.
+
+# Initialize the optimizer with additional selective parameters
+optimizer = optimizer_class(
+    params=params, 
+    lr=0.0001, 
+    budget=100000, 
+    exp=0, 
+    eps=1e-3, 
+    max_steps=1000
+)
+
+# Usual training loop
+for epoch in range(num_epochs):
+    for i, data in enumerate(train_loader):
+        optimizer.zero_grad()
+        # Forward pass
+        outputs = model(data)
+        # Compute loss
+        loss = criterion(outputs, targets)
+        # Backward pass
+        loss.backward()
+        # Optimizer step - the key masking of gradients and updating of internal state happens here
+        optimizer.step()
+
+# Optional post-training work for validation
+optimizer.post_train_work()
+print("Budget used:", optimizer.get_budget_used())
+
+# Save the summary of modified weights
+summary = optimizer.get_summary(model)
+write_summary_to_disk("path/to/summary.pt", summary)
+```
+
+## Example: Inference workflow with ID3
+```python
+from selective_optimizers.load_store import load_summary_from_disk, load_weights_from_summary
+
+# Load your model as usual
+model = ...
+
+# Load the summary from disk
+summary = load_summary_from_disk("path/to/summary.pt")
+
+# Apply the modified weights from the summary to the model
+load_weights_from_summary(model, summary)
+
+# Usual inference code
+outputs = model(input_data)
+```

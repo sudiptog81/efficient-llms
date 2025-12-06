@@ -52,148 +52,70 @@ abstract: >
   and accuracy on NLU and NLG benchmarks with only O(r) extra parameters for rank r.
 ---
 
-## 1. Motivation
+### TL;DR
 
-LoRA is widely used for PEFT but is surprisingly brittle:
+LoRA is lightweight but **surprisingly brittle**: small hyperparameter changes can swing performance by 10–20 points. **MonteCLoRA** turns LoRA into a **Bayesian, Monte Carlo–estimated adapter**, keeping the same mean behavior but smoothing the loss landscape and dramatically improving robustness across learning rates and batch sizes.
 
-- Validation accuracy can vary by 10–20 points across learning rates and batch sizes.
-- Full fine-tuning is even more unstable and often less robust.
-- Hyperparameter sweeps for LLMs are expensive.
+## Why this research?
 
-The paper asks: **can we make low-rank adaptation intrinsically more robust**, instead of patching it with post-hoc Bayesian fixes?
+LoRA is the go-to PEFT method, but in practice it behaves like a temperamental guest:
 
----
+- Tiny tweaks in learning rate or batch size can cause **large swings in validation accuracy**.  
+- Full fine-tuning is often **even less stable** and much more expensive.  
+- Exhaustive hyperparameter sweeps on large LLMs are simply not affordable.
 
-## 2. Method: MonteCLoRA in a Nutshell
+Existing “fixes” (MC Dropout, Laplace-LoRA, ensembles, temperature scaling) are mostly **post-hoc calibration tricks**: you train a brittle model and then try to bandage its uncertainty.  
+This paper asks a different question:
 
-MonteCLoRA replaces deterministic LoRA weights with a Bayesian, Monte Carlo–estimated version:
+> Can we make LoRA **intrinsically robust** by changing how the low-rank update itself is parameterized?
 
-- Start from a standard LoRA **A matrix** (low-rank adapter).
-- Parameterize each column as samples from a **multivariate Gaussian**:
-  - Shared covariance Σ ∼ Wishart(V, ν) with learnable diagonal scale V.
-  - Mixture weights Π ∼ Dirichlet(α) with learnable α.
-- Draw N Gaussian samples, combine them with weights Π, scale by a factor ε, and add to the mean:
-  - This yields a **stochastic low-rank update** whose expectation equals the original LoRA weights.
+## MonteCLoRA in one picture
 
-Key properties:
+Classic LoRA learns a deterministic low-rank matrix \(A\).  
+MonteCLoRA replaces each column of \(A\) with a **stochastic mixture of Gaussians**:
 
-- **Unbiased**: expected output matches the LoRA model (no change in mean prediction).
-- **Lower variance & smoother loss landscape** due to injected Gaussian noise.
-- **Small overhead**: only O(r + N) additional parameters per LoRA layer (r = rank, N = #mixture components).
+1. Treat each LoRA column as:
+   - A **mean vector** plus
+   - A **mixture of Gaussian samples** drawn from a shared covariance.
+2. Mixture weights follow a **Dirichlet** prior; covariance comes from a **Wishart** prior.
+3. Draw \(N\) samples, combine them with the mixture weights, scale them by a factor \(\varepsilon\), and add them back to the mean.
 
-Training loss = task loss + weighted KL terms:
+This yields a **stochastic low-rank update** whose *expected value* is still the original LoRA weight, but whose randomness:
 
-- KL between learned Gaussian and N(0, I),
-- KL between Wishart prior and standard Wishart,
-- KL between Dirichlet and a reference Dirichlet,
-- Plus a **cooperative loss** encouraging all mixture components to participate.
+- Regularizes the model,
+- Smooths sharp minima,
+- And makes the training trajectory much less sensitive to hyperparameters.
 
----
+Training objective = **task loss + KL regularizers**:
 
-## 3. Empirical Results (Condensed)
+- KL for the Gaussian (towards a standard normal),
+- KL for the Wishart covariance,
+- KL for the Dirichlet weights,
+- Plus a **cooperative loss** to keep all mixture components active (avoid collapse).
 
-**Models & tasks**
+Overhead is modest: roughly \(O(r + N)\) extra parameters per LoRA layer (\(r\) = rank, \(N\) = mixture components).
 
-- RoBERTa-base on GLUE / SuperGLUE (MRPC, CoLA, RTE, WiC, BoolQ, SST-2, MNLI, QQP, QNLI).
-- LLaMA-1-7B on six commonsense NLG tasks (PiQA, Social IQa, WinoGrande, ARC-e, ARC-c, OBQA).
-- LLaMA-3.2-3B-Instruct on GSM8k (math) and HumanEval (code generation).
-
-**Compared against**
-
-- Full fine-tuning, LoRA, AdaLoRA, DoRA.
-- For GLUE, also Bayesian post-hoc methods: MC Dropout, temperature scaling, checkpoint ensembles, Laplace-LoRA.
-
-### 3.1 Comparison to Bayesian post-hoc methods (GLUE, RoBERTa-base)
-
-The table below summarizes a subset of the GLUE results from the paper (accuracy ↑ and NLL ↓), comparing MonteCLoRA to several Bayesian post-hoc baselines:
-
-
-| Metric   | Method              | MRPC | CoLA | RTE  | WiC  | BoolQ | Avg Acc ↑ | Avg NLL ↓ |
-|----------|---------------------|------|------|------|------|-------|-----------|-----------|
-| Accuracy | MonteCLoRA (best)   | 91.2 | 84.9 | 81.2 | 71.3 | 79.9  | 81.7      | –         |
-| Accuracy | MC Dropout          | 87.1 | 82.6 | 72.4 | 68.8 | 76.6  | 77.5      | –         |
-| Accuracy | Temperature scaling | 86.5 | 81.8 | 72.6 | 65.4 | 77.3  | 76.7      | –         |
-| Accuracy | Laplace-LoRA (LA)   | 86.4 | 81.7 | 72.6 | 65.4 | 77.4  | 76.7      | –         |
-| NLL      | MonteCLoRA (best)   | 0.31 | 0.41 | 0.46 | 0.60 | 0.50  | –         | 0.46      |
-| NLL      | MC Dropout          | 0.39 | 0.39 | 0.58 | 0.72 | 0.50  | –         | 0.52      |
-| NLL      | Temperature scaling | 0.32 | 0.40 | 0.54 | 0.62 | 0.49  | –         | 0.47      |
-| NLL      | Laplace-LoRA (LA)   | 0.34 | 0.39 | 0.54 | 0.62 | 0.48  | –         | 0.47      |
-
-These results highlight that MonteCLoRA matches or outperforms strong Bayesian post-hoc methods on both accuracy and calibration (NLL), while being trained end-to-end rather than applied after the fact.
-
-**Headline findings**
-
-- On GLUE:
-  - **Lowest spread** in accuracy and NLL across hyperparameters.
-  - Extrinsic robustness (median accuracy) is higher than LoRA/AdaLoRA on most tasks.
-  - Best accuracy and NLL are competitive with or better than all LoRA variants.
-- Against Bayesian post-hoc baselines:
-  - MonteCLoRA (even at median performance) beats MC Dropout / Laplace-LoRA in average accuracy and NLL,
-    **without** needing long post-hoc calibration phases.
-- On commonsense NLG:
-  - Accuracy similar to the best LoRA baseline but with **much lower spread** (53–62% reduction).
-- On GSM8k & HumanEval with LLaMA-3.2-3B:
-  - Achieves the **highest strict and flexible match scores** on GSM8k.
-  - Achieves the best pass@2 / pass@4 on HumanEval with tighter robustness bands than LoRA/DoRA.
+![Teaser Image](/resources/monteclora-bayesian-lora-tmlr-2025/images/monteclora.jpg) 
 
 ---
 
-## 4. Ablations & Insights
+## Main insights
 
-Key knobs and what they do:
+- **Unbiased but more stable LoRA**  
+  The expected adapter equals standard LoRA, but stochastic sampling provides built-in regularization and wider, flatter minima—leading to more stable validation performance across hyperparameters.
 
-- **Mixture components (N)**: N = 4 is enough; 16 brings marginal gains.
-- **Dirichlet initialization**:
-  - Random α initialization improves accuracy vs α = 1, by encouraging diverse mixture usage.
-- **Sample scaler (ε)**:
-  - Too small → under-exploration, overfitting; too big → divergence.
-  - Moderate ε (≈ 5e-3) balances exploration–exploitation and gives best validation scores.
-- **KL weight (η)**:
-  - Both under- and over-regularization hurt; a mid-range η works best.
-- **Cooperative loss**:
-  - Removing it degrades accuracy by 3–4%; mixture collapses towards a few components.
-- **Sparse vs dense mixtures**:
-  - For small NLU tasks, using only the argmax component (sparse mixture) can help,
-    hinting that selective mixture can be beneficial when data is scarce.
+- **End-to-end Bayesian LoRA, not post-hoc**  
+  Unlike MC Dropout or Laplace-LoRA, MonteCLoRA is trained **from scratch** with its Bayesian structure baked into the optimization, not slapped on afterward.
 
-MonteCLoRA can also:
+- **Robustness across tasks and models**  
+  From RoBERTa on GLUE to LLaMA-7B on commonsense reasoning and LLaMA-3.2-3B on GSM8k / HumanEval, MonteCLoRA consistently:
+  - Matches or improves best-case accuracy,
+  - **Shrinks the spread** (worst–best gap) in validation metrics by up to ~50–60%.
 
-- Be restricted to only Q/K/V vs all linear layers; for small tasks, restricting to attention weights is often better.
-- Work **post-hoc** by first training plain LoRA then only learning the stochastic part.
+- **Better calibration for free**  
+  Negative log-likelihood (NLL) and calibration curves improve over LoRA and Bayesian post-hoc methods without extra calibration stages.
 
----
-
-## 5. Convergence & Cost
-
-- LoRA frequently shows **stalled or jagged loss curves**, sometimes diverging at high learning rates.
-- MonteCLoRA converges **faster and more smoothly**, escaping bad basins more reliably.
-- With buffered sampling:
-  - Runtime overhead is around **1.2–1.7×** LoRA depending on model size and which modules are wrapped.
-  - Memory overhead is modest (≈ 1.06–1.25×).
-
----
-
-## 6. Limitations & Future Directions
-
-Limitations:
-
-- Extra sampling logic increases implementation complexity and training time.
-- New hyperparameters (ε, η, N, α) require some tuning per model/task.
-- Experiments so far go up to ≈13B models; behavior at 70B+ is untested.
-
-Future extensions:
-
-- Asynchronous / background sampling to hide sampling cost.
-- Adaptive ε schedules driven by uncertainty or entropy.
-- Variational approximations instead of explicit Monte Carlo sampling.
-- Applying MonteCLoRA beyond LoRA (e.g., to full weights, vision models, or multimodal architectures).
-
----
+- **Low extra cost**  
+  With buffered sampling and clever implementation, training overhead is on the order of **1.2–1.7× LoRA** and memory overhead ≈ 1.06–1.25×, which is far cheaper than large hyperparameter sweeps or ensembles.
 
 ![MonteCLoRA Overview](/resources/monteclora-bayesian-lora-tmlr-2025/images/loss_curves.png)
-
-## 7. Key Figures
-
-![Generative task robustness of MonteCLoRA vs LoRA/DoRA (LLaMA-1-7B on commonsense benchmarks)](/resources/monteclora-bayesian-lora-tmlr-2025/images/generative_accuracies.png)
-
-![Robustness on GSM8k across PEFT methods (LLaMA-3.2-3B-Instruct)](/resources/monteclora-bayesian-lora-tmlr-2025/images/gsm8k.png)

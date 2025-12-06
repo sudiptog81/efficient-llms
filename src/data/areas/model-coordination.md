@@ -6,8 +6,22 @@ tags:
   - Model Coordination
 summary: 
 ---
-Model coordination explores how multiple specialized models can interact, share information, and collaboratively solve complex tasks more effectively than a single monolithic system. As LLM research shifts toward modular and distributed architectures, coordination mechanisms—such as gating networks, expert routers, communication protocols, and learned collaboration graphs—have become central to understanding how heterogeneous models can operate as a unified intelligence. The goal is to enable each model to contribute its strengths while minimizing redundancy and conflict, allowing the system to adaptively route queries, exchange intermediate representations, and jointly optimize performance.
 
-Recent work shows that effective coordination requires more than simply combining models; it demands principled approaches to dependency modeling, credit assignment, and inter-model communication. Techniques such as oracle-guided supervision, logit-based adjacency matrices, and differentiable routing allow the system to learn when to invoke specific experts and how to structure multi-step reasoning across models. These methods emphasize not just performance gains but also interpretability—revealing collaboration patterns, emergent specialization, and the evolution of model roles during training.
+<center><img src="/resources/model_coord.png" style="width:700px;"/></center>
 
-As multi-model systems become increasingly central in efficiency research, on-device AI, and agentic workflows, model coordination provides the theoretical and empirical foundation for building scalable, reliable, and compute-efficient AI ecosystems. Understanding how models coordinate—both statically through architecture design and dynamically through learned collaboration—will shape the next generation of adaptive AI systems that blend modularity, robustness, and collective intelligence.
+Model coordination asks a simple but transformative question: what if intelligence emerges not from one giant model, but from many smaller ones working together? As LLM ecosystems move toward modular, multi-agent, and expert-driven workflows, coordination becomes the glue that turns collections of models into coherent systems.
+
+At its core, coordination is about skill allocation and information flow. Different models—or different versions of the same model—specialize naturally: some reason well, some retrieve well, some summarize crisply, others excel at domain-specific logic. Coordination mechanisms allow these specialized models to interact without stepping on each other’s toes. Techniques such as differentiable collaboration graphs, expert-specific embeddings, lightweight routers, and iterative refinement chains allow models to exchange partial solutions, critique each other, and stabilize each other's errors.
+
+## Practical Guidelines
+
+* Use coordination when tasks decompose naturally
+For multi-step reasoning, iterative refinement chains often outperform a single forward pass.
+* Use coordination when combining diverse strengths
+Retrieval-heavy tasks, code generation, and safety-critical workflows benefit from ensembles of specialized experts.
+* Use coordination when scaling down, not up
+Downscaling laws suggest that multiple 1B–3B models can match or surpass a single large model if coordinated well.
+* Avoid coordination when latency budgets are extremely tight
+Multi-call systems incur overhead; single-pass models may be preferable for real-time constraints.
+
+Model coordination shifts the paradigm: instead of one model trying to do everything, several efficient models work together to do better.

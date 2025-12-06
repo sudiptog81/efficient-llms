@@ -48,447 +48,102 @@ abstract: >
   compression, offering a practical speed–accuracy tradeoff.
 ---
 
-## 1. Motivation: Why KV Compression Needs to Look at V
+### TL;DR
 
-LLMs with long contexts are dominated by KV cache memory during inference. For an 8B model
-with 2M tokens, KV alone can reach hundreds of GBs of GPU memory.
+Long-context LLMs drown in KV cache memory, and most existing compression schemes look only at **attention on keys**, not what actually flows through the network.  CurDKV flips the perspective: it uses **value-guided CUR-style leverage scores** to keep the tokens that matter most for the *output* of attention, delivering aggressive KV compression with far less degradation on long-context tasks.
 
-Most existing KV compression methods:
+## Why this research?
 
-- Rank tokens using **attention scores** (query–key alignment).
-- Evict low-attention tokens using top-k heuristics across heads/layers.
-- Implicitly assume: “high attention ⇒ important; low attention ⇒ safely removable.”
+As context windows stretch to hundreds of thousands or millions of tokens, **KV cache dominates GPU memory and latency**. Popular methods like SnapKV and ChunkKV decide which tokens to drop purely from **query–key attention patterns**, implicitly assuming “low attention = expendable.”
 
-The paper argues this is flawed because:
+This paper shows that assumption is shaky:
 
-- The **actual output** of attention is $softmax(QKᵀ)V$, where **V (values)** directly control the
-  propagated representation.
-- Empirically, **eviction loss** (reconstruction error after deleting tokens) is **poorly correlated**
-  with average attention scores.
-- Tokens with modest attention can still carry semantically rich value vectors, and evicting them
-  can severely hurt the model.
+- The actual attention output is `softmax(QKᵀ) V`, so **values (V)**, not keys, directly shape what is propagated.  
+- **Eviction loss** (error after removing tokens) is only weakly correlated with average attention.  
+- Tokens with modest attention can still have **high-value leverage** and be critical for downstream behavior.
 
-Hence the central idea:
+CurDKV is motivated by a simple question:  
+> If we want to preserve what the model *really computes*, shouldn’t we compress around **V** and the attention output, not just key scores?
 
-> Instead of compressing based on attention scores over K, select tokens to preserve the
-> dominant subspace of **softmax(QKᵀ)V** itself — via CUR decomposition and leverage scores.
+## Main insights
 
----
+- **Theory: preserving V, not just attention scores, is what matters**
 
-## 2. Background: KV Cache, Eviction Loss & CUR Decomposition
+  The paper proves that when you drop KV entries by zeroing rows:
 
-### 2.1 KV Cache Setup
+  $\big\|\text{softmax}(QK^\top)V - \text{softmax}(QK'^\top)V'\big\|_F
+  \;\lesssim\;
+  \sqrt{n}\,\|V - V'\|_F + \sqrt{n}\,\|V'\|_F.$
 
-For a given layer and head:
-
-- Hidden states: $X \in \mathbb{R}^{n \times d}$
-- Projections:
-  $$
-  Q = X W_Q,\quad K = X W_K,\quad V = X W_V
-  $$
-- KV cache stores rows of $K, V$ for all past tokens; grows linearly with sequence length.
-
-At a new step, the output is:
-
-$$
-\text{Attn}(Q, K, V) = \text{softmax}(QK^\top)\, V
-$$
-
-KV compression: zero out or drop a subset of rows of $K, V$ → $K', V'$.
-
-The paper proves a bound:
-
-**Lemma (informal).** Let $K', V'$ be obtained by zeroing a subset of rows in $K, V$. Then:
-
-$$
-\|\text{softmax}(QK^\top)V - \text{softmax}(QK'^\top)V'\|_F
-\;\lesssim\;
-\sqrt{n}\,\|V - V'\|_F + \sqrt{n}\,\|V'\|_F
-$$
-
-For high compression, $\|V'\|_F$ becomes small, so the main driver is how well $V'$ approximates $V$.
-
-**Key takeaway:**  
-To preserve the attention output, you must approximate **V** well; approximating attention scores alone is not enough.
-
-### 2.2 CUR Decomposition & Leverage Scores
-
-Given a matrix $A \in \mathbb{R}^{n \times d}$ with SVD $A = U \Sigma V^\*$:
-
-- **CUR decomposition** approximates $A$ as:
-  $$
-  A \approx C U' R
-  $$
-  where:
-  - $C$: subset of columns of $A$,
-  - $R$: subset of rows of $A$,
-  - $U'$: small linking matrix.
-
-- **Leverage scores** use singular vectors to quantify row/column importance.
-
-Row leverage scores:
-
-$$
-\ell_{r,j} = \|U_{(j,:)}\|^2
-$$
-
-Column leverage scores:
-
-$$
-\ell_{c,j} = \|V_{(j,:)}\|^2
-$$
-
-High leverage rows/columns are the ones you want to keep in CUR.
+  At high compression, $\|V'\|_F$ is small, so the dominant term is **how well $V'$ approximates $V$**.  
+  In other words, you can’t preserve attention output by staring at keys alone; **value reconstruction quality is the real bottleneck.**
 
 ---
 
-## 3. CurDKV: Value-Guided KV Compression via Approximate CUR
+- **CurDKV: approximate CUR-guided token selection over keys *and* values**
 
-CurDKV (CUR Decomposition for KV compression) uses **leverage scores of both keys and values**
-to decide which tokens to keep.
+  CurDKV adapts ideas from **CUR decomposition**:
 
-It is designed to:
+  - It uses **Gaussian random projections** to build low-dimensional sketches $\tilde{K}, \tilde{V}$.  
+  - Each token gets key and value leverage proxies via squared row norms:  
+    $\ell^{(K)}_j = \|\tilde{K}[j]\|^2,\; \ell^{(V)}_j = \|\tilde{V}[j]\|^2.$
+  - These are combined into a **KV leverage score**  
+    $\ell^{(KV)}_j = \ell^{(K)}_j \cdot \ell^{(V)}_j,$  
+    normalized to form a distribution over tokens.
+  - Tokens with high KV leverage are the ones that best preserve the **dominant subspace** of the attention output.
 
-- Work with **GQA** (grouped-query attention),
-- Avoid needing explicit attention matrices (so it stays compatible with **FlashAttention**),
-- Scale via **Gaussian random projections** instead of full SVD.
+  Practically, this design:
 
-### 3.1 GQA Setup
-
-Assume **g groups** of attention heads. For group $i$:
-
-- $K_i \in \mathbb{R}^{n \times d}$, $V_i \in \mathbb{R}^{n \times d}$
-- Combined tensors across groups:
-  - $K \in \mathbb{R}^{g \times n \times d}$
-  - $V \in \mathbb{R}^{g \times n \times d}$
-
-Goal: For each group, select **k** out of **n** tokens (per layer) that best preserve the attention output.
-
-### 3.2 Random Projection–Based Approximate Leverage Scores
-
-Exact leverage scores need SVD, which is too expensive per layer/head.
-
-CurDKV uses:
-
-- Sample a Gaussian matrix $G \in \mathbb{R}^{d \times r}$, with $G_{ij} \sim \mathcal{N}(0, 1/r)$,  
-  with a small projection dimension $r \approx 20$.
-
-- Project:
-  $$
-  \tilde{K}_i = K_i G,\quad \tilde{V}_i = V_i G
-  $$
-
-- Use squared row norms of $\tilde{K}_i$ and $\tilde{V}_i$ as proxies for leverage scores:
-
-  $$
-  \ell^{(K)}_j = \|\tilde{K}_i[j]\|_2^2,\quad
-  \ell^{(V)}_j = \|\tilde{V}_i[j]\|_2^2
-  $$
-
-- Combine into a **key–value leverage score** per token:
-
-  $$
-  \ell^{(KV)}_j = \ell^{(K)}_j \cdot \ell^{(V)}_j
-  $$
-
-- Normalize:
-  $$
-  \tilde{\ell}_j = \frac{\ell^{(KV)}_j}{\sum_{t} \ell^{(KV)}_t}
-  $$
-
-Intuition: A token is important if it is structurally important both in the key space and the value space.
-
-### 3.3 Attention Sinks & Top-k Selection
-
-To respect **attention sink tokens** (early positions that many models always attend to):
-
-- Always preserve the first **s** tokens (e.g., $s = 4$):  
-  $S_{\text{sink}} = \{0, 1, \dots, s - 1\}$.
-
-- From the remaining positions, choose top-$(k - s)$ by $\tilde{\ell}_j$:
-
-  - $Stop = TopK(tilde_ell[s:], k - s) + s$
-
-- Final index set for group $i$:
-
-  $$
-  S_i = S_{\text{sink}} \cup S_{\text{top}}
-  $$
-
-- Compressed KV:
-
-  $$
-  K'_i = K_i[S_i],\quad V'_i = V_i[S_i]
-  $$
-
-Apply this per group and per layer.
-
-### 3.4 AdaCurDKV: Adaptive Budget Across Heads
-
-On top of CurDKV, the paper defines **AdaCurDKV**:
-
-- Instead of allocating the same k per head/group, it:
-  - Aggregates leverage score mass across heads,
-  - Allocates more budget to heads with higher total leverage,
-  - Uses a safeguard α (e.g., 0.2) to ensure each head keeps at least α·n tokens.
-
-This mirrors prior adaptive methods (e.g., AdaKV) but uses **value-guided leverage** instead of
-attention entropy/weights.
+  - Works with **GQA** (grouped-query attention),  
+  - Avoids ever forming full attention matrices, so it stays **FlashAttention-compatible**,  
+  - Requires only small projection dims (e.g., $r \approx 20$), making it efficient.
 
 ---
 
-## 4. Experimental Setup
+- **Robust long-context compression on LongBench and Ruler**
 
-**Models:**
+  On **LongBench** (QA, summarization, few-shot, synthetic reasoning, code) for LLaMA-3.1-8B and Mistral-7B:
 
-- LLaMA-3.1-8B-Instruct,
-- Mistral-7B-Instruct-v0.3.
+  - At **30% compression**, CurDKV improves over attention-only methods like SnapKV by **~3–4 points** on average, often matching full-cache behavior on QA and summarization tasks.  
+  - Even at **90% compression**, CurDKV maintains **noticeably higher scores** than SnapKV and norm-based baselines, which degrade sharply.
 
-**Benchmarks:**
+  On **Ruler** (needle-in-a-haystack):
 
-- **LongBench** (16 tasks):
-  - Single-document QA,
-  - Multi-document QA,
-  - Summarization,
-  - Few-shot learning,
-  - Synthetic reasoning,
-  - Code completion.
-- **Ruler**:
-  - 8 **Needle-in-a-haystack (NIAH)** tasks up to 16K context.
-
-**Compression ratios** (eviction rates): 30%, 50%, 70%, 90%.
-
-**Question-agnostic setting**:
-
-- Compression is done **only on the context** during prefill.
-- Questions are not known at compression time, making the problem harder and more realistic.
-
-**Baselines:**
-
-- **Non-adaptive**:
-  - SnapKV,
-  - ChunkKV,
-  - Streaming LLM,
-  - KNorm (key-norm heuristic).
-- **Adaptive**:
-  - AdaSnapKV (adaptive SnapKV),
-  - AdaCurDKV (this paper).
-
-H2O is excluded in long-context runs due to incompatibility with FlashAttention and large memory usage.
+  - With 30% compression, CurDKV and its adaptive variant **AdaCurDKV** retain **near-perfect retrieval** on many NIAH tasks where K-norm and streaming baselines collapse.  
+  - Under 90% compression, they still outperform other methods on the hardest retrieval subtasks, showing that **value-guided leverage is better at preserving rare, important tokens.**
 
 ---
 
-## 5. Results on LongBench
+- **Adaptive AdaCurDKV: moving budgets to the heads that matter**
 
-### 5.1 Full Cache Performance
+  Building on CurDKV, **AdaCurDKV**:
 
-With **0% compression**, LLaMA-8B and Mistral-7B reach:
+  - Aggregates leverage mass across heads/groups,  
+  - Allocates more token budget to heads with **higher total KV leverage**,  
+  - Enforces a minimum fraction of tokens per head to avoid collapse.
 
-- Average scores ≈ mid-40s on LongBench (e.g., LLaMA ~45.7, Mistral ~43.3),
-- Strong baselines across QA, summarization, few-shot, and code tasks.
+  This adaptive head-wise budgeting:
 
-These are used as reference for normalized “fidelity.”
-
-### 5.2 30% Compression (Moderate)
-
-With **30% compression** (i.e., 70% cache retained):
-
-- **CurDKV vs SnapKV** (LLaMA-8B):
-  - Average: 48.9% vs 45.3% → **+3.6 points**.
-- **CurDKV vs SnapKV** (Mistral-7B):
-  - Average: 45.6% vs 42.7% → **+2.9 points**.
-
-CurDKV consistently:
-
-- Matches or beats the best attention-based baselines in:
-  - Multi-hop QA (HotpotQA, 2WikiMQA, Musique),
-  - Summarization (GovReport, QMSum, MultiNews),
-  - Few-shot tasks and synthetic tasks (Pcount, Pre),
-  - Code tasks (Lcc, RB-P).
-
-**AdaCurDKV**:
-
-- For LLaMA-8B:
-  - Achieves the **highest average** (~49.1%),
-  - Outperforms AdaSnapKV by ~3.6 points,
-  - Slightly edges static CurDKV.
-- For Mistral-7B:
-  - Reaches ~45.2%, competitive with CurDKV (45.6%) and better than AdaSnapKV.
-
-### 5.3 90% Compression (Aggressive)
-
-With **90% compression** (keep only 10% of KV):
-
-- **CurDKV vs SnapKV** (LLaMA-8B):
-  - 35.7% vs 33.7% → +2.0 points.
-- **CurDKV vs SnapKV** (Mistral-7B):
-  - 33.2% vs 32.6–32.7% → small but consistent gains.
-
-Norm-based baselines (KNorm, ChunkKV) often collapse more severely.
-
-**AdaCurDKV**:
-
-- LLaMA-8B:
-  - ~35.1% average, slightly below CurDKV but above AdaSnapKV.
-- Mistral-7B:
-  - ~29.1% average, competitive and stable.
-
-### 5.4 Ablations
-
-Two key ablations:
-
-1. **What matrix do we compute leverage on?**
-   - Key-only, Value-only, or Key–Value product.
-   - At **30% compression** → similar performance.
-   - At **90% compression** → **value-centric and combined** variants are more robust than key-only.
-
-2. **Random projections vs no projection:**
-   - With projection: slightly better stability at high compression,
-   - Overhead is modest; projection largely preserves relative scores.
+  - Gives **the best or near-best averages** on many LongBench settings,  
+  - Offers a more flexible trade-off between compression and fidelity than fixed per-head quotas.
 
 ---
 
-## 6. Results on Ruler (Needle-in-a-Haystack)
+- **Real deployment benefits: less memory, slightly slower prefill, faster generation**
 
-Ruler’s NIAH tasks stress **retrieval of rare facts** in long noisy contexts.
+  On LLaMA-8B with contexts up to 128K tokens:
 
-### 6.1 Full Cache
+  - KV memory shrinks almost **linearly** with compression (e.g., from ~15.6 GB to <3 GB at high compression).  
+  - Prefill time increases moderately due to projection + top-k steps, but saturates beyond mid compression ratios.  
+  - **Generation time drops significantly** because each autoregressive step attends over far fewer tokens—big wins for long-context chat and RAG-style workloads.
 
-With full KV:
+  Net effect: CurDKV is attractive when you’re willing to pay a small prefill overhead to unlock **large memory and latency savings** during generation.
 
-- LLaMA-8B: ~99.6% average accuracy,
-- Mistral-7B: ~92.8% average.
+![Teaser Image](/resources/curdkv-kv-compression-neurips-2025/teaser.png) 
 
-### 6.2 30% Compression
+*Figure: CurDKV achieves lowest post-eviction loss than contemporary KV compression methods, highlighting the importance of value-aware KV compression methods.*
 
-At 30% compression:
-
-- **CurDKV**:
-  - Average: 98.7% (LLaMA) / 77.8% (Mistral).
-- **AdaCurDKV**:
-  - Average: 97.7% (LLaMA) / 80.6% (Mistral).
-
-Compare with:
-
-- ChunkKV: 87.0% / 76.2%,
-- Knorm: 71.8% / 14.3%,
-- StreamingLLM: 68.2% / 63.6%,
-- SnapKV: 80.4% / 37.4%.
-
-Notable wins:
-
-- For harder subtasks (MK-3, MQ):
-  - AdaCurDKV reaches **>90%** or even ~100% on several settings,
-  - Clearly better at retaining “needle” tokens.
-
-### 6.3 90% Compression
-
-At 90% compression:
-
-- Norm & attention baselines degrade sharply (often <25% average).
-- **CurDKV**:
-  - 34.7% (LLaMA) / 7.8% (Mistral).
-- **AdaCurDKV**:
-  - 39.1% (LLaMA) / 3.9% (Mistral) — best overall average at 90% compression on LLaMA.
-
-Some caveats:
-
-- Mistral uses **sliding-window attention**, which weakens head specialization.
-- In such architectures, naive locality-based heuristics (e.g., ChunkKV) can occasionally preserve NIAH tokens by luck.
-- Even then, CurDKV remains stronger on the genuinely hard retrieval subtasks.
-
----
-
-## 7. Computational Efficiency: Memory & Latency
-
-The paper measures CurDKV’s practical impact on **KV size, prefill time, and generation time** for LLaMA-8B across sequences up to 128K tokens.
-
-### 7.1 Memory
-
-- KV memory drops **linearly** with compression:
-  - At 80% compression, for 128K tokens:
-    - From ~15.6 GB to <3 GB.
-- This linear relation holds across all sequence lengths, thanks to per-token KV removal.
-
-### 7.2 Prefill Latency
-
-- CurDKV adds overhead during **prefill** due to:
-  - Random projections,
-  - Leverage score computation,
-  - Top-k selection.
-
-Observations:
-
-- Prefill time increases modestly (e.g., from ~10s to ~14–15s for 128K tokens at high compression).
-- Overhead plateaus beyond ~40–60% compression; additional compression does not increase cost much.
-
-### 7.3 Generation Latency
-
-- Generation gets **faster** with compression:
-  - Fewer KV tokens → cheaper attention at each autoregressive step.
-  - For 128K contexts, generation time drops from ~10s to <6s at 80% compression.
-- Gains are strongest for long contexts, but visible at shorter contexts too.
-
-Net effect: CurDKV trades a bit more prefill time for **substantial** memory savings and **reduced
-generation latency**, which is attractive in deployment.
-
----
-
-## 8. Limitations & Future Directions
-
-The authors are fairly explicit about the limitations:
-
-- **Static prefill compression**:
-  - CurDKV compresses based on the context alone, before generation.
-  - It does not adapt to changing query demands mid-generation.
-- **Hyperparameters**:
-  - Requires choosing projection dimension $r$, sink size $s$, group budgets, and α for AdaCurDKV.
-  - Some tuning is needed per model/benchmark.
-- **Architecture dependence**:
-  - Behavior under sliding-window or unusual attention mechanisms (as in some Mistral variants) can be less predictable.
-- **No learned components yet**:
-  - CurDKV is entirely heuristic/analytic; no learned routing or token scoring networks.
-
-Future work directions suggested:
-
-- **Query-aware or dynamic compression** during generation.
-- Hybrid **token–chunk strategies** for better locality and robustness.
-- Incorporating light **learned modules** to refine leverage-based scores.
-- Extending CUR-style compression to:
-  - cross-attention,
-  - multimodal transformers,
-  - or other structured memory mechanisms.
-
----
-
-## 9. Takeaways
-
-Boiled down:
-
-- Attention score–based KV compression is not enough: it ignores the **value vectors** that actually
-  determine the output of attention.
-- CurDKV uses **approximate CUR decomposition** via **Gaussian projections** and **combined
-  key–value leverage scores** to pick which tokens to keep.
-- It is:
-  - **Value-centric**,
-  - **FlashAttention-compatible** (doesn’t need explicit attention matrices),
-  - **GQA-aware**,
-  - And practically efficient.
-
-On LongBench and Ruler:
-
-- CurDKV and AdaCurDKV consistently outperform SnapKV, ChunkKV, and related methods,
-  especially under **aggressive compression** (70–90% eviction).
-- They deliver better **semantic fidelity**, **higher task accuracy**, and **faster generation**
-  at long context lengths.
-
-In short, if you care about long-context LLM inference on limited memory, CurDKV gives you a
-principled, value-driven way to aggressively shrink the KV cache without throwing your model’s
-brains out with the tokens.
-
-## 10. Working Example 
-
-### Example: Using CURPress with Llama-3.2-3B-Instruct
+## Example: Using CURPress with Llama-3.2-3B-Instruct
 
 ```python
 from transformers import pipeline

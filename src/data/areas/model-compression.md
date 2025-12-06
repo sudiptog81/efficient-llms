@@ -14,10 +14,37 @@ summary: >
   while preserving performance.
 ---
 
-Model compression refers to the family of techniques that reduce a neural network’s computational and memory footprint while preserving as much task performance as possible. For large language models, this includes **pruning**, **quantization**, **distillation**, **low-rank adaptation**, and **efficient architectures** such as sparse or mixture-of-experts (MoE) designs. The core idea is simple: overparameterized models contain substantial redundancy, and a carefully compressed variant can retain most of the original capabilities at a fraction of the cost.
+<center><img src="/resources/model_comp.png" style="width:700px;"/></center>
 
-Pruning remains one of the most widely studied compression methods. It removes redundant or low-importance parameters, either at the weight level (unstructured sparsity) or in larger units such as attention heads, neurons, or entire blocks (structured sparsity). Techniques such as gradual magnitude pruning, movement pruning, and lottery-ticket–style training use gradient flow or loss sensitivity to decide which parameters to keep. In LLMs, pruning extends beyond weights to **KV-cache compression**, **activation sparsification**, and **expert selection** in MoE architectures, producing real speedups for long-context and multi-step reasoning workloads.
+Model compression aims to shrink large language models into faster, lighter, deployable systems—without discarding the behaviors that make them intelligent. Our work shows that effective compression is not just about removing parameters: it requires preserving the mathematical structure and semantic pathways through which models reason. PruneNet and CurDKV embody this philosophy, offering calibration-free pruning and value-aware KV compression that remain robust even under aggressive reduction.
 
-Quantization tackles a different axis of redundancy: numerical precision. By representing weights, activations, or KV caches with fewer bits (e.g., 8-bit, 4-bit, or mixed precision), quantization can dramatically shrink memory usage and bandwidth requirements, often with minimal accuracy loss when combined with calibration or quantization-aware training. Distillation, in contrast, compresses models *semantically*: a smaller “student” network is trained to mimic a larger “teacher,” capturing its behavior through soft targets, intermediate feature matching, or explanation traces. This is particularly powerful for deploying compact instruction-following or domain-specialized LLMs.
+## Why We Need Better Compression
 
-As models scale into the multi-billion and trillion-parameter regimes, model compression has become a practical necessity rather than a cosmetic optimization. Compressed models enable **on-device inference**, **latency-sensitive applications**, and **multi-model ensembles** that would otherwise be prohibitively expensive. Ongoing research investigates how compression interacts with generalization, robustness, and alignment; how sparsity and low precision affect emergent behaviors; and how to co-design compression with post-training methods such as RLHF, preference optimization, or retrieval augmentation. Model compression is both a systems-level toolkit for making LLMs usable in the real world and a scientific probe for understanding redundancy, information flow, and representation efficiency in large-scale neural networks.
+* As context lengths and model sizes grow, the bottleneck shifts: FLOPs, memory bandwidth, and KV-cache all limit real-world deployment.
+* Naïve pruning or key-only heuristics break internal representations, degrading performance long before theoretical sparsity limits.
+* Existing methods overfit to calibration datasets or rely on attention scores that poorly reflect actual importance.
+
+Compression must therefore be principled, data-free when needed, and aligned with model geometry.
+
+## How Our Works Connect the Dots
+
+* **PruneNet** — Calibration-Free Structured Pruning, Recasts pruning as policy learning: instead of scoring parameters with data-dependent heuristics, PruneNet learns a reusable pruning policy driven by spectral preservation. By minimizing KS distance between singular value distributions of original and compressed matrices, it maintains the model’s representational backbone—achieving high sparsity with minimal accuracy loss and near-optional recovery finetuning.
+
+* **CurDKV** — Value-Guided KV Compression, Challenges the attention-score paradigm by showing that preserving V (values) is crucial for maintaining semantic content. CurDKV approximates CUR decomposition with lightweight Gaussian projections, selecting tokens by combined key–value leverage scores. This produces KV caches that retain meaning even under 70–90% eviction, outperforming attention-only baselines on LongBench and Ruler.
+
+Together, these works elevate compression from removing things cheaply to preserving the right things intelligently.
+
+## Practical Guide — When to Use Which Method?
+
+* If pruning whole layers/neurons with no calibration data → Use PruneNet for spectral fidelity and reusable pruning policies.
+* If compressing KV for long-context inference → Use CurDKV or AdaCurDKV to retain semantic value paths.
+* If targeting high sparsity with minimal recovery finetuning → PruneNet performs reliably even at 20–40% compression.
+* If dealing with NIAH or retrieval-heavy workloads → CurDKV offers superior robustness under aggressive eviction.
+
+## Big Picture
+
+Model compression is evolving from heuristics to geometry-aware, value-aware, and data-independent methods. PruneNet and CurDKV show that respecting a model’s internal structure—its spectrum, its value flows, its hidden semantics—is the key to building compressed LLMs that are not just smaller, but still smart. These approaches pave the way for resource-efficient models that operate comfortably on long contexts, edge hardware, and real-time applications.
+
+
+
+

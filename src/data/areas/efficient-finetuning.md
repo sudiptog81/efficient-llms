@@ -6,8 +6,36 @@ tags:
   - Parameter-Efficient Fine-tuning
 summary: 
 ---
-Parameter-Efficient Fine-Tuning (PEFT) methods have emerged as a critical strategy for adapting large language models without incurring the full computational and memory costs of training all model parameters. Instead of updating the entire network, PEFT techniques introduce small, trainable modules—such as low-rank adapters (LoRA), prefix and prompt tuning layers, or selective reparameterization—while keeping the majority of the pretrained weights frozen. This approach enables researchers to achieve competitive or even superior downstream performance with a fraction of the parameters, making fine-tuning feasible on modest hardware and allowing multiple task-specialized variants to coexist efficiently.
 
-Modern PEFT research explores not only improved parameter-sharing schemes but also the underlying dynamics of task adaptation. Studies show that PEFT often leads to more stable optimization, better generalization under limited supervision, and reduced catastrophic forgetting. Furthermore, the modular nature of these methods facilitates multi-task and continual learning settings where adapters can be composed, merged, or selectively activated based on task demands. Recent work extends PEFT to multimodal models, reinforcement learning from feedback, and on-device deployment, underscoring its importance across the LLM ecosystem.
+<center><img src="/resources/efficient_ft.png" style="width:700px;"/></center>
 
-As LLMs continue to grow in scale, PEFT methods offer a principled path for democratizing model adaptation. For research groups, they provide a practical mechanism to rapidly prototype new capabilities, iterate on alignment strategies, and explore domain-specific applications while maintaining computational efficiency and reproducibility. By leveraging PEFT, teams can systematically push the boundaries of task specialization without the prohibitive overhead of full-model fine-tuning.
+Efficient fine-tuning asks a simple question: How do we adapt large models without paying large-model costs? As LLMs scale, full-model training becomes impractical, and even standard PEFT methods like LoRA can be brittle, sensitive to hyperparameters, or misaligned with downstream reasoning demands. Our work pushes PEFT toward **robustness, sample efficiency**, and **theoretical grounding**, showing how fine-tuning can be made reliable even for small models and low-resource settings.
+
+## Why We Need Efficient Fine-Tuning
+
+* Full-parameter fine-tuning is unstable and computationally heavy.
+* Standard LoRA can swing wildly across learning rates and batch sizes.
+* Many PEFT methods improve accuracy but distort reasoning or introduce variance.
+* Fine-tuning must remain affordable for research groups, edge deployment, and rapid prototyping.
+
+Efficient fine-tuning must therefore be stable, data-efficient, and fidelity-aware, not just parameter-efficient.
+
+## How Our Works Connect the Dots
+
+* **ID3** (Iterative Distillation for Reasoning Data) Shows that PEFT can be constructed, not just trained. By synthesizing reasoning data that optimizes student learning, ID3 reduces dependence on massive curated datasets and enables stable task adaptation, especially for reasoning-heavy domains.
+
+* **MonteCLoRA**  (Bayesian LoRA) Reveals that LoRA’s brittleness comes from deterministic low-rank updates. By injecting structured Monte Carlo noise, MonteCLoRA produces smoother loss landscapes, lower variance, and more reliable convergence—all while keeping LoRA’s parameter budget.
+
+Together, these works redefine efficient fine-tuning as robust adaptation rather than simply “fewer trainable parameters.”
+
+## Practical Guide — When to Use Which Method?
+
+* If LoRA is unstable or sensitive to hyperparameters → Use MonteCLoRA for smoother optimization.
+* If your domain lacks labeled reasoning data → Use ID3 to iteratively synthesize high-quality supervision.
+* If you need small models to reason better without large budgets → Use ID3 + PEFT for efficient performance lift.
+* If you want a PEFT method that generalizes reliably across tasks → Use MonteCLoRA for robustness under noise.
+
+## Big Picture
+
+Efficient fine-tuning is no longer just about minimizing parameter counts—it is about designing adaptive, stable, and trustworthy mechanisms for injecting new capabilities into LLMs. Our work shows that with principled noise modeling and intelligent data construction, small updates can produce big, reliable gains, democratizing model adaptation across the entire LLM ecosystem.
+
