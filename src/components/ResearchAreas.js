@@ -1,7 +1,5 @@
 import { Zap, Package, ChartSpline, Waypoints, Scissors, Merge, Binary, BookCopy, Cog } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
-import AGIPath from "../../public/resources/landing_agi_path.jpg";
 
 const ICONS = {
   Zap,
@@ -46,12 +44,6 @@ const ResearchAreas = ({ researchAreas = [] }) => (
       ))}
     </div>
 
-    <Image
-      src={AGIPath}
-      alt="AGI Path"
-      className="mt-20 mx-auto max-w-4xl"
-      priority
-    />
   </section>
 );
 
