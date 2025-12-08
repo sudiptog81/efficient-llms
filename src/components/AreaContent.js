@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
@@ -21,8 +20,9 @@ const AreaContent = ({ content }) => (
               alt={props.alt || ''}
               width={0}
               height={0}
-              sizes="100vw"
-              className="mx-auto w-auto md:max-w-[800px] h-auto mt-0"
+              sizes="(min-width: 800px) 50vw, 100vw"
+              className="mx-auto w-auto md:max-w-[800px] h-auto mt-0 dark:invert-97"
+              preload={true}
               {...props}
             />
           </span>

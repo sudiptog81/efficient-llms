@@ -21,8 +21,9 @@ const PaperContent = ({ content }) => (
               alt={props.alt || ''}
               width={0}
               height={0}
-              sizes="100vw"
+              sizes="(min-width: 800px) 50vw, 100vw"
               className="mx-auto w-auto md:max-w-[800px] h-auto"
+              preload={true}
               {...props}
             />
           </span>
