@@ -26,7 +26,7 @@ const DynamicImage = ({ src, alt, ...props }) => {
       alt={alt || ''}
       width={dimensions.width}
       height={dimensions.height}
-      className="mx-auto md:max-w-[800px] mt-0"
+      className="mx-auto md:max-w-[800px] h-auto mt-0"
       priority
       {...props}
     />
