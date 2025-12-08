@@ -7,11 +7,45 @@ import IndexPaperCard from '@/components/IndexPaperCard';
 import Head from 'next/head';
 
 export default function PapersDirectory({ papers }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Publications",
+    "description": "A comprehensive list of publications related to efficient large language models. Brought to you by Laboratory for Computational Social Systems, IIT Delhi.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Parmanu @ LCS2 IIT Delhi",
+      "description": "Laboratory for Computational Social Systems, IIT Delhi"
+    },
+    ...(papers && papers.length > 0 && {
+      "hasPart": papers.map(paper => ({
+        "@type": "ScholarlyArticle",
+        "headline": paper.title,
+        "abstract": paper.abstract,
+        "author": paper.authors.map(author => ({
+          "@type": "Person",
+          "name": author.name
+        })),
+        "datePublished": paper.publishedDate,
+        ...(paper.conference && {
+          "publisher": {
+            "@type": "Organization",
+            "name": paper.conference ? paper.conference : "Parmanu @ LCS2 IIT Delhi"
+          }
+        })
+      }))
+    })
+  };
+
   return (
     <BaseLayout>
       <Head>
         <title>Publications | Parmanu @ LCS2 IIT Delhi</title>
         <meta name="description" content="A comprehensive list of publications related to efficient large language models. Brought to you by Laboratory for Computational Social Systems, IIT Delhi." />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
+        />
       </Head>
       <main className="max-w-6xl mx-auto px-6 mt-10">
         <header className="text-center mb-12">

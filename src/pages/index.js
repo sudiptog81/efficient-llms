@@ -94,6 +94,20 @@ export async function getStaticProps() {
   };
 }
 export default function Home({ researchAreas = [], recentPublications = [] }) {
+  const siteUrl = 'https://parmanu.lcs2.in';
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        name: 'Parmanu @ LCS2 IIT Delhi',
+        url: siteUrl,
+        description:
+          'A comprehensive resource for efficient large language models. Brought to you by Laboratory for Computational Social Systems, IIT Delhi.',
+      },
+    ],
+  };
+
   return (
     <BaseLayout>
       <Head>
@@ -102,6 +116,10 @@ export default function Home({ researchAreas = [], recentPublications = [] }) {
         <meta property="og:title" content="Parmanu @ LCS2 IIT Delhi" />
         <meta property="og:description" content="A comprehensive resource for efficient large language models. Brought to you by Laboratory for Computational Social Systems, IIT Delhi." />
         <meta property="og:type" content="website" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
+        />
       </Head>
       <main className="w-full">
         <Hero />

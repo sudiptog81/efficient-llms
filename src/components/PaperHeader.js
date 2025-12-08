@@ -181,12 +181,37 @@ const Links = ({ links = {}, bibtex }) => {
 };
 
 const PaperHeader = ({ paper }) => {
-  // const liveCitations = useCitationCount(paper.doi);
-
-  // const citations = liveCitations ?? paper.citations ?? null;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": paper.title,
+    "abstract": paper.abstract,
+    "author": paper.authors.map(author => ({
+      "@type": "Person",
+      "name": author.name
+    })),
+    "datePublished": paper.publishedDate,
+    "publisher": {
+      "@type": "Organization",
+      "name": paper.conference ? paper.conference : "Parmanu @ LCS2 IIT Delhi"
+    },
+    ...(paper.links?.arxiv && {
+      "url": paper.links.pdf ? paper.links.pdf : paper.links.arxiv,
+      "sameAs": paper.links.arxiv
+    }),
+    ...(paper.links?.pdf && {
+      "mainEntityOfPage": paper.links.pdf
+    })
+  };
 
   return (
     <div className="border-b border-zinc-200 dark:border-zinc-800 pb-8 mt-4">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
       <div className="flex flex-col items-center gap-3 mb-2">
         <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-50 leading-tight text-center mb-2">
           {paper.title}

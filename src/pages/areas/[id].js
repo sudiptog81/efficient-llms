@@ -18,6 +18,36 @@ export default function AreaPage({ area, content, papersForArea }) {
     );
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": area.title,
+    "description": area.summary,
+    "about": {
+      "@type": "Thing",
+      "name": area.title,
+      "description": area.summary
+    },
+    ...(papersForArea && papersForArea.length > 0 && {
+      "hasPart": papersForArea.map(paper => ({
+        "@type": "ScholarlyArticle",
+        "headline": paper.title,
+        "abstract": paper.abstract,
+        "author": paper.authors.map(author => ({
+          "@type": "Person",
+          "name": author.name
+        })),
+        "datePublished": paper.publishedDate,
+        ...(paper.conference && {
+          "publisher": {
+            "@type": "Organization",
+            "name": paper.conference ? paper.conference : "Parmanu @ LCS2 IIT Delhi"
+          }
+        })
+      }))
+    })
+  };
+
   return (
     <BaseLayout>
       <Head>
@@ -26,6 +56,12 @@ export default function AreaPage({ area, content, papersForArea }) {
         <meta property="og:title" content={`${area.title} | Parmanu @ LCS2 IIT Delhi`} />
         <meta property="og:description" content={area.summary} />
         <meta property="og:type" content="website" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+          }}
+        />
       </Head>
       <main className="max-w-6xl mx-auto px-6">
         <div className="overflow-hidden">
