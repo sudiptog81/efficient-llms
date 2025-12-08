@@ -34,7 +34,7 @@ bibtex: |
   }
 ---
 
-<center><img src="/resources/prunenet-calibration-free-llm-compression-iclr-2025/pruneNet3.png" style="width:600px;"/></center>
+![PruneNet: Calibration-Free Model Compression with Policy Learning](/resources/prunenet-calibration-free-llm-compression-iclr-2025/pruneNet3.png)
 
 Large models are powerful but painfully expensive: memory-heavy, slow to run, and hard to deploy. Traditional structured pruning methods—SliceGPT, SVD-based methods, and large-block channel pruning—depend heavily on **calibration datasets**, break easily at high sparsity, and often require expensive recovery finetuning to undo the damage.
 
@@ -45,10 +45,9 @@ It treats pruning as **policy learning over the model’s weights**, guided by a
 
 By learning what to prune without ever touching calibration data, PruneNet becomes reusable, layer-aware, and surprisingly stable—even at aggressive compression ratios.
 
-
 ### TL;DR
-PruneNet turns pruning into a **learned policy** that studies a model’s own weight structure—no calibration data, no guesswork.  By preserving the **spectral shape** of FFN layers, it achieves **higher accuracy**, **faster inference**, and **robust compression** across many LLMs.  Think of it as pruning with intuition *and* discipline.
 
+PruneNet turns pruning into a **learned policy** that studies a model’s own weight structure—no calibration data, no guesswork.  By preserving the **spectral shape** of FFN layers, it achieves **higher accuracy**, **faster inference**, and **robust compression** across many LLMs.  Think of it as pruning with intuition *and* discipline.
 
 ## Why This Research?
 
@@ -70,6 +69,7 @@ The result is a method that is fast, stable, and *shockingly accurate* with zero
 ## Main Insights
 
 ### 1. Pruning as Learned Policy (No Calibration)
+
 Each FFN layer is treated as a **state**, and pruning rows is an **action**.  
 The policy network (a tiny MLP ~0.6% of LLaMA-2-7B) outputs keep/drop probabilities based solely on weights.
 
@@ -82,15 +82,17 @@ Just pure structural reasoning over the matrix itself.
 ---
 
 ### 2. Spectral Preservation via KS Distance
+
 Standard slicing shrinks and skews singular values: $\sigma^\text{pruned} \rightarrow \text{imbalanced, right-skewed spectrum}$
 
-PruneNet minimizes the KS divergence: $\text{KS}(\Sigma_\text{orig},\, \Sigma_\text{pruned})$ 
+PruneNet minimizes the KS divergence: $\text{KS}(\Sigma_\text{orig},\, \Sigma_\text{pruned})$
 
 This ensures the **shape** of the singular-value distribution stays intact, which strongly correlates with downstream task stability.
 
 ---
 
 ### 3. Structured FFN Compression (Where It Matters)
+
 FFN layers account for:
 
 - **64% of parameters** in LLaMA-2-7B  
@@ -102,6 +104,7 @@ PruneNet selectively removes entire rows of FFN1 and corresponding columns of FF
 ---
 
 ### 4. You Only Prune Once: Policy Transfer
+
 Train a policy at **one sparsity level**—reuse it across many compression ratios.
 
 - Train at 40% → reuse at 10%, 20%, 30% → <1% average drop.
@@ -112,6 +115,7 @@ A single policy effectively acts as a **compression oracle** for the whole model
 ---
 
 ### 5. Reinforcement Learning Over Layers
+
 The pruning problem is non-differentiable.  
 PruneNet uses **REINFORCE** with:
 
@@ -126,6 +130,7 @@ Later layers get stronger incentives (they hold more semantic content).
 ## Results Overview
 
 ### Zero-Shot Performance (LLaMA-2-7B)
+
 Average over PIQA, WinoGrande, HellaSwag, ARC-e, ARC-c:
 
 | Compression | Dense | SliceGPT | PruneNet |
@@ -139,14 +144,15 @@ PruneNet retains **~89% performance** at moderate sparsity and stays significant
 ---
 
 ### Phi-2 (2.7B)
+
 | Compression | Dense | SliceGPT | PruneNet |
 |-----------:|-------:|----------:|----------:|
 | **30%** | 72.24 | 51.99 | **61.05** |
 
 A massive 9-point advantage at the same sparsity.
 
-
 ### Throughput Gains
+
 LLaMA-2-7B @ 30% compression:
 
 | Model | Tokens/sec |
@@ -156,5 +162,3 @@ LLaMA-2-7B @ 30% compression:
 | **PruneNet** | **20.74** |
 
 Nearly **2× faster inference**.
-
-

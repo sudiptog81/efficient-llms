@@ -2,15 +2,6 @@ import React from 'react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { common } from 'lowlight';
-import { remark } from 'remark';
-import remarkMath from 'remark-math';
-import remarkGfm from 'remark-gfm';
-import remarkRehype from 'remark-rehype';
-import rehypeKatex from 'rehype-katex';
-import rehypeHighlight from 'rehype-highlight';
-import rehypeStringify from 'rehype-stringify';
-import python from 'highlight.js/lib/languages/python';
 import BaseLayout from '@/layouts/BaseLayout';
 import PaperHeader from '@/components/PaperHeader';
 import Abstract from '@/components/PaperAbstract';
@@ -18,7 +9,7 @@ import PaperContent from '@/components/PaperContent';
 import Head from 'next/head';
 import ShareFab from '@/components/ShareFab';
 
-export default function PaperPage({ paper, contentHtml }) {
+export default function PaperPage({ paper, content }) {
   if (!paper) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950">
@@ -43,7 +34,7 @@ export default function PaperPage({ paper, contentHtml }) {
           <div className="p-8 md:p-12">
             <PaperHeader paper={paper} />
             <Abstract abstract={paper.abstract} />
-            {contentHtml && <PaperContent contentHtml={contentHtml} />}
+            {content && <PaperContent content={content} />}
           </div>
         </div>
       </main>
@@ -76,16 +67,6 @@ export async function getStaticProps({ params }) {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
 
-    const processedContent = await remark()
-      .use(remarkMath)
-      .use(remarkGfm)
-      .use(remarkRehype, { allowDangerousHtml: true })
-      .use(rehypeKatex)
-      .use(rehypeHighlight, { detect: true, languages: { ...common, python } })
-      .use(rehypeStringify, { allowDangerousHtml: true })
-      .process(content);
-    const contentHtml = processedContent.toString();
-
     return {
       props: {
         paper: {
@@ -99,7 +80,7 @@ export async function getStaticProps({ params }) {
           links: data.links || null,
           bibtex: data.bibtex || null,
         },
-        contentHtml: content ? contentHtml : null,
+        content: content,
       },
     };
   } catch (error) {

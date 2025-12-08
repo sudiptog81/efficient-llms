@@ -2,17 +2,12 @@ import React from 'react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { remark } from 'remark';
-import remarkMath from 'remark-math';
-import remarkRehype from 'remark-rehype';
-import rehypeKatex from 'rehype-katex';
-import rehypeStringify from 'rehype-stringify';
 import BaseLayout from '@/layouts/BaseLayout';
 import IndexPaperCard from '@/components/IndexPaperCard';
 import Head from 'next/head';
 import AreaContent from '@/components/AreaContent';
 
-export default function AreaPage({ area, contentHtml, papersForArea }) {
+export default function AreaPage({ area, content, papersForArea }) {
   if (!area) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950">
@@ -40,8 +35,7 @@ export default function AreaPage({ area, contentHtml, papersForArea }) {
             >
               {area.title}
             </h2>
-            {area.summary && <p className="text-zinc-700 dark:text-zinc-400">{area.summary}</p>}
-            {contentHtml && <AreaContent contentHtml={contentHtml} />}
+            {content && <AreaContent content={content} />}
           </div>
         </div>
         {papersForArea && papersForArea.length > 0 && (
@@ -82,14 +76,6 @@ export async function getStaticProps({ params }) {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
 
-    const processedContent = await remark()
-      .use(remarkMath)
-      .use(remarkRehype, { allowDangerousHtml: true })
-      .use(rehypeKatex)
-      .use(rehypeStringify, { allowDangerousHtml: true })
-      .process(content);
-    const contentHtml = processedContent.toString();
-
     // load all papers and filter by categories matching area tags
     const PAPERS_DIRECTORY = path.join(process.cwd(), 'src/data/papers');
     let papers = [];
@@ -129,7 +115,7 @@ export async function getStaticProps({ params }) {
           summary: data.summary,
           tags: data.tags || null,
         },
-        contentHtml: content ? contentHtml : null,
+        content: content || null,
         papersForArea,
       },
     };
@@ -138,7 +124,7 @@ export async function getStaticProps({ params }) {
     return {
       props: {
         area: null,
-        contentHtml: null,
+        content: null,
       },
     };
   }

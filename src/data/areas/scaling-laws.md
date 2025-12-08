@@ -4,10 +4,11 @@ slug: scaling-laws
 icon: ChartSpline
 tags:
   - Scaling Laws
-summary: 
+summary: >
+  Scaling laws give us a scientific compass for navigating model design. Instead of guessing how big a model should be—or how much data it needs—we rely on empirical laws that relate parameters, data, compute, and performance through predictable power-law trends. These laws reveal where scaling helps, where it saturates, and where we are wasting compute.
 ---
 
-<center><img src="/resources/scaling.png" style="width:700px;"/></center>
+![Efficient Scaling Laws](/resources/scaling.png)
 
 Scaling laws give us a scientific compass for navigating model design. Instead of guessing how big a model should be—or how much data it needs—we rely on empirical laws that relate parameters, data, compute, and performance through predictable power-law trends. These laws reveal where scaling helps, where it saturates, and where we are wasting compute.
 
@@ -34,4 +35,3 @@ Efficient scaling laws help answer the questions that truly matter in modern LLM
 * How does inference compute interact with training scale?
 
 By grounding scaling decisions in theory and empirical regularities, these works help avoid overtraining, overspending, and overbuilding—pushing us toward a future where capability grows efficiently, not just expensively.
-

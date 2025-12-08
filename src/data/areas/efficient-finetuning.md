@@ -4,10 +4,11 @@ slug: efficient-finetuning
 icon: Binary
 tags:
   - Parameter-Efficient Fine-tuning
-summary: 
+summary: >
+  Efficient fine-tuning asks a simple question: How do we adapt large models without paying large-model costs? As LLMs scale, full-model training becomes impractical, and even standard PEFT methods like LoRA can be brittle, sensitive to hyperparameters, or misaligned with downstream reasoning demands. 
 ---
 
-<center><img src="/resources/efficient_ft.png" style="width:700px;"/></center>
+![Efficient Fine-tuning](/resources/efficient_ft.png)
 
 Efficient fine-tuning asks a simple question: How do we adapt large models without paying large-model costs? As LLMs scale, full-model training becomes impractical, and even standard PEFT methods like LoRA can be brittle, sensitive to hyperparameters, or misaligned with downstream reasoning demands. Our work pushes PEFT toward **robustness, sample efficiency**, and **theoretical grounding**, showing how fine-tuning can be made reliable even for small models and low-resource settings.
 
@@ -38,4 +39,3 @@ Together, these works redefine efficient fine-tuning as robust adaptation rather
 ## Big Picture
 
 Efficient fine-tuning is no longer just about minimizing parameter counts—it is about designing adaptive, stable, and trustworthy mechanisms for injecting new capabilities into LLMs. Our work shows that with principled noise modeling and intelligent data construction, small updates can produce big, reliable gains, democratizing model adaptation across the entire LLM ecosystem.
-

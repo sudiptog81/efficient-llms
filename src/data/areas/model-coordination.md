@@ -4,10 +4,11 @@ slug: model-coordination
 icon: Waypoints
 tags:
   - Model Coordination
-summary: 
+summary: >
+  Model coordination asks a simple but transformative question: what if intelligence emerges not from one giant model, but from many smaller ones working together? As LLM ecosystems move toward modular, multi-agent, and expert-driven workflows, coordination becomes the glue that turns collections of models into coherent systems.
 ---
 
-<center><img src="/resources/model_coord.png" style="width:700px;"/></center>
+![Model Coordination](/resources/model_coord.png)
 
 Model coordination asks a simple but transformative question: what if intelligence emerges not from one giant model, but from many smaller ones working together? As LLM ecosystems move toward modular, multi-agent, and expert-driven workflows, coordination becomes the glue that turns collections of models into coherent systems.
 

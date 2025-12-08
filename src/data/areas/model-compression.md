@@ -14,7 +14,7 @@ summary: >
   while preserving performance.
 ---
 
-<center><img src="/resources/model_comp.png" style="width:700px;"/></center>
+![Model Compression](/resources/model_comp.png)
 
 Model compression aims to shrink large language models into faster, lighter, deployable systems—without discarding the behaviors that make them intelligent. Our work shows that effective compression is not just about removing parameters: it requires preserving the mathematical structure and semantic pathways through which models reason. PruneNet and CurDKV embody this philosophy, offering calibration-free pruning and value-aware KV compression that remain robust even under aggressive reduction.
 
@@ -44,7 +44,3 @@ Together, these works elevate compression from removing things cheaply to preser
 ## Big Picture
 
 Model compression is evolving from heuristics to geometry-aware, value-aware, and data-independent methods. PruneNet and CurDKV show that respecting a model’s internal structure—its spectrum, its value flows, its hidden semantics—is the key to building compressed LLMs that are not just smaller, but still smart. These approaches pave the way for resource-efficient models that operate comfortably on long contexts, edge hardware, and real-time applications.
-
-
-
-

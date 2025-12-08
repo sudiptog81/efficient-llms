@@ -8,10 +8,10 @@ tags:
   - Mixture-of-Experts
   - Systems
 summary: >
-
+  Efficient architectures rethink how LLMs should be built, not just shrunk. As scaling saturates and costs explode, the question is no longer “How do we train bigger models?” but rather “How do we design models that use capacity intelligently?” Our work shows that architectural efficiency emerges from preserving geometry, reducing redundancy, aligning reasoning paths, and enabling predictable downscaling.
 ---
 
-<center><img src="/resources/efficient_arc.png" style="width:700px;"/></center>
+![Efficient Architectures](/resources/efficient_arc.png)
 
 Efficient architectures rethink how LLMs should be built, not just shrunk. As scaling saturates and costs explode, the question is no longer “How do we train bigger models?” but rather “How do we design models that use capacity intelligently?” Our work shows that architectural efficiency emerges from preserving geometry, reducing redundancy, aligning reasoning paths, and enabling predictable downscaling.
 

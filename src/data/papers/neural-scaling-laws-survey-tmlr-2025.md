@@ -57,7 +57,7 @@ Neural scaling laws promised a simple recipe: more parameters, more data, more c
 
 ---
 
-<center><img src="/resources/neural-scaling-laws-survey-tmlr-2025/image1.jpg" style="width:600px;"/></center>
+![Neural Scaling Laws Survey](/resources/neural-scaling-laws-survey-tmlr-2025/image1.jpg)
 
 ---
 
@@ -75,7 +75,7 @@ This survey pulls together **50+ papers** into a single taxonomy, asking:
 - Where do scaling laws generalize, and where do they fail?  
 - How can we turn them from pretty curves into **actionable design tools** for training, inference, and compression?
 
-<center><img src="/resources/neural-scaling-laws-survey-tmlr-2025/image2.png" style="width:800px;"/></center>
+![Neural Scaling Laws Survey](/resources/neural-scaling-laws-survey-tmlr-2025/image2.png)
 
 ---
 
@@ -119,6 +119,6 @@ This survey pulls together **50+ papers** into a single taxonomy, asking:
   - Explicit scaling laws for **small** and **compressed** models.  
   - A shift from one-number test loss to **task- and community-specific** metrics.
 
-<center><img src="/resources/neural-scaling-laws-survey-tmlr-2025/image3.png" style="width:800px;"/></center>
+![Neural Scaling Laws Survey](/resources/neural-scaling-laws-survey-tmlr-2025/image3.png)
 
 ---

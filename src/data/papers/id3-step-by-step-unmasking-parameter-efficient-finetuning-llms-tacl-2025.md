@@ -41,7 +41,7 @@ tags:
   - large language models
 ---
 
-<center><img src="/resources/id3-step-by-step-unmasking-parameter-efficient-finetuning-llms-tacl-2025/id3.jpg" style="width:300px;"/></center>
+<img src="/resources/id3-step-by-step-unmasking-parameter-efficient-finetuning-llms-tacl-2025/id3.jpg" alt="ID3 Diagram" style="width:500px;" />
 
 *(a) Static selection methods update same set of parameters over iterations. (b) Repeatation-based methods select fresh set of parameters in each iteration, (c) Incremental selection methods (ours - ID3) iterative increase the pool of parameters over iterations. ID3 incrementally selects and trains new parameters at each step, balancing exploration and exploitation. A dynamic importance metric (D3) ranks masked parameters, and an unmasking scheduler controls how many to unveil.*
 
@@ -141,6 +141,7 @@ write_summary_to_disk("path/to/summary.pt", summary)
 ```
 
 ## Example: Inference workflow with ID3
+
 ```python
 from selective_optimizers.load_store import load_summary_from_disk, load_weights_from_summary
 
