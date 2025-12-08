@@ -23,6 +23,7 @@ const PaperContent = ({ content }) => (
               height={0}
               sizes="100vw"
               className="mx-auto w-auto md:max-w-[800px] h-auto"
+              priority
               {...props}
             />
           </span>

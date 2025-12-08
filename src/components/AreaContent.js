@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
@@ -23,6 +22,7 @@ const AreaContent = ({ content }) => (
               height={0}
               sizes="100vw"
               className="mx-auto w-auto md:max-w-[800px] h-auto mt-0"
+              priority
               {...props}
             />
           </span>
