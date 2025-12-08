@@ -30,11 +30,11 @@ export default function AreaPage({ area, content, papersForArea }) {
       <main className="max-w-6xl mx-auto px-6">
         <div className="overflow-hidden">
           <div className="pt-8 md:pt-12 pb-4">
-            <h2
+            <h1
               className="text-4xl font-bold mb-6 text-zinc-900 dark:text-zinc-50"
             >
               {area.title}
-            </h2>
+            </h1>
             {content && <AreaContent content={content} />}
           </div>
         </div>
