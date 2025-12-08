@@ -18,11 +18,11 @@ const IndexPaperCard = ({ paper }) => (
       {paper.abstract}
     </p> */}
 
-    <div className="flex flex-wrap gap-2">
+    <div>
       {paper.categories.slice(0, 2).map((cat, idx) => (
         <span
           key={idx}
-          className={`inline-flex items-center gap-1 text-blue-700 dark:text-blue-300 text-xs font-medium ${idx !== 0 ? "before:content-['•'] before:mr-1" : ""}`}
+          className={`text-blue-700 dark:text-blue-300 text-xs font-medium ${idx !== 0 ? "before:content-['•'] before:mx-1" : ""}`}
         >
           {cat}
         </span>

@@ -6,35 +6,8 @@ import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
 import Image from 'next/image';
 
-const DynamicImage = ({ src, alt, ...props }) => {
-  const [imageSrc, setImageSrc] = useState(src);
-  const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
-
-  useEffect(() => {
-    if (src.startsWith('/')) {
-      const img = new window.Image();
-      img.onload = () => {
-        setDimensions({ width: img.naturalWidth, height: img.naturalHeight });
-      };
-      img.src = src;
-    }
-  }, [src]);
-
-  return (
-    <Image
-      src={imageSrc}
-      alt={alt || ''}
-      width={dimensions.width}
-      height={dimensions.height}
-      className="mx-auto md:max-w-[800px] h-auto mt-0"
-      priority
-      {...props}
-    />
-  );
-};
-
 const AreaContent = ({ content }) => (
-  <div 
+  <div
     className="py-2 prose prose-zinc dark:prose-invert max-w-none prose-headings:font-semibold prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-text-base prose-p:leading-6"
   >
     <ReactMarkdown
@@ -43,7 +16,15 @@ const AreaContent = ({ content }) => (
       components={{
         img: ({ node, ...props }) => (
           <span className="w-full">
-            <DynamicImage {...props} />
+            <Image
+              src={props.src}
+              alt={props.alt || ''}
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="mx-auto w-auto md:max-w-[800px] h-auto mt-0"
+              {...props}
+            />
           </span>
         ),
       }}
