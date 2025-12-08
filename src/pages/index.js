@@ -97,10 +97,10 @@ export default function Home({ researchAreas = [], recentPublications = [] }) {
   return (
     <BaseLayout>
       <Head>
-        <title>Parmanu @ LCS2 IIT Delhi</title>
-        <meta name="description" content="A comprehensive resource for efficient large language models." />
+        <title>Parmanu @ LCS2 IIT Delhi | Efficient LLMs for The World </title>
+        <meta name="description" content="A comprehensive resource for efficient large language models. Brought to you by Laboratory for Computational Social Systems, IIT Delhi." />
         <meta property="og:title" content="Parmanu @ LCS2 IIT Delhi" />
-        <meta property="og:description" content="A comprehensive resource for efficient large language models." />
+        <meta property="og:description" content="A comprehensive resource for efficient large language models. Brought to you by Laboratory for Computational Social Systems, IIT Delhi." />
         <meta property="og:type" content="website" />
       </Head>
       <main className="w-full">

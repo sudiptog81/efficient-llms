@@ -11,7 +11,7 @@ export default function Tools({ tools }) {
     <BaseLayout>
       <Head>
         <title>Tools | Parmanu @ LCS2 IIT Delhi</title>
-        <meta name="description" content="Tools created by our researchers for making large language models efficient. Find out more about our research and innovations in this field." />
+        <meta name="description" content="Tools created by our researchers for making large language models efficient. Find out more about our research and innovations in this field. Brought to you by Laboratory for Computational Social Systems, IIT Delhi." />
       </Head>
       <main className="max-w-6xl mx-auto px-6 mt-10">
         <header className="text-center mb-12">

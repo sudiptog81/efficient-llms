@@ -11,7 +11,7 @@ export default function PapersDirectory({ papers }) {
     <BaseLayout>
       <Head>
         <title>Publications | Parmanu @ LCS2 IIT Delhi</title>
-        <meta name="description" content="A comprehensive list of publications related to efficient large language models." />
+        <meta name="description" content="A comprehensive list of publications related to efficient large language models. Brought to you by Laboratory for Computational Social Systems, IIT Delhi." />
       </Head>
       <main className="max-w-6xl mx-auto px-6 mt-10">
         <header className="text-center mb-12">
