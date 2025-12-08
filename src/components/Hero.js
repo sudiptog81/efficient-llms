@@ -26,12 +26,11 @@ export default function Hero() {
       </div>
 
       <Image
-      src={AGIPath}
-      alt="AGI Path"
-      className="mt-20 mx-auto max-w-4xl"
-      priority
-    />
-    
+        src={AGIPath}
+        alt="AGI Path"
+        className="mt-20 mx-auto xs:max-w-sm sm:max-w-md md:max-w-3xl dark:invert-97"
+        preload
+      />
     </section>
   );
 }
