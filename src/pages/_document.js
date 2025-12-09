@@ -19,7 +19,8 @@ export default function Document() {
   return (
     <Html lang="en" suppressHydrationWarning>
       <Head>
-         <meta charSet="utf-8" />
+        <meta charSet="utf-8" />
+        <link rel="icon" href="https://parmanu.lcs2.in/favicon.ico" />
         <Script async id="google-analytics-script"
           src={`https://www.googletagmanager.com/gtag/js?id=G-N968HFGN36`} strategy="afterInteractive">
         </Script>
