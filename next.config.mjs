@@ -2,6 +2,13 @@
 const nextConfig = {
   /* config options here */
   reactStrictMode: true,
+  images: {
+    localPatterns: [
+      {
+        pathname: '/**/**',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

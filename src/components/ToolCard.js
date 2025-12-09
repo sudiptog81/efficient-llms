@@ -23,7 +23,7 @@ export default function ToolCard({ tool, index }) {
     } else {
       setImageLoading(false);
     }
-  }, []);
+  }, [tool.image, tool.link]);
 
   return (
     <Link
@@ -42,7 +42,6 @@ export default function ToolCard({ tool, index }) {
             alt={`Preview of ${tool.name}`}
             fill
             className="object-cover dark:invert"
-            unoptimized
           />
         </div>
       )}
