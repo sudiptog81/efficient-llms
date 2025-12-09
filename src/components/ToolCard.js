@@ -41,7 +41,7 @@ export default function ToolCard({ tool, index }) {
             src={previewImage}
             alt={`Preview of ${tool.name}`}
             fill
-            className="object-cover dark:invert"
+            className="object-cover h-auto w-auto dark:invert"
           />
         </div>
       )}

@@ -14,18 +14,15 @@ const AreaContent = ({ content }) => (
       rehypePlugins={[rehypeRaw, rehypeKatex]}
       components={{
         img: ({ node, ...props }) => (
-          <span className="w-full">
-            <Image
-              src={props.src}
-              alt={props.alt || ''}
-              width={0}
-              height={0}
-              sizes="(min-width: 800px) 50vw, 100vw"
-              className="mx-auto w-auto md:max-w-[800px] h-auto mt-0 dark:invert-97"
-              preload={true}
-              {...props}
-            />
-          </span>
+          <Image
+            src={props.src}
+            alt={props.alt || ''}
+            width={768}
+            height={420}
+            className="mx-auto md:max-w-[768px] h-auto mt-0 dark:invert-97"
+            priority
+            {...props}
+          />
         ),
       }}
     >
