@@ -34,3 +34,27 @@
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant light (&:where(.light, .light *));
 @custom-variant system (&:where(.system, .system *));
+ 
+:root,
+.comments * {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+:root,
+.dark .comments * {
+  background-color: #18181b !important;
+  color: #ffffff !important;
+}
+ 
+.disqus-comments * {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #0f172a !important;
+}
+
+.dark .disqus-comments * {
+  background-color: #18181b !important;
+  color: #f8fafc !important;
+  border-color: #18181b !important;
+}
