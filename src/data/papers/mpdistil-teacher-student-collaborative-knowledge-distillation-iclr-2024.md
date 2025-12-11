@@ -31,7 +31,7 @@ bibtex: |
 
 links:
   pdf: "https://openreview.net/pdf?id=Ixi4j6LtdX"
-  code: "https://github.com/notmyname16/MPDistil"
+  code: "https://github.com/parmanu-lcs2/mpdistil"
   openreview: "https://openreview.net/forum?id=Ixi4j6LtdX"
   poster: "https://iclr.cc/media/PosterPDFs/ICLR%202024/18953.png?t=1713539941.8927011"
   ppt: "https://iclr.cc/virtual/2024/poster/18953"

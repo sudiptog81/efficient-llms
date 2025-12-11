@@ -23,7 +23,7 @@ doi: "10.18653/v1/2023.findings-emnlp.228"
 links:
   arxiv: "https://arxiv.org/abs/2310.14206"
   pdf: "https://aclanthology.org/2023.findings-emnlp.228.pdf"
-  code: "https://github.com/victor7246/TransJect"
+  code: "https://github.com/parmanu-lcs2/TransJect"
   alphaxiv: "https://alphaxiv.org/abs/2310.14206"
   openreview: "https://openreview.net/forum?id=oYRlrDN6uj"
 bibtex: |

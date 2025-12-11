@@ -11,3 +11,7 @@ tools:
     description: This toolkit provides a framework for distilling knowledge from large language models into smaller, more efficient models using collaborative frameworks.
     link: https://github.com/parmanu-lcs2/mpdistil
     image: /tools/mpdistill.png
+  - name: Manifold-Preserving Transformers (TransJect)
+    description: This package contains implementations of manifold-preserving transformer architectures that maintain the geometric properties of data during transformations.
+    link: https://github.com/parmanu-lcs2/TransJect
+    image: /tools/transject.png
