@@ -23,7 +23,7 @@ Efficient fine-tuning must therefore be stable, data-efficient, and fidelity-awa
 
 ## How Our Works Connect the Dots
 
-* **ID3** (Iterative Distillation for Reasoning Data) Shows that PEFT can be constructed, not just trained. By synthesizing reasoning data that optimizes student learning, ID3 reduces dependence on massive curated datasets and enables stable task adaptation, especially for reasoning-heavy domains.
+* **ID3** Shows that parameter selection remains very crucial for task-specific knowledge adaptation. Rather than chosing suboptimal set of pre-determined parameters, ID3 advocates for adaptive parameter selection strategy for efficient fine-tuning.
 
 * **MonteCLoRA**  (Bayesian LoRA) Reveals that LoRA’s brittleness comes from deterministic low-rank updates. By injecting structured Monte Carlo noise, MonteCLoRA produces smoother loss landscapes, lower variance, and more reliable convergence—all while keeping LoRA’s parameter budget.
 
@@ -32,7 +32,6 @@ Together, these works redefine efficient fine-tuning as robust adaptation rather
 ## Practical Guide — When to Use Which Method?
 
 * If LoRA is unstable or sensitive to hyperparameters → Use MonteCLoRA for smoother optimization.
-* If your domain lacks labeled reasoning data → Use ID3 to iteratively synthesize high-quality supervision.
 * If you need small models to reason better without large budgets → Use ID3 + PEFT for efficient performance lift.
 * If you want a PEFT method that generalizes reliably across tasks → Use MonteCLoRA for robustness under noise.
 
