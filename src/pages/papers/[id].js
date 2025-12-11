@@ -9,8 +9,11 @@ import PaperContent from '@/components/PaperContent';
 import Head from 'next/head';
 import ShareFab from '@/components/ShareFab';
 import { DiscussionEmbed } from 'disqus-react';
+import { useTheme } from 'next-themes';
 
 export default function PaperPage({ paper, content }) {
+  const { theme } = useTheme();
+
   if (!paper) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950">
@@ -69,6 +72,7 @@ export default function PaperPage({ paper, content }) {
             {content && <PaperContent content={content} />}
             <div className="disqus-comments">
               <DiscussionEmbed
+                key={theme}
                 shortname='parmanu-lcs2'
                 config={
                   {
