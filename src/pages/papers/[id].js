@@ -32,37 +32,6 @@ export default function PaperPage({ paper, content }) {
         <meta property="og:title" content={`${paper.title} | Parmanu @ LCS2 IIT Delhi`} />
         <meta property="og:description" content={paper.abstract} />
         <meta property="og:type" content="website" />
-        <style>
-          {`
-            :root {
-              --background: #ffffff;
-              --foreground: #171717;
-            }
-
-            :root[data-theme="light"] {
-              background-color: #ffffff;
-              color:  #171717;
-            }
-            :root[data-theme="dark"] {
-              background-color: #171717;
-              color: #ffffff;
-            }
-
-            #disqus_thread{
-              /* force light mode */
-              color-scheme: light !important;
-              filter: none;
-              background-color: white;
-            }
-
-            /* If you switch your site to dark mode, keep forcing “light” inside the iframe */
-            [data-theme="dark"] #disqus_thread{
-              color-scheme: light !important;
-              color: white !important;
-              background-color: black !important;
-            }
-          `}
-        </style>
       </Head>
       <main className="max-w-screen md:max-w-4xl mx-auto md:my-12">
         <div className="bg-white dark:bg-zinc-900 md:rounded-2xl md:shadow-lg md:border border-zinc-200 dark:border-zinc-800 overflow-hidden">
