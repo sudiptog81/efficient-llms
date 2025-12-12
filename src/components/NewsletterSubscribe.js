@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { Loader, UserCheck, UserPlus } from "lucide-react";
 import Button from "./Button";
-import { Check, Loader, Plus, PlusCircle } from "lucide-react";
 
 const NewsletterSubscribe = () => {
   const [subscribed, setSubscribed] = useState(false);
@@ -51,7 +51,7 @@ const NewsletterSubscribe = () => {
           <input 
             type="email"
             placeholder="Enter your e-mail"
-            className="px-4 py-3 w-full md:w-6xl text-center rounded-full border border-zinc-300 focus:outline-none dark:bg-gray-800 dark:border-gray-700 md:mr-4 font-bold placeholder-opacity-100 placeholder-white"
+            className="px-4 py-3 w-full md:w-6xl text-center rounded-full border-2 border-zinc-300 dark:bg-gray-800 dark:border-gray-700 md:mr-4 font-bold focus:placeholder-transparent"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -62,7 +62,7 @@ const NewsletterSubscribe = () => {
             type="submit" 
             onClick={handleOnClick}
           >
-            {subscribed ? <Check className="w-4 h-4 mr-1" /> : loading ? <Loader className="w-4 h-4 mr-1" /> : <PlusCircle className="w-4 h-4 mr-1" />}
+            {subscribed ? <UserCheck className="w-4 h-4 mr-1 font-bold -mt-[2px]" strokeWidth={3} /> : loading ? <Loader className="w-4 h-4 mr-1 font-bold -mt-[2px]" strokeWidth={3} /> : <UserPlus className="w-4 h-4 mr-1 font-bold -mt-[2px]" strokeWidth={3} />}
             {subscribed ? "Subscribed" : loading ? "Subscribing" : "Subscribe to Newsletter"}
           </Button>
         </div>
