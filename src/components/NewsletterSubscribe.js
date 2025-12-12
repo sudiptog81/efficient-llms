@@ -55,7 +55,7 @@ const NewsletterSubscribe = () => {
         <div className="max-w-4xl flex flex-col md:flex-row justify-center items-center mx-auto gap-4 gap-x-2">
           <input
             type="email"
-            className={`px-4 py-3 w-full md:w-6xl text-center rounded-full border-2 outline-none md:mr-4 font-bold focus:placeholder-transparen ${error
+            className={`px-4 py-3 w-full md:w-6xl text-center rounded-full border-2 outline-none md:mr-4 font-bold focus:placeholder-transparent ${error
               ? "border-red-600 dark:border-red-500 placeholder-red-600 dark:placeholder-red-400"
               : "border-indigo-800 dark:border-white placeholder-indigo-800 dark:placeholder-white"
               }`}
