@@ -1,0 +1,13 @@
+sponsors:
+  - name: JPMorganChase
+    logo: "/sponsors/jpmc.png"
+    website: "https://jpmorganchase.com"
+    dark_invert: true
+
+  - name: IBM
+    logo: "/sponsors/ibm.png"
+    website: "https://ibm.com"
+
+  - name: "Google Cloud"
+    logo: "/sponsors/gcp.png"
+    website: "https://cloud.google.com"

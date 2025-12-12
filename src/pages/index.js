@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseLayout from '@/layouts/BaseLayout';
-import Link from 'next/link';
+import yaml from 'js-yaml';
 import Hero from '@/components/Hero';
 import fs from 'fs';
 import path from 'path';
@@ -9,6 +9,7 @@ import RecentPapers from '@/components/RecentPapers';
 import Join from '@/components/Join';
 import Head from 'next/head';
 import NewsletterSubscribe from '@/components/NewsletterSubscribe';
+import Sponsors from '@/components/Sponsors';
 
 async function loadRecentPublications() {
   const papersDir = path.join(process.cwd(), 'src', 'data', 'papers');
@@ -84,17 +85,31 @@ async function loadResearchAreas() {
   }
 }
 
+async function loadSponsors() {
+  const sponsorsPath = path.join(process.cwd(), 'src', 'data', 'sponsors.yaml');
+  try {
+    const fileContents = fs.readFileSync(sponsorsPath, 'utf8');
+    const { sponsors } = yaml.load(fileContents);
+    return sponsors;
+  } catch (e) {
+    return [];
+  }
+}
+
 export async function getStaticProps() {
   const recentPublications = await loadRecentPublications();
   const researchAreas = await loadResearchAreas();
+  const sponsors = await loadSponsors();
   return {
     props: {
       recentPublications,
       researchAreas,
+      sponsors
     },
   };
 }
-export default function Home({ researchAreas = [], recentPublications = [] }) {
+
+export default function Home({ researchAreas = [], recentPublications = [], sponsors = [] }) {
   const siteUrl = 'https://parmanu.lcs2.in';
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -124,6 +139,7 @@ export default function Home({ researchAreas = [], recentPublications = [] }) {
       </Head>
       <main className="w-full">
         <Hero />
+        <Sponsors sponsors={sponsors} />
         <ResearchAreas researchAreas={researchAreas} />
         <RecentPapers recentPublications={recentPublications} />
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-zinc-200 dark:border-gray-800 pt-20">

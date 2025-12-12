@@ -6,7 +6,7 @@ const RecentPapers = ({ recentPublications }) => (
   <section id="publications" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-zinc-200 dark:border-gray-800">
     <div className="text-center mb-16">
       <h2 className="text-4xl font-bold tracking-tight">Recent Publications</h2>
-      <p className="mt-3 text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
+      <p className="mt-3 text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
         See our latest breakthroughs in model compression and inference.
       </p>
     </div>

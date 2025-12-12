@@ -14,10 +14,13 @@ categories:
 authors:
   - name: "Ayan Sengupta"
     affiliation: "IIT Delhi, India"
+    email: ayan.sengupta@ee.iitd.ac.in
   - name: "Siddhant Chaudhary"
     affiliation: "IIT Delhi, India"
+    email: urssidd@gmail.com
   - name: "Tanmoy Chakraborty"
     affiliation: "IIT Delhi, India"
+    email: tanchak@iitd.ac.in
 links:
   openreview: "https://openreview.net/forum?id=klmc4fwPLd"
   paper: "https://openreview.net/pdf?id=klmc4fwPLd"

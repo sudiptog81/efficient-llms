@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return res.status(400).json({ error: 'Oops! This e-email is invalid.', success: false });
+    return res.status(400).json({ error: 'Oops! This e-mail is invalid.', success: false });
   }
 
   try {
@@ -46,7 +46,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('Error adding email to Google Sheets:', error);
     return res.status(500).json({
-      error: 'Oops! Failed to subscribe. Please try again later.',
+      error: 'Oops! Failed to subscribe.',
       success: false
     });
   }

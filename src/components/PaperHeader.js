@@ -217,7 +217,7 @@ const PaperHeader = ({ paper }) => {
           {paper.title}
         </h1>
 
-        <h2 className="text-2xl font-semibold text-indigo-800 dark:text-indigo-400 leading-snug text-center">
+        <h2 className="text-2xl font-semibold text-indigo-800 dark:text-indigo-300 leading-snug text-center">
           {paper.conference ? paper.conference : ""}
         </h2>
       </div>
@@ -228,7 +228,7 @@ const PaperHeader = ({ paper }) => {
         {paper.categories.map((cat, idx) => (
           <span
             key={idx}
-            className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-indigo-800 dark:text-indigo-400 text-sm font-medium"
+            className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300 text-sm font-medium"
           >
             {cat}
           </span>
