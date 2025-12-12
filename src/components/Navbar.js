@@ -30,13 +30,13 @@ export default function Navbar() {
     <header className={`${geistSans.variable} ${geistMono.variable} top-0 z-50 w-full backdrop-blur-md bg-white/80 dark:bg-gray-950/80 border-b border-zinc-200 dark:border-gray-800 shadow-sm`}>
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-2">
-          <Link href="/" className={`${geistSans.variable} ${geistMono.variable} text-xl font-semibold`}>
+          <Link href="/" className={`${geistSans.variable} ${geistMono.variable} text-xl font-semibold cursor-pointer`}>
             <Image
               src={ParmanuLogo}
               alt="Parmanu @ LCS2 IIT Delhi"
               priority
               height={150}
-              className='dark:brightness-[180%] h-15 w-auto'
+              className='dark:brightness-[180%] h-15 w-auto cursor-pointer'
             />
           </Link>
         </div>
@@ -44,7 +44,7 @@ export default function Navbar() {
         <div className='flex items-center align-center'>
           <div className="hidden md:flex space-x-8">
             {navigation.map((item) => (
-              <Link key={item.name} href={item.href} className={`${geistSans.variable} ${geistMono.variable} text-sm font-medium text-zinc-600 hover:text-indigo-800 dark:text-zinc-300 dark:hover:text-indigo-400 transition`}>
+              <Link key={item.name} href={item.href} className={`${geistSans.variable} ${geistMono.variable} cursor-pointer text-sm font-medium text-zinc-600 hover:text-indigo-800 dark:text-zinc-300 dark:hover:text-indigo-400 transition`}>
                 {item.name}
               </Link>
             ))}

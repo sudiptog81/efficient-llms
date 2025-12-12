@@ -40,7 +40,10 @@ export default function PaperPage({ paper, content }) {
             <PaperHeader paper={paper} />
             <Abstract abstract={paper.abstract} />
             {content && <PaperContent content={content} />}
-            <div className="disqus-comments">
+            <div className="lg:px-0 max-w-7xl mx-auto border-t border-zinc-200 dark:border-gray-800 pt-8">
+              <NewsletterSubscribe />
+            </div>
+            <div className="disqus-comments pt-8">
               <DiscussionEmbed
                 key={theme}
                 shortname='parmanu-lcs2'
@@ -56,9 +59,7 @@ export default function PaperPage({ paper, content }) {
             </div>
           </div>
         </div>
-        <div className="px-4 sm:px-6 lg:px-0 max-w-7xl mx-auto">
-          <NewsletterSubscribe />
-        </div>
+
       </main>
       <ShareFab paper={paper} />
     </BaseLayout>

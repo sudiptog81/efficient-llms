@@ -39,15 +39,15 @@ export default async function handler(req, res) {
       },
     });
 
-    return res.status(200).json({ 
-      message: email + ' subscribed successfully', 
-      success: true 
+    return res.status(200).json({
+      message: email + ' subscribed successfully',
+      success: true
     });
   } catch (error) {
     console.error('Error adding email to Google Sheets:', error);
-    return res.status(500).json({ 
-      error: 'Oops! Failed to subscribe. Please try again later.', 
-      success: false 
+    return res.status(500).json({
+      error: 'Oops! Failed to subscribe. Please try again later.',
+      success: false
     });
   }
 }
