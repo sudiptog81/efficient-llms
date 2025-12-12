@@ -14,7 +14,10 @@
     "@next/third-parties": "^16.0.5",
     "axios": "^1.13.2",
     "cheerio": "^1.1.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "disqus-react": "^1.1.7",
+    "googleapis": "^168.0.0",
     "gray-matter": "^4.0.3",
     "katex": "^0.16.25",
     "lucide-react": "^0.555.0",
@@ -35,7 +38,9 @@
     "remark-gfm": "^4.0.1",
     "remark-html": "^16.0.1",
     "remark-math": "^6.0.0",
-    "remark-rehype": "^11.1.2"
+    "remark-rehype": "^11.1.2",
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

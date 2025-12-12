@@ -44,7 +44,7 @@ export default function Navbar() {
         <div className='flex items-center align-center'>
           <div className="hidden md:flex space-x-8">
             {navigation.map((item) => (
-              <Link key={item.name} href={item.href} className={`${geistSans.variable} ${geistMono.variable} text-sm font-medium text-zinc-600 hover:text-indigo-600 dark:text-zinc-300 dark:hover:text-indigo-400 transition`}>
+              <Link key={item.name} href={item.href} className={`${geistSans.variable} ${geistMono.variable} text-sm font-medium text-zinc-600 hover:text-indigo-800 dark:text-zinc-300 dark:hover:text-indigo-400 transition`}>
                 {item.name}
               </Link>
             ))}
@@ -77,7 +77,7 @@ export default function Navbar() {
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-zinc-700 hover:bg-indigo-50 hover:text-indigo-600 dark:text-zinc-200 dark:hover:bg-gray-800 dark:hover:text-indigo-400"
+                className="block px-3 py-2 rounded-md text-base font-medium text-zinc-700 hover:bg-indigo-50 hover:text-indigo-800 dark:text-zinc-200 dark:hover:bg-gray-800 dark:hover:text-indigo-400"
               >
                 {item.name}
               </Link>

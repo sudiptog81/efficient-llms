@@ -8,6 +8,7 @@ import ResearchAreas from '@/components/ResearchAreas';
 import RecentPapers from '@/components/RecentPapers';
 import Join from '@/components/Join';
 import Head from 'next/head';
+import NewsletterSubscribe from '@/components/NewsletterSubscribe';
 
 async function loadRecentPublications() {
   const papersDir = path.join(process.cwd(), 'src', 'data', 'papers');
@@ -125,6 +126,7 @@ export default function Home({ researchAreas = [], recentPublications = [] }) {
         <Hero />
         <ResearchAreas researchAreas={researchAreas} />
         <RecentPapers recentPublications={recentPublications} />
+        <NewsletterSubscribe />
         <Join />
       </main>
     </BaseLayout>

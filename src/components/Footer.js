@@ -8,11 +8,11 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} Laboratory for Computational Social Systems. All rights reserved.
         </p>
         <div className="mt-4 space-x-4">
-          <Link href="https://twitter.com/lcs2lab" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 dark:hover:text-indigo-400">Twitter</Link>
+          <Link href="https://twitter.com/lcs2lab" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-800 dark:hover:text-indigo-400">Twitter</Link>
           <span className="text-zinc-300 dark:text-zinc-600">|</span>
-          <Link href="https://www.linkedin.com/company/lcs2lab/" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 dark:hover:text-indigo-400">LinkedIn</Link>
+          <Link href="https://www.linkedin.com/company/lcs2lab/" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-800 dark:hover:text-indigo-400">LinkedIn</Link>
           <span className="text-zinc-300 dark:text-zinc-600">|</span>
-          <Link href="mailto:parmanu.lcs2@gmail.com" className="hover:text-indigo-600 dark:hover:text-indigo-400">Contact</Link>
+          <Link href="mailto:parmanu.lcs2@gmail.com" className="hover:text-indigo-800 dark:hover:text-indigo-400">Contact</Link>
         </div>
       </div>
     </footer>

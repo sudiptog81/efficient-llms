@@ -1,5 +1,3 @@
-// src/pages/api/citations.js
-
 async function fetchFromOpenAlex(doi) {
   // OpenAlex works with the DOI URL as ID:
   // https://api.openalex.org/works/https://doi.org/<doi>
