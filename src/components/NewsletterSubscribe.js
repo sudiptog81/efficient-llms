@@ -62,7 +62,7 @@ const NewsletterSubscribe = () => {
             type="submit" 
             onClick={handleOnClick}
           >
-            {subscribed ? <Check className="w-4 h-4 mr-1 mt-[1px]" /> : loading ? <Loader className="w-4 h-4 mr-1" /> : <PlusCircle className="w-4 h-4 mr-1" />}
+            {subscribed ? <Check className="w-4 h-4 mr-1" /> : loading ? <Loader className="w-4 h-4 mr-1" /> : <PlusCircle className="w-4 h-4 mr-1" />}
             {subscribed ? "Subscribed" : loading ? "Subscribing" : "Subscribe to Newsletter"}
           </Button>
         </div>
