@@ -45,7 +45,7 @@ const NewsletterSubscribe = () => {
   }
   
   return (
-  <section id="subscribe" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 border-t border-zinc-200 dark:border-gray-800">
+  <section id="subscribe" className="max-w-7xl mx-auto pt-20 border-t border-zinc-200 dark:border-gray-800">
       <form className="p-10 bg-indigo-800 dark:bg-indigo-500 rounded-2xl text-white text-center shadow-2xl">
         <div className="max-w-4xl flex flex-col md:flex-row justify-center items-center mx-auto gap-4">
           <input 
