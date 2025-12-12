@@ -10,7 +10,7 @@ const Sponsors = ({ sponsors }) => (
       </p>
     </div>
 
-    <div className="mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 md:gap-8 justify-center" >
+    <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-8 justify-center" >
       {sponsors.map((sponsor) => (
         <Link key={sponsor.name} href={sponsor.website} target="_blank" rel="noopener noreferrer" className="w-full px-3 py-6 md:py-0 flex items-center">
           <div className="w-full flex flex-col align-center items-center justify-center">
