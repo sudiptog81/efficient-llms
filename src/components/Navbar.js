@@ -36,7 +36,7 @@ export default function Navbar() {
               alt="Parmanu @ LCS2 IIT Delhi"
               priority
               height={150}
-              className='dark:brightness-[180%] h-15 w-auto cursor-pointer'
+              className='dark:grayscale dark:contrast-[300%] dark:invert dark:brightness-0 h-15 w-auto cursor-pointer'
             />
           </Link>
         </div>
