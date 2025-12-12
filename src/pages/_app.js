@@ -7,6 +7,7 @@ export default function App({ Component, pageProps }) {
       attribute="class"
       defaultTheme="light"
       storageKey="theme"
+      disableTransitionOnChange
     >
       <Component {...pageProps} />
     </ThemeProvider>
