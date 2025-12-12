@@ -75,7 +75,7 @@ const NewsletterSubscribe = () => {
             disabled={subscribed || loading}
             onClick={handleOnClick}
           >
-            {subscribed ? <UserCheck className="w-4 h-4 mr-1 font-bold -mt-[2px]" strokeWidth={3} /> : loading ? <Loader className="w-4 h-4 mr-1 font-bold -mt-[2px]" strokeWidth={3} /> : <UserPlus className="w-4 h-4 mr-1 font-bold -mt-[2px]" strokeWidth={3} />}
+            {subscribed ? <UserCheck className="w-5 h-5 mr-1 font-bold -mt-[2px]" strokeWidth={3} /> : loading ? <Loader className="w-5 h-5 mr-1 font-bold -mt-[2px]" strokeWidth={3} /> : <UserPlus className="w-5 h-5 mr-1 font-bold -mt-[2px]" strokeWidth={3} />}
             {subscribed ? "Subscribed" : loading ? "Subscribing" : "Subscribe to Newsletter"}
           </Button>
         </div>

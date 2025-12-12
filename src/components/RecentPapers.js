@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Button from "./Button";
-import { CircleArrowRight } from "lucide-react";
+import { CircleArrowRight, LibraryBig } from "lucide-react";
 
 const RecentPapers = ({ recentPublications }) => (
   <section id="publications" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-zinc-200 dark:border-gray-800">
@@ -28,7 +28,10 @@ const RecentPapers = ({ recentPublications }) => (
       ))}
       <div className="pt-6 text-center">
         <Button href={"/papers"} variant="primary">
-          See All Publications
+          <LibraryBig className="w-5 h-5 mr-2 -mt-[1px]" strokeWidth={2.5} />
+          <span className="font-bold">
+            See All Publications
+          </span>
         </Button>
       </div>
     </div>

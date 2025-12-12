@@ -12,7 +12,7 @@ const Join = () => (
       </p>
       <div className="mt-8 flex justify-center">
         <Button href="mailto:parmanu.lcs2@gmail.com?subject=[Parmanu]%20Interested%20in%20Joining%20LCS2&cc=chak.tanmoy.iit@gmail.com" variant="secondary">
-          <MailIcon className="w-4 h-4 mr-1 -mt-[1px]" strokeWidth={3} />
+          <MailIcon className="w-5 h-5 mr-1 -mt-[1px]" strokeWidth={3} />
           <span className="font-bold">Apply Now</span>
         </Button>
       </div>
