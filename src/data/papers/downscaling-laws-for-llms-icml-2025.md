@@ -14,10 +14,12 @@ categories:
 authors:
   - name: "Ayan Sengupta"
     affiliation: "IIT Delhi, India"
+    email: ayan.sengupta@ee.iitd.ac.in
   - name: "Yash Goel"
     affiliation: "IIT Delhi, India"
   - name: "Tanmoy Chakraborty"
     affiliation: "IIT Delhi, India"
+    email: tanchak@iitd.ac.in
 links:
   openreview: "https://openreview.net/forum?id=CYJlJgEzZs"
   video: "https://icml.cc/virtual/2025/poster/40165"

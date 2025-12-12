@@ -12,12 +12,14 @@ categories:
 authors:
   - name: "Ayan Sengupta"
     affiliation: "IIT Delhi, India"
+    email: ayan.sengupta@ee.iitd.ac.in
   - name: "Shantanu Dixit"
     affiliation: "IIIT Delhi, India"
   - name: "Md. Shad Akhtar"
     affiliation: "IIIT Delhi, India"
   - name: "Tanmoy Chakraborty"
     affiliation: "IIT Delhi, India"
+    email: tanchak@iitd.ac.in
 abstract: "This work proposes MPDistil, a meta-policy knowledge distillation framework that makes teacher–student learning collaborative and competitive instead of one-way. MPDistil introduces a lightweight meta-teacher that optimizes a joint utility over teacher and student, and a curriculum-learning policy that selects tasks to help the student eventually surpass the teacher. On GLUE and SuperGLUE, a 6-layer BERT student distilled with MPDistil can outperform its 12-layer teacher on several tasks, and the method also narrows the performance gap when distilling from very large models like DeBERTa-v2-xxlarge to smaller students."
 
 bibtex: |

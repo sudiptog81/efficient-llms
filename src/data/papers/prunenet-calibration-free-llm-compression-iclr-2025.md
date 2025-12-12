@@ -10,10 +10,13 @@ categories:
 authors:
   - name: "Ayan Sengupta"
     affiliation: "IIT Delhi, India"
+    email: ayan.sengupta@ee.iitd.ac.in
   - name: "Siddhant Chaudhary"
     affiliation: "IIT Delhi, India"
+    email: urssidd@gmail.com
   - name: "Tanmoy Chakraborty"
     affiliation: "IIT Delhi, India"
+    email: tanchak@iitd.ac.in
 abstract: "This work introduces PruneNet, a calibration-free structured pruning method for large language models that treats pruning as policy learning over intrinsic model properties. A lightweight policy network learns which FFN dimensions to keep by minimizing a spectral distribution shift between original and compressed weight matrices via a KS-distance penalty. PruneNet compresses LLaMA-2-7B in ~15 minutes, preserves 80–95% of zero-shot performance at 20–30% compression, and outperforms SliceGPT and other structured baselines both in accuracy and throughput—without relying on calibration datasets and with minimal benefit from recovery finetuning."
 citations: 6
 links:

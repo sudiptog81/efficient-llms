@@ -13,10 +13,12 @@ categories:
 authors:
   - name: "Ayan Sengupta"
     affiliation: "IIT Delhi, India"
+    email: ayan.sengupta@ee.iitd.ac.in
   - name: "Md. Shad Akhtar"
     affiliation: "IIIT Delhi, India"
   - name: "Tanmoy Chakraborty"
     affiliation: "IIT Delhi, India"
+    email: tanchak@iitd.ac.in
 abstract: "This work proposes TransJect, an encoder-only Transformer with enforced injectivity and Lipschitz continuity. By combining orthogonal attention, injective residual connections, and mixture-of-experts, TransJect preserves pairwise distances between token representations across layers, achieves lower entropy, and improves accuracy on both short- and long-sequence benchmarks while also reducing perplexity for language modeling."
 
 doi: "10.18653/v1/2023.findings-emnlp.228"

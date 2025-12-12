@@ -15,8 +15,10 @@ authors:
     affiliation: "Microsoft Research, IIT Delhi, India"
   - name: "Ayan Sengupta"
     affiliation: "IIT Delhi, India"
+    email: ayan.sengupta@ee.iitd.ac.in
   - name: "Tanmoy Chakraborty"
     affiliation: "IIT Delhi, India"
+    email: tanchak@iitd.ac.in
 links:
   arxiv: "https://arxiv.org/abs/2512.02008"
   pdf: "https://arxiv.org/pdf/2512.02008"
