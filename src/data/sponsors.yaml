@@ -11,3 +11,7 @@ sponsors:
   - name: "Google Cloud"
     logo: "/sponsors/gcp.png"
     website: "https://cloud.google.com"
+
+  - name: "Defence Research and Development Organisation (DRDO)"
+    logo: "/sponsors/drdo.png"
+    website: "https://drdo.gov.in"
