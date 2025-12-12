@@ -9,9 +9,13 @@ tools:
     image: /tools/selective-peft.jpg
   - name: Collaborative Model Distillation (MPDistil)
     description: This toolkit provides a framework for distilling knowledge from large language models into smaller, more efficient models using collaborative frameworks.
-    link: https://github.com/parmanu-lcs2/mpdistil
+    link: https://pypi.org/project/mpdistil/
     image: /tools/mpdistill.png
   - name: Manifold-Preserving Transformers (TransJect)
     description: This package contains implementations of manifold-preserving transformer architectures that maintain the geometric properties of data during transformations.
-    link: https://github.com/parmanu-lcs2/TransJect
+    link: https://pypi.org/project/transject/
     image: /tools/transject.png
+  - name: Efficient LLM Compression Suite
+    description: A comprehensive suite of tools for compressing large language models using various techniques.
+    link: https://pypi.org/project/efficient-pruners
+    image: /tools/prunenet.png
