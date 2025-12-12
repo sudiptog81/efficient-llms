@@ -30,7 +30,7 @@ export default function ToolCard({ tool, index }) {
       href={tool.link}
       target="_blank"
       rel="noopener noreferrer"
-      className="block p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 bg-white dark:bg-zinc-900 shadow-md hover:shadow-lg"
+      className="block p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-indigo-800 dark:hover:border-indigo-400 transition-all duration-300 bg-white dark:bg-zinc-900 shadow-md hover:shadow-lg"
     >
       {imageLoading && (
         <div className="w-full h-48 bg-zinc-100 dark:bg-zinc-800 rounded-lg mb-4 animate-pulse" />
