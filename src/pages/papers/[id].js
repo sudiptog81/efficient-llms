@@ -56,7 +56,9 @@ export default function PaperPage({ paper, content }) {
             </div>
           </div>
         </div>
-        <NewsletterSubscribe />
+        <div className="px-4 sm:px-6 lg:px-0 max-w-7xl mx-auto">
+          <NewsletterSubscribe />
+        </div>
       </main>
       <ShareFab paper={paper} />
     </BaseLayout>
