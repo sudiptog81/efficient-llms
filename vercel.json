@@ -2,10 +2,7 @@
   "crons": [
     {
       "path": "/api/newsletter-drain",
-      "schedule": "0 0 * * *",
-      "headers": {
-        "Authorization": "Bearer ${CRON_SECRET}"
-      }
+      "schedule": "0 0 * * *"
     }
   ]
 }
