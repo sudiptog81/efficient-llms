@@ -1,16 +1,20 @@
 import { ensureRedisReady } from '../../lib/redis';
 import { getSheets } from '../../lib/sheets';
 
-async function processSubscription(data) {
-  const { email, timestamp } = JSON.parse(data);
+async function processSubscriptions(dataArray) {
+  if (dataArray.length === 0) return;
   const sheets = await getSheets();
   const spreadsheetId = process.env.GOOGLE_SHEET_ID;
+  const values = dataArray.map(data => {
+    const { email, timestamp } = JSON.parse(data);
+    return [email, timestamp];
+  });
   await sheets.spreadsheets.values.append({
     spreadsheetId,
     range: 'Subscribers!A:B',
     valueInputOption: 'USER_ENTERED',
     requestBody: {
-      values: [[email, timestamp]],
+      values,
     },
   });
 }
@@ -34,6 +38,7 @@ export default async function handler(req, res) {
   }
 
   const maxItems = parseInt((req.query?.max || '100'), 10);
+  const batchSize = parseInt((req.query?.batchSize || '25'), 10);
   const deadline = Date.now() + 9000; // ~9s budget to stay under serverless limits
 
   let processed = 0;
@@ -41,15 +46,24 @@ export default async function handler(req, res) {
   const startedAt = Date.now();
 
   while (processed < maxItems && Date.now() < deadline) {
-    const data = await redis.lpop('newsletter:subscriptions');
-    if (!data) break;
+    const batch = [];
+    for (let i = 0; i < batchSize && processed + i < maxItems; i++) {
+      const data = await redis.lpop('newsletter:subscriptions');
+      if (!data) break;
+      batch.push(data);
+    }
+
+    if (batch.length === 0) break;
+
     try {
-      await processSubscription(data);
-      processed += 1;
+      await processSubscriptions(batch);
+      processed += batch.length;
     } catch (err) {
-      failures += 1;
-      console.error('Drain processing error:', err);
-      await redis.rpush('newsletter:dead-letter', data);
+      failures += batch.length;
+      console.error('Batch processing error:', err);
+      for (const data of batch) {
+        await redis.rpush('newsletter:dead-letter', data);
+      }
     }
   }
 
