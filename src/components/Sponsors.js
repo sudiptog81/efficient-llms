@@ -15,7 +15,7 @@ const Sponsors = ({ sponsors }) => (
         <Link key={sponsor.name} href={sponsor.website} target="_blank" rel="noopener noreferrer" className="w-full px-3 py-6 md:py-0 flex items-center">
           <div className="w-full flex flex-col align-center items-center justify-center">
             <div className="rounded-lg">
-              <Image src={sponsor.logo} alt={sponsor.name} width={200} height={200} className={`w-auto h-auto object-contain ${sponsor.dark_invert ? 'dark:invert' : ''}`} />
+              <Image src={sponsor.logo} alt={sponsor.name} width={180} height={180} className={`object-contain ${sponsor.dark_invert ? 'dark:invert' : ''}`} />
             </div>
           </div>
         </Link>
