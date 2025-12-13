@@ -7,7 +7,8 @@
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "worker:newsletter": "node workers/newsletter-worker.js"
   },
   "dependencies": {
     "-": "^0.0.1",
@@ -17,8 +18,10 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "disqus-react": "^1.1.7",
+    "dotenv": "^17.2.3",
     "googleapis": "^168.0.0",
     "gray-matter": "^4.0.3",
+    "ioredis": "^5.8.2",
     "katex": "^0.16.25",
     "lucide-react": "^0.555.0",
     "next": "^16.0.7",
