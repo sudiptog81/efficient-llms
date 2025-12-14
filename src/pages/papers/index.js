@@ -49,9 +49,9 @@ export default function PapersDirectory({ papers }) {
       </Head>
       <main className="max-w-6xl mx-auto px-6 mt-10">
         <header className="text-center mb-12">
-          <h2 className="text-4xl font-extrabold tracking-tight">
+          <h1 className="text-4xl font-extrabold tracking-tight">
             Publications
-          </h2>
+          </h1>
           <p className="mt-4 text-lg md:text-xl text-zinc-600 dark:text-zinc-400">
             A list of works from our research group on making LLMs efficient.
           </p>

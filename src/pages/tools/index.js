@@ -15,9 +15,9 @@ export default function Tools({ tools }) {
       </Head>
       <main className="max-w-6xl mx-auto px-6 mt-10">
         <header className="text-center mb-12">
-          <h2 className="text-4xl font-extrabold tracking-tight">
+          <h1 className="text-4xl font-extrabold tracking-tight">
             Tools
-          </h2>
+          </h1>
           <p className="mt-4 text-lg md:text-xl text-zinc-600 dark:text-gray-400">
             Explore the tools developed by our researchers.
           </p>

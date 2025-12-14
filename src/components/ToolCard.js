@@ -45,7 +45,7 @@ export default function ToolCard({ tool, index }) {
           />
         </div>
       )}
-      <h3 className="text-xl font-semibold my-2">{tool.name}</h3>
+      <h2 className="text-xl font-semibold my-2">{tool.name}</h2>
       <p className="text-zinc-600 dark:text-gray-400">{tool.description}</p>
     </Link>
   );
