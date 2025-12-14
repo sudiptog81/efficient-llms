@@ -18,6 +18,15 @@ export default function Document() {
             gtag('config', 'G-N968HFGN36');
           `}
         </Script>
+        <Script id="bing-analytics" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+              c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "ul9vrtk0zv");
+          `}
+        </Script>
         <meta name="og:image" content="https://parmanu.lcs2.in/parmanu.png" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:image" content="https://parmanu.lcs2.in/logo-white.png" />
