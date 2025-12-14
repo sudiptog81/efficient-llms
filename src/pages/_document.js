@@ -2,20 +2,6 @@ import { Html, Head, Main, NextScript } from "next/document";
 import Script from "next/script";
 
 export default function Document() {
-  const setInitialTheme = `
-(function() {
-  try {
-    const storageKey = 'theme';
-    const theme = localStorage.getItem(storageKey);
-    if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  } catch (e) {}
-})();
-`.trim();
-
   return (
     <Html lang="en" suppressHydrationWarning>
       <Head>
@@ -32,8 +18,10 @@ export default function Document() {
             gtag('config', 'G-N968HFGN36');
           `}
         </Script>
-        <Script id="script-setTheme" dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
         <meta name="og:image" content="https://parmanu.lcs2.in/parmanu.png" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:image" content="https://parmanu.lcs2.in/logo-white.png" />
+        <meta name="twitter:creator" content="@lcs2lab" />
         <meta name="google-site-verification" content="5fLWe0hlfS_S5PdTldFNbKv41Y1DW2rlRButlOKZ5EY" />
       </Head>
       <body className="antialiased">

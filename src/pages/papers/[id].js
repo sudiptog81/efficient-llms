@@ -32,7 +32,7 @@ export default function PaperPage({ paper, content }) {
         <meta name="description" content={paper.abstract} />
         <meta property="og:title" content={`${paper.title} | Parmanu @ LCS2 IIT Delhi`} />
         <meta property="og:description" content={paper.abstract} />
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
       </Head>
       <main className="max-w-screen md:max-w-4xl mx-auto md:my-12">
         <div className="bg-white dark:bg-zinc-900 md:rounded-2xl md:shadow-lg md:border border-zinc-200 dark:border-zinc-800 overflow-hidden">

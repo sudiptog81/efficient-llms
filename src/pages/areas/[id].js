@@ -55,7 +55,7 @@ export default function AreaPage({ area, content, papersForArea }) {
         <meta name="description" content={area.summary} />
         <meta property="og:title" content={`${area.title} | Parmanu @ LCS2 IIT Delhi`} />
         <meta property="og:description" content={area.summary} />
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
