@@ -24,7 +24,7 @@ export default function Document() {
               c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
               t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
               y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "ul9vrtk0zv");
+            })(window, document, "clarity", "script", "ulbe51p5bj");
           `}
         </Script>
         <meta name="og:image" content="https://parmanu.lcs2.in/parmanu.png" />
