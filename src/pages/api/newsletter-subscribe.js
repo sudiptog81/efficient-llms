@@ -5,11 +5,13 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed', success: false });
   }
 
-  const { email } = req.body;
+  let { email } = req.body;
 
   if (!email) {
     return res.status(400).json({ error: 'Oops! E-mail is empty.', success: false });
   }
+
+  email = email.trim().toLowerCase();
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
