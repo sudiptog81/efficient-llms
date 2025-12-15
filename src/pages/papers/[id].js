@@ -45,7 +45,7 @@ export default function PaperPage({ paper, content }) {
             </div>
             <div className="disqus-comments pt-8">
               <DiscussionEmbed
-                key={theme}
+                key={theme + paper.slug}
                 shortname='parmanu-lcs2'
                 config={
                   {
