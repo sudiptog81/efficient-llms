@@ -142,15 +142,7 @@ export default function Home({ researchAreas = [], recentPublications = [], spon
         <Sponsors sponsors={sponsors} />
         <ResearchAreas researchAreas={researchAreas} />
         <RecentPapers recentPublications={recentPublications} />
-        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-zinc-200 dark:border-gray-800 pt-20 pb-15">
-          <div className="mb-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Get Updates</h2>
-            <p className="mt-3 text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
-              Stay up-to-date with new papers, tool releases, and research updates.
-            </p>
-          </div>
-          <NewsletterSubscribe />
-        </div>
+        <NewsletterSubscribe />
         <Join />
       </main>
     </BaseLayout>

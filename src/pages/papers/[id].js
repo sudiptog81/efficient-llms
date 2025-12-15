@@ -10,7 +10,7 @@ import Head from 'next/head';
 import ShareFab from '@/components/ShareFab';
 import { DiscussionEmbed } from 'disqus-react';
 import { useTheme } from 'next-themes';
-import NewsletterSubscribe from '@/components/NewsletterSubscribe';
+import NewsletterSubscribeCompact from '@/components/NewsletterSubscribeCompact';
 
 export default function PaperPage({ paper, content }) {
   const { theme } = useTheme();
@@ -41,7 +41,7 @@ export default function PaperPage({ paper, content }) {
             <Abstract abstract={paper.abstract} />
             {content && <PaperContent content={content} />}
             <div className="lg:px-0 max-w-7xl mx-auto border-t border-zinc-200 dark:border-gray-800 pt-8">
-              <NewsletterSubscribe />
+              <NewsletterSubscribeCompact />
             </div>
             <div className="disqus-comments pt-8">
               <DiscussionEmbed

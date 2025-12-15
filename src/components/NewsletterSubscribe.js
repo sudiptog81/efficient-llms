@@ -50,37 +50,45 @@ const NewsletterSubscribe = () => {
   };
 
   return (
-    <section id="subscribe" className="max-w-7xl mx-auto border-zinc-200 dark:border-gray-800">
-      <form className="max-w-4xl mx-auto rounded-2xl text-center">
-        <div className="max-w-4xl flex flex-col md:flex-row justify-center items-center mx-auto gap-4 gap-x-2">
-          <input
-            type="email"
-            className={`px-4 py-3 w-full md:w-6xl text-center rounded-full border-2 outline-none md:mr-4 font-bold focus:placeholder-transparent ${error
-              ? "border-red-600 dark:border-red-400 placeholder-red-600 dark:placeholder-red-400"
-              : "border-indigo-800 dark:border-white placeholder-indigo-800 dark:placeholder-white"
-              }`}
-            required
-            value={email}
-            placeholder={error || placeholder}
-            disabled={subscribed || loading}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              if (error) setError("");
-            }}
-          />
-          <Button
-            href="#subscribe"
-            className={`${subscribed ? successClasses : baseClasses}`}
-            type="submit"
-            disabled={subscribed || loading}
-            onClick={handleOnClick}
-          >
-            {subscribed ? <UserCheck className="w-5 h-5 mr-1 font-bold -mt-[2px]" strokeWidth={3} /> : loading ? <Loader className="w-5 h-5 mr-1 font-bold -mt-[2px]" strokeWidth={3} /> : <UserPlus className="w-5 h-5 mr-1 font-bold -mt-[2px]" strokeWidth={3} />}
-            {subscribed ? "Subscribed" : loading ? "Subscribing" : "Subscribe"}
-          </Button>
-        </div>
-      </form>
-    </section>
+    <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-zinc-200 dark:border-gray-800 pt-20 pb-15">
+      <div className="mb-8 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Get Updates</h2>
+        <p className="mt-3 text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
+          Stay up-to-date with new papers, tool releases, and research updates.
+        </p>
+      </div>
+      <section id="subscribe" className="max-w-7xl mx-auto border-zinc-200 dark:border-gray-800">
+        <form className="max-w-4xl mx-auto rounded-2xl text-center">
+          <div className="max-w-4xl flex flex-col md:flex-row justify-center items-center mx-auto gap-4 gap-x-2">
+            <input
+              type="email"
+              className={`px-4 py-3 w-full md:w-6xl text-center rounded-full border-2 outline-none md:mr-4 font-bold focus:placeholder-transparent ${error
+                ? "border-red-600 dark:border-red-400 placeholder-red-600 dark:placeholder-red-400"
+                : "border-indigo-800 dark:border-white placeholder-indigo-800 dark:placeholder-white"
+                }`}
+              required
+              value={email}
+              placeholder={error || placeholder}
+              disabled={subscribed || loading}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (error) setError("");
+              }}
+            />
+            <Button
+              href="#subscribe"
+              className={`${subscribed ? successClasses : baseClasses}`}
+              type="submit"
+              disabled={subscribed || loading}
+              onClick={handleOnClick}
+            >
+              {subscribed ? <UserCheck className="w-5 h-5 mr-1 font-bold -mt-[2px]" strokeWidth={3} /> : loading ? <Loader className="w-5 h-5 mr-1 font-bold -mt-[2px]" strokeWidth={3} /> : <UserPlus className="w-5 h-5 mr-1 font-bold -mt-[2px]" strokeWidth={3} />}
+              {subscribed ? "Subscribed" : loading ? "Subscribing" : "Subscribe"}
+            </Button>
+          </div>
+        </form>
+      </section>
+    </div>
   );
 };
 
