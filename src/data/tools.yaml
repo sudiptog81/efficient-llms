@@ -23,3 +23,7 @@ tools:
     description: A toolkit for distilling large language models into smaller, efficient models.
     link: https://pypi.org/project/llm-distil/
     image: /tools/kdfidelity.png
+  - name: Robust LoRA Fine-Tuning
+    description: A forked version of LoRA that incorporates robustness techniques to improve model performance under adversarial conditions.
+    link: https://github.com/parmanu-lcs2/peft/tree/main/examples/monteclora_finetuning
+    image: /tools/monteclora.jpg
