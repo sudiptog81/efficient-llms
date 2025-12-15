@@ -16,7 +16,7 @@ const ICONS = {
 const ResearchAreas = ({ researchAreas = [] }) => (
   <section id="research" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-zinc-200 dark:border-gray-800">
     <div className="text-center mb-16">
-      <h2 className="text-4xl font-bold tracking-tight">Research Areas</h2>
+      <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Research Areas</h2>
       <p className="mt-3 text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
         We focus on the intersection of theoretical efficiency and practical deployment.
       </p>

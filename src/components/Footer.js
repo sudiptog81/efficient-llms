@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p>
           &copy; {new Date().getFullYear()} Laboratory for Computational Social Systems. All Rights Reserved. <br />
-          <MapPin className="inline-block ml-2 mb-1 w-3 h-3" /> 3B-7, Block III, Indian Institute of Technology Delhi, Hauz Khas, New Delhi, India 110016.
+          <MapPin className="inline-block ml-2 mb-1 w-3 h-3" /> III-B7, Block III, Third Floor, Indian Institute of Technology Delhi, Hauz Khas, New Delhi, India 110016.
         </p>
         <div className="mt-4 space-x-4">
           <Link href="https://twitter.com/lcs2lab" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-800 dark:hover:text-indigo-400">Twitter</Link>

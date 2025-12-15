@@ -9,8 +9,8 @@ const NewsletterSubscribe = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const baseClasses = "w-full md:w-200 flex items-center justify-center gap-2 px-6 py-3 rounded-full font-bold transition-colors border border-indigo-800 shadow-md text-white bg-indigo-800 dark:bg-indigo-500 dark:text-zinc-50";
-  const successClasses = "w-full md:w-200 flex items-center justify-center gap-2 px-6 py-3 rounded-full font-bold bg-green-700 text-white hover:bg-green-700 border-green-700 hover:border-green-700 dark:bg-green-400 dark:hover:bg-green-600 dark:border-green-400 dark:hover:border-green-600 dark:text-gray-950";
+  const baseClasses = "w-full md:w-120 flex items-center justify-center gap-2 px-6 py-3 rounded-full font-bold transition-colors border border-indigo-800 shadow-md text-white bg-indigo-800 dark:bg-indigo-500 dark:text-zinc-50";
+  const successClasses = "w-full md:w-120 flex items-center justify-center gap-2 px-6 py-3 rounded-full font-bold bg-green-700 text-white hover:bg-green-700 border-green-700 hover:border-green-700 dark:bg-green-400 dark:hover:bg-green-600 dark:border-green-400 dark:hover:border-green-600 dark:text-gray-950";
 
   const handleOnClick = async (e) => {
     e.preventDefault();
@@ -76,7 +76,7 @@ const NewsletterSubscribe = () => {
             onClick={handleOnClick}
           >
             {subscribed ? <UserCheck className="w-5 h-5 mr-1 font-bold -mt-[2px]" strokeWidth={3} /> : loading ? <Loader className="w-5 h-5 mr-1 font-bold -mt-[2px]" strokeWidth={3} /> : <UserPlus className="w-5 h-5 mr-1 font-bold -mt-[2px]" strokeWidth={3} />}
-            {subscribed ? "Subscribed" : loading ? "Subscribing" : "Subscribe to Newsletter"}
+            {subscribed ? "Subscribed" : loading ? "Subscribing" : "Subscribe"}
           </Button>
         </div>
       </form>
