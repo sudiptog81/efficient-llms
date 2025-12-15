@@ -19,3 +19,7 @@ tools:
     description: A comprehensive suite of tools for compressing large language models using various techniques.
     link: https://pypi.org/project/efficient-pruners
     image: /tools/prunenet.png
+  - name: LLM Distillation Toolkit
+    description: A toolkit for distilling large language models into smaller, efficient models.
+    link: https://pypi.org/project/llm-distil/
+    image: /tools/kdfidelity.png
