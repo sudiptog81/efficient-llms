@@ -1,4 +1,9 @@
 sponsors:
+  - name: NVIDIA
+    logo: "/sponsors/nvidia.png"
+    website: "https://nvidia.com"
+    dark_image: "/sponsors/nvidia-dark.png"
+
   - name: JPMorganChase
     logo: "/sponsors/jpmc.png"
     website: "https://jpmorganchase.com"
@@ -11,6 +16,7 @@ sponsors:
   - name: "Google Cloud"
     logo: "/sponsors/gcp.png"
     website: "https://cloud.google.com"
+    dark_image: "/sponsors/gcp-dark.png"
 
   - name: "Defence Research and Development Organisation (DRDO)"
     logo: "/sponsors/drdo.png"
