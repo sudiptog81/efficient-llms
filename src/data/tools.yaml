@@ -1,4 +1,8 @@
 tools:
+  - name: MonteCLoRA in HuggingFace PEFT
+    description: MonteCLoRA extends standard LoRA by introducing stochastic low-rank perturbations during training through a lightweight variational framework.
+    link: https://huggingface.co/docs/peft/main/en/developer_guides/lora#monteclora-monte-carlo-low-rank-adaptation
+    image: /tools/monteclora.jpg
   - name: CURPress in NVIDIA KVPress Library
     description: Prunes keys and values based on the CUR decomposition using approximate leverage scores. Integrated into NVIDIA's KVPress library for efficient LLM inference.
     link: https://github.com/NVIDIA/kvpress/
@@ -23,7 +27,4 @@ tools:
     description: A toolkit for distilling large language models into smaller, efficient models.
     link: https://pypi.org/project/llm-distil/
     image: /tools/kdfidelity.png
-  - name: Robust LoRA Fine-Tuning
-    description: A forked version of LoRA that incorporates robustness techniques to improve model performance under adversarial conditions.
-    link: https://github.com/parmanu-lcs2/peft/tree/main/examples/monteclora_finetuning
-    image: /tools/monteclora.jpg
+ 
