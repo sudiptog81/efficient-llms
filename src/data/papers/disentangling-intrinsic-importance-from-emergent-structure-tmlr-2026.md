@@ -25,6 +25,8 @@ links:
   arxiv: "https://arxiv.org/abs/2602.04291"
   openreview: "https://openreview.net/forum?id=4W7sgat04A"
   alphaxiv: "https://alphaxiv.org/abs/2602.04291"
+  code: "https://github.com/parmanu-lcs2/inform"
+  video: "https://www.youtube.com/watch?v=f8TwBV-Xl-M"
 
 bibtex: | 
     @article{
