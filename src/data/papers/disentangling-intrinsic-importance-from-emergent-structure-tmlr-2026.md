@@ -87,10 +87,6 @@ INFORM analyzes a differentiable orchestrator setup without modifying how expert
 
 Together these probes separate **what the orchestrator does** from **why it does it**, exposing both structural and functional dependencies inside multi-expert systems.
 
-![INFORM Overview](/resources/disentangling-intrinsic-importance-from-emergent-structure-tmlr-2026/tmlr_disentangling.svg)
-
----
-
 ## Main insights
 
 - **Popularity does not imply importance**
